@@ -7,19 +7,23 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.mobile6.dao.ExampleDao;
+import com.example.mobile6.dao.MedicineDao;
 import com.example.mobile6.model.Example;
+import com.example.mobile6.model.Medicine;
 
 @Database(
         entities = {
                 Example.class,
+                Medicine.class,
         },
-        version = 1,
+        version = 2,
         exportSchema = false
 )
 public abstract class MainDatabase extends RoomDatabase {
     private static volatile MainDatabase instance = null;
 
     public abstract ExampleDao exampleDao();
+    public abstract MedicineDao medicineDao();
 
     public static final String DATABASE_NAME = "nhom6.db";
 
@@ -28,10 +32,12 @@ public abstract class MainDatabase extends RoomDatabase {
         synchronized (MainDatabase.class) {
             if (instance == null) {
                 instance = Room.databaseBuilder(
-                        context.getApplicationContext(),
-                        MainDatabase.class,
-                        DATABASE_NAME
-                ).build();
+                                context.getApplicationContext(),
+                                MainDatabase.class,
+                                DATABASE_NAME
+                        )
+                        .fallbackToDestructiveMigration()
+                        .build();
             }
         }
         return instance;
