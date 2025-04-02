@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mobile6.MainApplication;
+import com.example.mobile6.R;
 import com.example.mobile6.adapter.MedicineAdapter;
 import com.example.mobile6.dao.MedicineDao;
 import com.example.mobile6.databinding.FragmentMedicineSearchBinding;
@@ -31,21 +32,6 @@ public class MedicineSearchFragment extends Fragment implements MedicineAdapter.
     private MedicineAdapter medicineAdapter;
     private MedicineDao medicineDao;
     private ExecutorService executorService;
-    private OnMedicineSelectedListener medicineSelectedListener;
-
-    public interface OnMedicineSelectedListener {
-        void onMedicineSelected(Medicine medicine);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            medicineSelectedListener = (OnMedicineSelectedListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnMedicineSelectedListener");
-        }
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -160,9 +146,10 @@ public class MedicineSearchFragment extends Fragment implements MedicineAdapter.
 
     @Override
     public void onMedicineClick(Medicine medicine) {
-        if (medicineSelectedListener != null) {
-            medicineSelectedListener.onMedicineSelected(medicine);
-        }
+        // Navigate to MedicineDetailFragment with medicineId
+        Bundle args = new Bundle();
+        args.putString("medicineId", medicine.getId());
+        Navigation.findNavController(requireView()).navigate(R.id.action_medicineSearchFragment_to_medicineDetailFragment, args);
     }
 
     @Override

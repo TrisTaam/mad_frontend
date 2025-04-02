@@ -34,5 +34,19 @@
         android:id="@+id/medicineSearchFragment"
         android:name="com.example.mobile6.ui.medicine.MedicineSearchFragment"
         android:label="fragment_medicine_search" 
-        tools:layout="@layout/fragment_medicine_search" />
+        tools:layout="@layout/fragment_medicine_search">
+        <action
+            android:id="@+id/action_medicineSearchFragment_to_medicineDetailFragment"
+            app:destination="@id/medicineDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicineDetailFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicineDetailFragment"
+        android:label="fragment_medicine_detail"
+        tools:layout="@layout/fragment_medicine_detail">
+        <argument
+            android:name="medicineId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

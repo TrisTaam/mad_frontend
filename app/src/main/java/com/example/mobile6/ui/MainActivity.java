@@ -10,11 +10,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.mobile6.R;
 import com.example.mobile6.databinding.ActivityMainBinding;
-import com.example.mobile6.model.Medicine;
 import com.example.mobile6.ui.base.BaseActivity;
-import com.example.mobile6.ui.medicine.MedicineSearchFragment;
 
-public class MainActivity extends BaseActivity<ActivityMainBinding> implements MedicineSearchFragment.OnMedicineSelectedListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private NavController navController;
 
@@ -44,6 +42,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements M
                         binding.btnOpenMedicineSearch.setVisibility(View.VISIBLE);
                         break;
                     case R.id.medicineSearchFragment:
+                    case R.id.medicineDetailFragment:
                         binding.btnOpenMedicineSearch.setVisibility(View.GONE);
                         binding.bottomNavigationView.setVisibility(View.GONE);
                         break;
@@ -66,12 +65,5 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements M
         NavController navController = Navigation
                 .findNavController(this, R.id.fragment_container_view);
         return navController.navigateUp() || super.onSupportNavigateUp();
-    }
-
-    @Override
-    public void onMedicineSelected(Medicine medicine) {
-        if (navController != null) {
-            navController.popBackStack();
-        }
     }
 }
