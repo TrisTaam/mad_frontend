@@ -30,4 +30,9 @@
         android:name="com.example.mobile6.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/medicineSearchFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicineSearchFragment"
+        android:label="fragment_medicine_search" 
+        tools:layout="@layout/fragment_medicine_search" />
 </navigation>

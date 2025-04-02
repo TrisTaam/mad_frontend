@@ -1,20 +1,23 @@
 package com.example.mobile6.ui.medicine;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile6.MainApplication;
-import com.example.mobile6.R;
 import com.example.mobile6.adapter.MedicineAdapter;
 import com.example.mobile6.dao.MedicineDao;
+import com.example.mobile6.databinding.FragmentMedicineSearchBinding;
 import com.example.mobile6.model.Medicine;
 
 import java.util.ArrayList;
@@ -22,41 +25,59 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MedicineSearchActivity extends AppCompatActivity implements MedicineAdapter.OnMedicineClickListener {
+public class MedicineSearchFragment extends Fragment implements MedicineAdapter.OnMedicineClickListener {
 
-    private static final int REQUEST_CODE = 100;
-
-    private RecyclerView medicinesRecyclerView;
+    private FragmentMedicineSearchBinding binding;
     private MedicineAdapter medicineAdapter;
-    private EditText searchEditText;
-    private ImageButton backButton;
     private MedicineDao medicineDao;
     private ExecutorService executorService;
+    private OnMedicineSelectedListener medicineSelectedListener;
+
+    public interface OnMedicineSelectedListener {
+        void onMedicineSelected(Medicine medicine);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            medicineSelectedListener = (OnMedicineSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnMedicineSelectedListener");
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medicine_search);
-
         // Khởi tạo database
-        medicineDao = ((MainApplication) getApplication()).getDatabase().medicineDao();
+        medicineDao = ((MainApplication) requireActivity().getApplication()).getDatabase().medicineDao();
         executorService = Executors.newSingleThreadExecutor();
+    }
 
-        // Initialize views
-        medicinesRecyclerView = findViewById(R.id.medicines_recycler_view);
-        searchEditText = findViewById(R.id.search_edit_text);
-        backButton = findViewById(R.id.back_button);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentMedicineSearchBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setupUI();
+        loadDummyData();
+    }
+
+    private void setupUI() {
         // Setup RecyclerView
         medicineAdapter = new MedicineAdapter(this);
-        medicinesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        medicinesRecyclerView.setAdapter(medicineAdapter);
-
-        // Load dummy data for demo purposes
-        loadDummyData();
+        binding.medicinesRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.medicinesRecyclerView.setAdapter(medicineAdapter);
 
         // Setup search functionality
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        binding.searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Not needed
@@ -75,7 +96,10 @@ public class MedicineSearchActivity extends AppCompatActivity implements Medicin
         });
 
         // Setup back button click
-        backButton.setOnClickListener(v -> finish());
+        binding.backButton.setOnClickListener(v -> {
+            // Sử dụng Navigation Component để quay lại
+            Navigation.findNavController(requireView()).popBackStack();
+        });
     }
 
     private void loadDummyData() {
@@ -109,7 +133,9 @@ public class MedicineSearchActivity extends AppCompatActivity implements Medicin
                 executorService.execute(() -> {
                     try {
                         List<Medicine> medicines = medicineDao.getAllMedicines();
-                        runOnUiThread(() -> medicineAdapter.setMedicines(medicines));
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> medicineAdapter.setMedicines(medicines));
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -119,7 +145,9 @@ public class MedicineSearchActivity extends AppCompatActivity implements Medicin
                 executorService.execute(() -> {
                     try {
                         List<Medicine> filteredMedicines = medicineDao.searchMedicines(query);
-                        runOnUiThread(() -> medicineAdapter.setMedicines(filteredMedicines));
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> medicineAdapter.setMedicines(filteredMedicines));
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -132,20 +160,22 @@ public class MedicineSearchActivity extends AppCompatActivity implements Medicin
 
     @Override
     public void onMedicineClick(Medicine medicine) {
-        // Handle medicine selection
-        // In a real app, you would pass the selected medicine back to the calling activity
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("MEDICINE_ID", medicine.getId());
-        resultIntent.putExtra("MEDICINE_NAME", medicine.getName());
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        if (medicineSelectedListener != null) {
+            medicineSelectedListener.onMedicineSelected(medicine);
+        }
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // Avoid memory leaks
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         if (executorService != null) {
             executorService.shutdown();
         }
     }
-}
+} 
