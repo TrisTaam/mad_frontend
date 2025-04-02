@@ -2,7 +2,6 @@ package com.example.mobile6.ui;
 
 import android.annotation.SuppressLint;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,7 +17,6 @@ import com.example.mobile6.ui.medicine.MedicineSearchFragment;
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements MedicineSearchFragment.OnMedicineSelectedListener {
 
     private NavController navController;
-    private Button btnOpenMedicineSearch;
 
     @Override
     protected ActivityMainBinding inflateBinding() {
@@ -43,14 +41,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements M
                     case R.id.prescriptionsFragment:
                     case R.id.profileFragment:
                         binding.bottomNavigationView.setVisibility(View.VISIBLE);
-                        if (btnOpenMedicineSearch != null) {
-                            btnOpenMedicineSearch.setVisibility(View.VISIBLE);
-                        }
+                        binding.btnOpenMedicineSearch.setVisibility(View.VISIBLE);
                         break;
                     case R.id.medicineSearchFragment:
-                        if (btnOpenMedicineSearch != null) {
-                            btnOpenMedicineSearch.setVisibility(View.GONE);
-                        }
+                        binding.btnOpenMedicineSearch.setVisibility(View.GONE);
                         binding.bottomNavigationView.setVisibility(View.GONE);
                         break;
                     default:
@@ -60,8 +54,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements M
             });
         }
 
-        btnOpenMedicineSearch = findViewById(R.id.btn_open_medicine_search);
-        btnOpenMedicineSearch.setOnClickListener(v -> {
+        binding.btnOpenMedicineSearch.setOnClickListener(v -> {
             if (navController != null) {
                 navController.navigate(R.id.medicineSearchFragment);
             }
