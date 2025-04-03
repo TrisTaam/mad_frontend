@@ -219,7 +219,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/button_primary_background"
         android:text="Thêm vào đơn thuốc"
         android:textColor="#FFFFFF"
