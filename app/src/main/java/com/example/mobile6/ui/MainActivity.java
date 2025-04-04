@@ -40,16 +40,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     case R.id.profileFragment:
                         binding.bottomNavigationView.setVisibility(View.VISIBLE);
                         binding.btnOpenMedicineSearch.setVisibility(View.VISIBLE);
+                        binding.btnOpenSpecialty.setVisibility(View.VISIBLE);
                         break;
                     case R.id.medicineSearchFragment:
-                        binding.btnOpenSpecialty.setVisibility(View.GONE);
                     case R.id.medicineDetailFragment:
                         binding.btnOpenMedicineSearch.setVisibility(View.GONE);
+                        binding.btnOpenSpecialty.setVisibility(View.GONE);
                         binding.bottomNavigationView.setVisibility(View.GONE);
                         break;
                     case R.id.doctorSpecialtyFragment:
                         binding.btnOpenMedicineSearch.setVisibility(View.GONE);
                         binding.btnOpenSpecialty.setVisibility(View.GONE);
+                        binding.bottomNavigationView.setVisibility(View.GONE);
                         break;
                     default:
                         binding.bottomNavigationView.setVisibility(View.GONE);

@@ -54,5 +54,18 @@
         android:name="com.example.mobile6.ui.doctor.DoctorSpecialtyFragment"
         android:label="fragment_doctor_specialty"
         tools:layout="@layout/fragment_doctor_specialty">
+        <action
+            android:id="@+id/action_doctorSpecialtyFragment_to_doctorListFragment"
+            app:destination="@id/doctorListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorListFragment"
+        android:name="com.example.mobile6.ui.doctor.DoctorListFragment"
+        android:label="fragment_doctor_list"
+        tools:layout="@layout/fragment_doctor_list">
+        <argument
+            android:name="specialtyName"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 </navigation>
