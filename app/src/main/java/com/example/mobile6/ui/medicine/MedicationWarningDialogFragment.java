@@ -33,14 +33,14 @@ public class MedicationWarningDialogFragment extends BaseDialog<DialogMedication
         super.initViews();
         
         // Set continue button click listener
-        binding.btnContinue.setOnClickListener(v -> {
+        binding.btnWarningContinue.setOnClickListener(v -> {
             Bundle result = new Bundle();
             result.putString(RESULT_KEY, RESULT_CONTINUE);
             dismiss(REQUEST_KEY, result);
         });
         
         // Set review button click listener
-        binding.btnReview.setOnClickListener(v -> {
+        binding.btnWarningReview.setOnClickListener(v -> {
             Bundle result = new Bundle();
             result.putString(RESULT_KEY, RESULT_REVIEW);
             dismiss(REQUEST_KEY, result);
