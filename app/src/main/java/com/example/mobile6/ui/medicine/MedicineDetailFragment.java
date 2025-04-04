@@ -68,9 +68,32 @@ public class MedicineDetailFragment extends Fragment {
         
         // Setup add to prescription button
         binding.addToPrescriptionButton.setOnClickListener(v -> {
-            // TODO: Implement add to prescription functionality
-            Navigation.findNavController(requireView()).popBackStack();
+            showMedicationWarningDialog();
         });
+        
+        // Register fragment result listener
+        getParentFragmentManager().setFragmentResultListener(
+                MedicationWarningDialogFragment.REQUEST_KEY,
+                getViewLifecycleOwner(),
+                (requestKey, result) -> {
+                    String action = result.getString(MedicationWarningDialogFragment.RESULT_KEY);
+                    if (MedicationWarningDialogFragment.RESULT_CONTINUE.equals(action)) {
+                        // User chose to continue - handle adding to prescription
+                        addToPrescription();
+                    } else {
+                        // User chose to review - do nothing and stay on this screen
+                    }
+                });
+    }
+
+    private void showMedicationWarningDialog() {
+        MedicationWarningDialogFragment dialog = MedicationWarningDialogFragment.newInstance();
+        dialog.show(getParentFragmentManager(), "medication_warning_dialog");
+    }
+
+    private void addToPrescription() {
+        // TODO: Implement add to prescription functionality
+        Navigation.findNavController(requireView()).popBackStack();
     }
 
     private void loadMedicineDetail(String medicineId) {

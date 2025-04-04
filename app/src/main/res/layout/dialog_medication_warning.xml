@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/bg_dialog">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cảnh báo thành phần thuốc"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_warning_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Panadol Extra không nên dùng chung với Paracetamol đang có trong đơn thuốc của bạn vì nó có thể gây ra các phản ứng phụ nghiêm trọng, chủ yếu ảnh hưởng đến gan và hệ tiêu hóa."
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:lineSpacingExtra="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_review"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:text="Tôi sẽ xem lại"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:background="@drawable/button_primary_background" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_continue"
+            android:layout_width="140dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:text="Vẫn tiếp tục!"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:background="@drawable/button_primary_background" />
+    </LinearLayout>
+</LinearLayout> 
