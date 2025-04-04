@@ -42,9 +42,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                         binding.btnOpenMedicineSearch.setVisibility(View.VISIBLE);
                         break;
                     case R.id.medicineSearchFragment:
+                        binding.btnOpenSpecialty.setVisibility(View.GONE);
                     case R.id.medicineDetailFragment:
                         binding.btnOpenMedicineSearch.setVisibility(View.GONE);
                         binding.bottomNavigationView.setVisibility(View.GONE);
+                        break;
+                    case R.id.doctorSpecialtyFragment:
+                        binding.btnOpenMedicineSearch.setVisibility(View.GONE);
+                        binding.btnOpenSpecialty.setVisibility(View.GONE);
                         break;
                     default:
                         binding.bottomNavigationView.setVisibility(View.GONE);
@@ -56,6 +61,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         binding.btnOpenMedicineSearch.setOnClickListener(v -> {
             if (navController != null) {
                 navController.navigate(R.id.medicineSearchFragment);
+            }
+        });
+
+        binding.btnOpenSpecialty.setOnClickListener(v -> {
+            if (navController != null) {
+                navController.navigate(R.id.doctorSpecialtyFragment);
             }
         });
     }

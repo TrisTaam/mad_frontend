@@ -49,4 +49,10 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/doctorSpecialtyFragment"
+        android:name="com.example.mobile6.ui.doctor.DoctorSpecialtyFragment"
+        android:label="fragment_doctor_specialty"
+        tools:layout="@layout/fragment_doctor_specialty">
+    </fragment>
 </navigation>
