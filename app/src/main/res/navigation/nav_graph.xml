@@ -48,6 +48,9 @@
             android:name="medicineId"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_medicineDetailFragment_to_medicationWarningDialogFragment"
+            app:destination="@id/medicationWarningDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/doctorSpecialtyFragment"
@@ -89,4 +92,8 @@
             app:argType="string"
             android:defaultValue="" />
     </fragment>
+    <dialog
+        android:id="@+id/medicationWarningDialogFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicationWarningDialogFragment"
+        android:label="MedicationWarningDialogFragment" />
 </navigation>

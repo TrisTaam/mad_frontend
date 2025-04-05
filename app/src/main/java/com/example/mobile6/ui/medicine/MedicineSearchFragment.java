@@ -1,17 +1,12 @@
 package com.example.mobile6.ui.medicine;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mobile6.MainApplication;
@@ -20,45 +15,44 @@ import com.example.mobile6.adapter.MedicineAdapter;
 import com.example.mobile6.dao.MedicineDao;
 import com.example.mobile6.databinding.FragmentMedicineSearchBinding;
 import com.example.mobile6.model.Medicine;
+import com.example.mobile6.ui.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class MedicineSearchFragment extends Fragment implements MedicineAdapter.OnMedicineClickListener {
-
-    private FragmentMedicineSearchBinding binding;
+public class MedicineSearchFragment extends BaseFragment<FragmentMedicineSearchBinding> {
     private MedicineAdapter medicineAdapter;
     private MedicineDao medicineDao;
-    private ExecutorService executorService;
+    private ExecutorService diskIO;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Khởi tạo database
         medicineDao = ((MainApplication) requireActivity().getApplication()).getDatabase().medicineDao();
-        executorService = Executors.newSingleThreadExecutor();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentMedicineSearchBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        diskIO = ((MainApplication) requireActivity().getApplication()).getAppExecutors().diskIO();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected FragmentMedicineSearchBinding inflateBinding(LayoutInflater layoutInflater, ViewGroup container) {
+        return FragmentMedicineSearchBinding.inflate(layoutInflater, container, false);
+    }
 
+    @Override
+    protected void initViews() {
+        super.initViews();
         setupUI();
         loadDummyData();
     }
 
     private void setupUI() {
         // Setup RecyclerView
-        medicineAdapter = new MedicineAdapter(this);
+        medicineAdapter = new MedicineAdapter(medicine -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("medicineId", medicine.getId());
+            navigateTo(R.id.action_medicineSearchFragment_to_medicineDetailFragment, bundle);
+        });
         binding.medicinesRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.medicinesRecyclerView.setAdapter(medicineAdapter);
 
@@ -82,10 +76,7 @@ public class MedicineSearchFragment extends Fragment implements MedicineAdapter.
         });
 
         // Setup back button click
-        binding.backButton.setOnClickListener(v -> {
-            // Sử dụng Navigation Component để quay lại
-            Navigation.findNavController(requireView()).popBackStack();
-        });
+        binding.backButton.setOnClickListener(v -> back());
     }
 
     private void loadDummyData() {
@@ -97,10 +88,10 @@ public class MedicineSearchFragment extends Fragment implements MedicineAdapter.
             medicines.add(Medicine.builder().id("3").name("Amoxicillin 500mg").ingredients("Amoxicillin").build());
 
             // Hiển thị trước (không phụ thuộc database)
-            medicineAdapter.setMedicines(medicines);
+            medicineAdapter.submitList(medicines);
 
             // Lưu vào database
-            executorService.execute(() -> {
+            diskIO.execute(() -> {
                 try {
                     medicineDao.insertMedicines(medicines);
                 } catch (Exception e) {
@@ -116,11 +107,11 @@ public class MedicineSearchFragment extends Fragment implements MedicineAdapter.
         try {
             if (query.isEmpty()) {
                 // Nếu không có từ khóa, lấy tất cả
-                executorService.execute(() -> {
+                diskIO.execute(() -> {
                     try {
                         List<Medicine> medicines = medicineDao.getAllMedicines();
                         if (getActivity() != null) {
-                            getActivity().runOnUiThread(() -> medicineAdapter.setMedicines(medicines));
+                            getActivity().runOnUiThread(() -> medicineAdapter.submitList(medicines));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -128,11 +119,11 @@ public class MedicineSearchFragment extends Fragment implements MedicineAdapter.
                 });
             } else {
                 // Tìm kiếm theo từ khóa
-                executorService.execute(() -> {
+                diskIO.execute(() -> {
                     try {
                         List<Medicine> filteredMedicines = medicineDao.searchMedicines(query);
                         if (getActivity() != null) {
-                            getActivity().runOnUiThread(() -> medicineAdapter.setMedicines(filteredMedicines));
+                            getActivity().runOnUiThread(() -> medicineAdapter.submitList(filteredMedicines));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -141,28 +132,6 @@ public class MedicineSearchFragment extends Fragment implements MedicineAdapter.
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onMedicineClick(Medicine medicine) {
-        // Navigate to MedicineDetailFragment with medicineId
-        Bundle args = new Bundle();
-        args.putString("medicineId", medicine.getId());
-        Navigation.findNavController(requireView()).navigate(R.id.action_medicineSearchFragment_to_medicineDetailFragment, args);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null; // Avoid memory leaks
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (executorService != null) {
-            executorService.shutdown();
         }
     }
 } 

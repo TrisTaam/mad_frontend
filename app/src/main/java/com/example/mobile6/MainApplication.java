@@ -49,4 +49,8 @@ public class MainApplication extends Application {
                 .build();
         return okHttp;
     }
+
+    public AppExecutors getAppExecutors() {
+        return AppExecutors.getInstance();
+    }
 }

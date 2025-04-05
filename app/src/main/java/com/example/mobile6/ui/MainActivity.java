@@ -13,7 +13,6 @@ import com.example.mobile6.databinding.ActivityMainBinding;
 import com.example.mobile6.ui.base.BaseActivity;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
-
     private NavController navController;
 
     @Override
@@ -39,19 +38,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     case R.id.prescriptionsFragment:
                     case R.id.profileFragment:
                         binding.bottomNavigationView.setVisibility(View.VISIBLE);
-                        binding.btnOpenMedicineSearch.setVisibility(View.VISIBLE);
-                        binding.btnOpenSpecialty.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.medicineSearchFragment:
-                    case R.id.medicineDetailFragment:
-                        binding.btnOpenMedicineSearch.setVisibility(View.GONE);
-                        binding.btnOpenSpecialty.setVisibility(View.GONE);
-                        binding.bottomNavigationView.setVisibility(View.GONE);
-                        break;
-                    case R.id.doctorSpecialtyFragment:
-                        binding.btnOpenMedicineSearch.setVisibility(View.GONE);
-                        binding.btnOpenSpecialty.setVisibility(View.GONE);
-                        binding.bottomNavigationView.setVisibility(View.GONE);
                         break;
                     default:
                         binding.bottomNavigationView.setVisibility(View.GONE);
@@ -59,18 +45,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 }
             });
         }
-
-        binding.btnOpenMedicineSearch.setOnClickListener(v -> {
-            if (navController != null) {
-                navController.navigate(R.id.medicineSearchFragment);
-            }
-        });
-
-        binding.btnOpenSpecialty.setOnClickListener(v -> {
-            if (navController != null) {
-                navController.navigate(R.id.doctorSpecialtyFragment);
-            }
-        });
     }
 
     @Override

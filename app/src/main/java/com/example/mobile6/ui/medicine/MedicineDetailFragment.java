@@ -2,55 +2,38 @@ package com.example.mobile6.ui.medicine;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
-import com.bumptech.glide.Glide;
 import com.example.mobile6.MainApplication;
 import com.example.mobile6.R;
-import com.example.mobile6.dao.MedicineDao;
 import com.example.mobile6.databinding.FragmentMedicineDetailBinding;
-import com.example.mobile6.model.Medicine;
 import com.example.mobile6.model.MedicineDetail;
+import com.example.mobile6.ui.base.BaseFragment;
+import com.example.mobile6.util.ImageUtils;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class MedicineDetailFragment extends Fragment {
-
-    private FragmentMedicineDetailBinding binding;
-    private MedicineDao medicineDao;
-    private ExecutorService executorService;
+public class MedicineDetailFragment extends BaseFragment<FragmentMedicineDetailBinding> {
+    private ExecutorService diskIO;
     private String medicineId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        medicineDao = ((MainApplication) requireActivity().getApplication()).getDatabase().medicineDao();
-        executorService = Executors.newSingleThreadExecutor();
-        
-        // Get medicineId from arguments
-        if (getArguments() != null) {
-            medicineId = getArguments().getString("medicineId");
-        }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentMedicineDetailBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        diskIO = ((MainApplication) requireActivity().getApplication()).getAppExecutors().diskIO();
+        medicineId = args.getString("medicineId");
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        
+    protected FragmentMedicineDetailBinding inflateBinding(LayoutInflater layoutInflater, ViewGroup container) {
+        return FragmentMedicineDetailBinding.inflate(layoutInflater, container, false);
+    }
+
+    @Override
+    protected void initViews() {
+        super.initViews();
         setupUI();
         if (medicineId != null) {
             loadMedicineDetail(medicineId);
@@ -62,47 +45,37 @@ public class MedicineDetailFragment extends Fragment {
 
     private void setupUI() {
         // Setup back button
-        binding.backButton.setOnClickListener(v -> {
-            Navigation.findNavController(requireView()).popBackStack();
-        });
-        
+        binding.backButton.setOnClickListener(v -> back());
+
         // Setup add to prescription button
-        binding.addToPrescriptionButton.setOnClickListener(v -> {
-            showMedicationWarningDialog();
-        });
-        
+        binding.addToPrescriptionButton.setOnClickListener(v -> showMedicationWarningDialog());
+
         // Register fragment result listener
-        getParentFragmentManager().setFragmentResultListener(
-                MedicationWarningDialogFragment.REQUEST_KEY,
-                getViewLifecycleOwner(),
-                (requestKey, result) -> {
-                    String action = result.getString(MedicationWarningDialogFragment.RESULT_KEY);
-                    if (MedicationWarningDialogFragment.RESULT_CONTINUE.equals(action)) {
-                        // User chose to continue - handle adding to prescription
-                        addToPrescription();
-                    } else {
-                        // User chose to review - do nothing and stay on this screen
-                    }
-                });
+        setOnBackResultListener(MedicationWarningDialogFragment.REQUEST_KEY, result -> {
+            String action = result.getString(MedicationWarningDialogFragment.RESULT_KEY);
+            if (MedicationWarningDialogFragment.RESULT_CONTINUE.equals(action)) {
+                // User chose to continue - handle adding to prescription
+                addToPrescription();
+            } else {
+                // User chose to review - do nothing and stay on this screen
+            }
+        });
     }
 
     private void showMedicationWarningDialog() {
-        MedicationWarningDialogFragment dialog = MedicationWarningDialogFragment.newInstance();
-        dialog.show(getParentFragmentManager(), "medication_warning_dialog");
+        navigateTo(R.id.action_medicineDetailFragment_to_medicationWarningDialogFragment);
     }
 
     private void addToPrescription() {
         // TODO: Implement add to prescription functionality
-        Navigation.findNavController(requireView()).popBackStack();
+        back();
     }
 
     private void loadMedicineDetail(String medicineId) {
-        executorService.execute(() -> {
+        diskIO.execute(() -> {
             try {
-                // In a real app, you would fetch this from the database
-                // For now, we'll use dummy data
                 MedicineDetail medicine = createDummyMedicineDetail(medicineId);
-                
+
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> displayMedicineDetail(medicine));
                 }
@@ -156,36 +129,18 @@ public class MedicineDetailFragment extends Fragment {
 
     private void displayMedicineDetail(MedicineDetail medicine) {
         binding.headerTitle.setText("Thông tin thuốc");
-        
+
         // Load image
         try {
-            Glide.with(requireContext())
-                    .load(medicine.getImageUrl())
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                    .error(R.drawable.ic_launcher_foreground)
-                    .into(binding.medicineImage);
+            ImageUtils.load(medicine.getImageUrl(), binding.medicineImage);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         // Set text
         binding.medicineDescription.setText(medicine.getDescription());
         binding.medicineUsage.setText(medicine.getUsage());
         binding.medicineDirection.setText(medicine.getDirection());
         binding.medicineWarning.setText(medicine.getWarning());
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null; // Avoid memory leaks
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (executorService != null) {
-            executorService.shutdown();
-        }
     }
 } 
