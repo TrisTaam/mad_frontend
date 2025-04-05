@@ -30,4 +30,70 @@
         android:name="com.example.mobile6.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/medicineSearchFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicineSearchFragment"
+        android:label="fragment_medicine_search" 
+        tools:layout="@layout/fragment_medicine_search">
+        <action
+            android:id="@+id/action_medicineSearchFragment_to_medicineDetailFragment"
+            app:destination="@id/medicineDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicineDetailFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicineDetailFragment"
+        android:label="fragment_medicine_detail"
+        tools:layout="@layout/fragment_medicine_detail">
+        <argument
+            android:name="medicineId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_medicineDetailFragment_to_medicationWarningDialogFragment"
+            app:destination="@id/medicationWarningDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorSpecialtyFragment"
+        android:name="com.example.mobile6.ui.doctor.DoctorSpecialtyFragment"
+        android:label="fragment_doctor_specialty"
+        tools:layout="@layout/fragment_doctor_specialty">
+        <action
+            android:id="@+id/action_doctorSpecialtyFragment_to_doctorListFragment"
+            app:destination="@id/doctorListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorListFragment"
+        android:name="com.example.mobile6.ui.doctor.DoctorListFragment"
+        android:label="fragment_doctor_list"
+        tools:layout="@layout/fragment_doctor_list">
+        <argument
+            android:name="specialtyName"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_doctorListFragment_to_doctorDetailFragment"
+            app:destination="@id/doctorDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorDetailFragment"
+        android:name="com.example.mobile6.ui.doctor.DoctorDetailFragment"
+        android:label="fragment_doctor_detail"
+        tools:layout="@layout/fragment_doctor_detail">
+        <argument
+            android:name="doctorName"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="doctorSpecialty"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="doctorImageUrl"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+    <dialog
+        android:id="@+id/medicationWarningDialogFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicationWarningDialogFragment"
+        android:label="MedicationWarningDialogFragment" />
 </navigation>

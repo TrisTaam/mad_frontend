@@ -20,6 +20,12 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
 
     protected abstract VB inflateBinding(LayoutInflater layoutInflater, ViewGroup container);
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        args = getArguments();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,7 +37,6 @@ public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        args = getArguments();
         initViews();
     }
 

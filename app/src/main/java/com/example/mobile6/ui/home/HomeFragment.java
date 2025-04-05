@@ -4,6 +4,7 @@ package com.example.mobile6.ui.home;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.example.mobile6.R;
 import com.example.mobile6.databinding.FragmentHomeBinding;
 import com.example.mobile6.ui.base.BaseFragment;
 
@@ -17,5 +18,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     protected void initViews() {
         super.initViews();
+        binding.btnOpenMedicineSearch.setOnClickListener(v -> {
+            navigateTo(R.id.medicineSearchFragment);
+        });
+
+        binding.btnOpenSpecialty.setOnClickListener(v -> {
+            navigateTo(R.id.doctorSpecialtyFragment);
+        });
     }
 }

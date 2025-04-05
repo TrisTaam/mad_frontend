@@ -13,6 +13,7 @@ import com.example.mobile6.databinding.ActivityMainBinding;
 import com.example.mobile6.ui.base.BaseActivity;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
+    private NavController navController;
 
     @Override
     protected ActivityMainBinding inflateBinding() {
@@ -27,7 +28,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container_view);
         if (navHostFragment != null) {
-            NavController navController = navHostFragment.getNavController();
+            navController = navHostFragment.getNavController();
             NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
             navController.addOnDestinationChangedListener((navController1, navDestination, bundle) -> {
                 switch (navDestination.getId()) {
