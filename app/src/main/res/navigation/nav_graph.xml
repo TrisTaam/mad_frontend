@@ -67,5 +67,26 @@
             android:name="specialtyName"
             app:argType="string"
             android:defaultValue="" />
+        <action
+            android:id="@+id/action_doctorListFragment_to_doctorDetailFragment"
+            app:destination="@id/doctorDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorDetailFragment"
+        android:name="com.example.mobile6.ui.doctor.DoctorDetailFragment"
+        android:label="fragment_doctor_detail"
+        tools:layout="@layout/fragment_doctor_detail">
+        <argument
+            android:name="doctorName"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="doctorSpecialty"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="doctorImageUrl"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 </navigation>

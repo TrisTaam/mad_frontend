@@ -70,20 +70,30 @@ public class DoctorListFragment extends Fragment {
         
         // Thiết lập sự kiện click cho các item bác sĩ
         binding.doctorItem1.setOnClickListener(v -> {
-            // Xử lý khi chọn bác sĩ (có thể chuyển đến trang chi tiết)
+            navigateToDoctorDetail("Bác sĩ Lê Văn A", "Bác sĩ chuyên khoa sản", imageUrl);
         });
         
         binding.doctorItem2.setOnClickListener(v -> {
-            // Xử lý khi chọn bác sĩ
+            navigateToDoctorDetail("Bác sĩ Nguyễn Thị B", "Bác sĩ chuyên khoa sản", imageUrl);
         });
         
         binding.doctorItem3.setOnClickListener(v -> {
-            // Xử lý khi chọn bác sĩ
+            navigateToDoctorDetail("Bác sĩ Trần Văn C", "Bác sĩ chuyên khoa sản", imageUrl);
         });
         
         binding.doctorItem4.setOnClickListener(v -> {
-            // Xử lý khi chọn bác sĩ
+            navigateToDoctorDetail("Bác sĩ Phạm Thị D", "Bác sĩ chuyên khoa sản", imageUrl);
         });
+    }
+    
+    private void navigateToDoctorDetail(String doctorName, String doctorSpecialty, String imageUrl) {
+        Bundle args = new Bundle();
+        args.putString("doctorName", doctorName);
+        args.putString("doctorSpecialty", doctorSpecialty);
+        args.putString("doctorImageUrl", imageUrl);
+        
+        Navigation.findNavController(requireView())
+                .navigate(R.id.action_doctorListFragment_to_doctorDetailFragment, args);
     }
     
     private void loadDoctorImage(ImageView imageView, String url) {
