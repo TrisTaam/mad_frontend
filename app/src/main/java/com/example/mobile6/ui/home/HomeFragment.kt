@@ -47,6 +47,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.btnTestDialog.setOnClickListener {
             navigateTo(R.id.action_homeFragment_to_testDialogFragment)
         }
+        
+        // Thêm nút mở màn hình danh sách thuốc
+        binding.btnMedicineList.setOnClickListener {
+            navigateTo(
+                R.id.action_homeFragment_to_medicineListFragment,
+                null,
+                NavOptions.Builder().defaultAnim().build()
+            )
+        }
     }
 
     override fun initObservers() {
