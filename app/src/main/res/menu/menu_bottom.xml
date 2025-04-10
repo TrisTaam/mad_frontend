@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/slt_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/statisticsFragment"
+        android:icon="@drawable/slt_statistics"
+        android:title="@string/statistics" />
+    <item
+        android:id="@+id/appointmentsFragment"
+        android:icon="@drawable/slt_calendar"
+        android:title="@string/appointments" />
+    <item
+        android:id="@+id/prescriptionsFragment"
+        android:icon="@drawable/slt_document"
+        android:title="@string/prescriptions" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/slt_profile"
+        android:title="@string/profile" />
+</menu>

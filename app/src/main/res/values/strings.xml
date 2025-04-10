@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Nhắc nhở uống thuốc</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Trang chủ</string>
+    <string name="statistics">Thống kê</string>
+    <string name="appointments">Lịch hẹn</string>
+    <string name="prescriptions">Đơn thuốc</string>
+    <string name="profile">Hồ sơ</string>
+</resources>
