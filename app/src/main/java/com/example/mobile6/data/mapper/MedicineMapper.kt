@@ -6,6 +6,7 @@ import com.example.mobile6.domain.model.Ingredient
 import com.example.mobile6.domain.model.Medicine
 
 fun MedicineResponse.toMedicine(): Medicine {
+    //test
     return Medicine(
         id = id,
         name = name,
