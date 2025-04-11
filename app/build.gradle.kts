@@ -74,6 +74,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.core.ktx)
     ksp(libs.hilt.android.compiler)
 
     // Glide
