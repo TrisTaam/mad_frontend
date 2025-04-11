@@ -13,7 +13,6 @@ data class MedicineListResponse(
 data class MedicineResponse(
     val id: Long,
     val name: String,
-    @SerialName("imgUrl")
     val imgUrl: String,
     val description: String,
     val use: String,

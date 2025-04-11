@@ -4,7 +4,6 @@ import com.example.mobile6.BuildConfig
 import com.example.mobile6.data.remote.interceptor.AuthInterceptor
 import com.example.mobile6.data.remote.interceptor.CacheInterceptor
 import com.example.mobile6.data.remote.interceptor.TokenAuthenticator
-import com.example.mobile6.data.remote.service.MedicineService
 import com.example.mobile6.data.remote.util.ResourceCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -61,11 +60,5 @@ object NetworkModule {
     @Singleton
     fun provideCoroutineScope(): CoroutineScope {
         return CoroutineScope(Dispatchers.IO + SupervisorJob())
-    }
-    
-    @Provides
-    @Singleton
-    fun provideMedicineService(retrofit: Retrofit): MedicineService {
-        return retrofit.create(MedicineService::class.java)
     }
 }

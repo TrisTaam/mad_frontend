@@ -1,8 +1,8 @@
 package com.example.mobile6.data.di
 
 import com.example.mobile6.data.repository.AuthRepositoryImpl
-import com.example.mobile6.data.repository.TestRepositoryImpl
 import com.example.mobile6.data.repository.MedicineRepositoryImpl
+import com.example.mobile6.data.repository.TestRepositoryImpl
 import com.example.mobile6.domain.repository.AuthRepository
 import com.example.mobile6.domain.repository.TestRepository
 import com.example.mobile6.domain.repository.MedicineRepository
@@ -14,22 +14,22 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+interface RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindAuthRepository(
+    fun bindAuthRepository(
         authRepositoryImpl: AuthRepositoryImpl
     ): AuthRepository
 
     @Binds
     @Singleton
-    abstract fun bindTestRepository(
+    fun bindTestRepository(
         testRepositoryImpl: TestRepositoryImpl
     ): TestRepository
 
     @Binds
     @Singleton
-    abstract fun bindMedicineRepository(
+    fun bindMedicineRepository(
         medicineRepositoryImpl: MedicineRepositoryImpl
     ): MedicineRepository
 }

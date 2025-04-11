@@ -1,4 +1,4 @@
-package com.example.mobile6.ui.medicine.medicine_detail
+package com.example.mobile6.ui.medicine
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

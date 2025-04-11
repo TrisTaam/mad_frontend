@@ -2,29 +2,41 @@ package com.example.mobile6.data.repository
 
 import com.example.mobile6.data.mapper.toMedicine
 import com.example.mobile6.data.remote.service.MedicineService
+import com.example.mobile6.data.remote.util.map
+import com.example.mobile6.data.remote.util.onError
+import com.example.mobile6.data.remote.util.onException
 import com.example.mobile6.domain.model.Medicine
 import com.example.mobile6.domain.model.Resource
 import com.example.mobile6.domain.repository.MedicineRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class MedicineRepositoryImpl @Inject constructor(
     private val medicineService: MedicineService
 ) : MedicineRepository {
-    override suspend fun getMedicines(): Resource<List<Medicine>> {
-        return try {
-            val response = medicineService.getMedicines()
-            Resource.Success(response.data.map { it.toMedicine() }, response.message)
-        } catch (e: Exception) {
-            Resource.Exception(e)
-        }
+    override suspend fun getMedicines(): Resource<List<Medicine>> = withContext(Dispatchers.IO) {
+        medicineService.getMedicines()
+            .onError { message, code ->
+                Timber.e("Lỗi khi lấy danh sách thuốc: $message, code: $code")
+            }
+            .onException { e ->
+                Timber.e(e, "Ngoại lệ khi lấy danh sách thuốc")
+            }
+            .map { medicines ->
+                medicines.map { it.toMedicine() }
+            }
     }
 
-    override suspend fun getMedicineById(id: Long): Resource<Medicine> {
-        return try {
-            val response = medicineService.getMedicineById(id)
-            Resource.Success(response.toMedicine(), "Success")
-        } catch (e: Exception) {
-            Resource.Exception(e)
-        }
+    override suspend fun getMedicineById(id: Long): Resource<Medicine> = withContext(Dispatchers.IO) {
+        medicineService.getMedicineById(id)
+            .onError { message, code ->
+                Timber.e("Lỗi khi lấy chi tiết thuốc: $message, code: $code")
+            }
+            .onException { e ->
+                Timber.e(e, "Ngoại lệ khi lấy chi tiết thuốc id: $id")
+            }
+            .map { it.toMedicine() }
     }
 } 
