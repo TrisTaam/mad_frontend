@@ -1,9 +1,11 @@
 package com.example.mobile6.data.di
 
 import com.example.mobile6.data.repository.AuthRepositoryImpl
+import com.example.mobile6.data.repository.MedicineRepositoryImpl
 import com.example.mobile6.data.repository.TestRepositoryImpl
 import com.example.mobile6.domain.repository.AuthRepository
 import com.example.mobile6.domain.repository.TestRepository
+import com.example.mobile6.domain.repository.MedicineRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,4 +26,10 @@ interface RepositoryModule {
     fun bindTestRepository(
         testRepositoryImpl: TestRepositoryImpl
     ): TestRepository
+
+    @Binds
+    @Singleton
+    fun bindMedicineRepository(
+        medicineRepositoryImpl: MedicineRepositoryImpl
+    ): MedicineRepository
 }

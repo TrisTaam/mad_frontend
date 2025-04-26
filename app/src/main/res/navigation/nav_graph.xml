@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/medicineSearchFragment"
-        android:name="com.example.mobile6.ui.medicine.medicine_search.MedicineSearchFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicineSearchFragment"
         android:label="MedicineSearchFragment"
         tools:layout="@layout/fragment_medicine_search">
         <action
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/medicineDetailFragment"
-        android:name="com.example.mobile6.ui.medicine.medicine_detail.MedicineDetailFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicineDetailFragment"
         android:label="fragment_medicine_detail"
         tools:layout="@layout/fragment_medicine_detail">
         <action
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/medicationWarningDialogFragment"
-        android:name="com.example.mobile6.ui.medicine.medication_warning.MedicationWarningDialogFragment"
+        android:name="com.example.mobile6.ui.medicine.MedicationWarningDialogFragment"
         android:label="MedicationWarningDialogFragment"
         tools:layout="@layout/fragment_medication_warning_dialog" />
     <fragment
