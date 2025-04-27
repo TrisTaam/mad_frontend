@@ -12,19 +12,18 @@ import com.bumptech.glide.Glide
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentMedicineDetailBinding
 import com.example.mobile6.domain.model.Medicine
-import com.example.mobile6.ui.adapter.MedicineAdapter
+import com.example.mobile6.domain.model.MedicineInteraction
 import com.example.mobile6.ui.base.BaseFragment
 import com.example.mobile6.ui.util.defaultAnim
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
     private val viewModel: MedicineDetailViewModel by viewModels();
-    private lateinit var medicineAdapter: MedicineAdapter
+    private var medicineId: Long = 0L
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentMedicineDetailBinding
         get() = { inflater, container ->
@@ -32,7 +31,7 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
         }
 
     override fun processArguments(args: Bundle) {
-        val medicineId = arguments?.getLong("medicineId") ?: 0L
+        medicineId = arguments?.getLong("medicineId") ?: 0L
         viewModel.fetchMedicineDetail(medicineId)
     }
 
@@ -42,28 +41,45 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
         }
 
         binding.addToPrescriptionButton.setOnClickListener {
-            navigateTo(
-                R.id.action_medicineDetailFragment_to_medicationWarningDialogFragment,
-                null,
-                NavOptions.Builder().defaultAnim().build()
-            )
+            val existingMedicineIds = listOf(
+                2L,
+                3L,
+                4L,
+                5L
+            ) // (Sau Hải sửa cái này nhé - ném list id của các thuốc đang có trong đơn thuốc vào đây)
+            viewModel.checkMedicineInteractions(medicineId, existingMedicineIds)
         }
-
-
     }
 
     override fun initObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collectLatest { state->
+                viewModel.uiState.collectLatest { state ->
                     handleLoadingState(state.isLoading)
                     handleErrorState(state.error)
-                    state.medicine?.let{
+                    state.medicine?.let {
                         bindMedicineData(it)
+                    }
+                    state.medicineInteraction?.let {
+                        handleMedicineInteraction(it)
                     }
                 }
             }
         }
+    }
+
+    private fun handleMedicineInteraction(interaction: MedicineInteraction) {
+        if (!interaction.hasInteraction) return;
+
+        val bundle = Bundle().apply {
+            putLong("medicineId", medicineId)
+            putString("interactionMessage", interaction.interactionDetails)
+        }
+        navigateTo(
+            R.id.action_medicineDetailFragment_to_medicationWarningDialogFragment,
+            bundle,
+            NavOptions.Builder().defaultAnim().build()
+        )
     }
 
     private fun bindMedicineData(medicine: Medicine) {

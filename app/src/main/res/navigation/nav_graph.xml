@@ -86,9 +86,6 @@
         android:name="com.example.mobile6.ui.medicine.MedicineDetailFragment"
         android:label="fragment_medicine_detail"
         tools:layout="@layout/fragment_medicine_detail">
-        <argument
-            android:name="medicineId"
-            app:argType="long" />
         <action
             android:id="@+id/action_medicineDetailFragment_to_medicationWarningDialogFragment"
             app:destination="@id/medicationWarningDialogFragment"
@@ -97,7 +94,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/medicationWarningDialogFragment"
         android:name="com.example.mobile6.ui.medicine.MedicationWarningDialogFragment"
         android:label="MedicationWarningDialogFragment"

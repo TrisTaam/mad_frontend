@@ -3,6 +3,7 @@ package com.example.mobile6.ui.medicine
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile6.domain.model.Medicine
+import com.example.mobile6.domain.model.MedicineInteraction
 import com.example.mobile6.domain.model.Resource
 import com.example.mobile6.domain.repository.MedicineRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,10 +55,52 @@ class MedicineDetailViewModel @Inject constructor(
             }
         }
     }
+    
+    fun checkMedicineInteractions(newMedicineId: Long, existingMedicineIds: List<Long>) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null) }
+            
+            when (val result = medicineRepository.checkMedicineInteractions(newMedicineId, existingMedicineIds)) {
+                is Resource.Success -> {
+                    _uiState.update {
+                        it.copy(
+                            medicineInteraction = result.data,
+                            isLoading = false,
+                            error = null
+                        )
+                    }
+                }
+                is Resource.Error -> {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            error = result.message
+                        )
+                    }
+                }
+                is Resource.Exception -> {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            error = result.throwable.message ?: "Lỗi kiểm tra tương tác thuốc"
+                        )
+                    }
+                }
+            }
+        }
+    }
+    
+    fun clearMedicineInteraction() {
+        _uiState.update { it.copy(medicineInteraction = null) }
+    }
+    
+    fun addMedicineToPrescription(medicineId: Long) {
+    }
 }
 
 data class MedicineDetailUiState(
     val medicine: Medicine? = null,
+    val medicineInteraction: MedicineInteraction? = null,
     val isLoading: Boolean = false,
     val error: String? = null
 )
