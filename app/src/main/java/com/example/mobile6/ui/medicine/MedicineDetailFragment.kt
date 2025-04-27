@@ -18,6 +18,7 @@ import com.example.mobile6.ui.util.defaultAnim
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
@@ -42,8 +43,6 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
         binding.addToPrescriptionButton.setOnClickListener {
             val existingMedicineIds = listOf(
-                2L,
-                3L,
                 4L,
                 5L
             ) // (Sau Hải sửa cái này nhé - ném list id của các thuốc đang có trong đơn thuốc vào đây)
@@ -69,7 +68,11 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
     }
 
     private fun handleMedicineInteraction(interaction: MedicineInteraction) {
-        if (!interaction.hasInteraction) return;
+        if (!interaction.hasInteraction) {
+            Timber.d("không có tương tác thuốc muinv")
+            viewModel.addMedicineToPrescription(medicineId)
+            return
+        }
 
         val bundle = Bundle().apply {
             putLong("medicineId", medicineId)

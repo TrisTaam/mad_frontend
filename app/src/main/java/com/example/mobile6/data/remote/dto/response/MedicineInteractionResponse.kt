@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MedicineInteractionResponse(
     val hasInteraction: Boolean,
-    val interactionDetails: String
+    val interactionDetails: String?
 ) 
