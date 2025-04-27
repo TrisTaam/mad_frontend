@@ -12,6 +12,7 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineSearchBinding>() {
         }
 
     override fun initViews() {
+        // init
     }
 
     override fun initObservers() {
