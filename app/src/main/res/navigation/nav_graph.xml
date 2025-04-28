@@ -94,7 +94,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/medicationWarningDialogFragment"
         android:name="com.example.mobile6.ui.medicine.MedicationWarningDialogFragment"
         android:label="MedicationWarningDialogFragment"
