@@ -13,5 +13,6 @@ data class Doctor(
     val dateOfBirth: Date?,
     val weight: Int?,
     val height: Int?,
-    val role: String?
+    val role: String?,
+    val avatar: String?
 )

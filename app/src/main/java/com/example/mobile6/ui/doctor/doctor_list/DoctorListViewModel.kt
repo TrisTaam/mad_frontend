@@ -21,12 +21,15 @@ class DoctorListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(DoctorListUiState())
     val uiState: StateFlow<DoctorListUiState> = _uiState.asStateFlow()
 
+    private var allDoctors = emptyList<Doctor>()
+
     fun fetchDoctorsBySpecialty(specialty: String) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
 
             when (val result = doctorRepository.getDoctorsBySpecialty(specialty)) {
                 is Resource.Success -> {
+                    allDoctors = result.data
                     _uiState.update {
                         it.copy(
                             doctors = result.data,
@@ -56,6 +59,24 @@ class DoctorListViewModel @Inject constructor(
             }
         }
     }
+
+    fun searchDoctors(query: String) {
+        if (query.isBlank()) {
+            _uiState.update { it.copy(doctors = allDoctors) }
+            return
+        }
+
+        val filteredList = allDoctors.filter {
+            val fullName = "${it.lastName.orEmpty()} ${it.firstName.orEmpty()}"
+            fullName.contains(query, ignoreCase = true) || it.specialty?.contains(
+                query,
+                ignoreCase = true
+            ) == true
+        }
+
+        _uiState.update { it.copy(doctors = filteredList) }
+    }
+
 }
 
 data class DoctorListUiState(

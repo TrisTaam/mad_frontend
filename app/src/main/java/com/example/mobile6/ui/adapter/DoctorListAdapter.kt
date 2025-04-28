@@ -38,11 +38,11 @@ class DoctorListAdapter(
             binding.apply {
                 doctorName.text = "${doctor.lastName} ${doctor.firstName}"
                 doctorSpecialty.text = doctor.specialty
-//                Glide.with(requireContext())
-//                    .load(doctor.)
-//                    .placeholder(R.drawable.ic_launcher_foreground)
-//                    .error(R.drawable.ic_launcher_foreground)
-//                    .into(medicineImage)
+                Glide.with(binding.root.context)
+                    .load(doctor.avatar)
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(doctorAvatar)
                 root.setOnClickListener { onMedicineClick(doctor) }
             }
         }

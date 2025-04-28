@@ -15,6 +15,7 @@ fun DoctorResponse.toDoctor(): Doctor {
         dateOfBirth = dateOfBirth,
         weight = weight,
         height = height,
-        role = role
+        role = role,
+        avatar = avatar
     )
 }

@@ -3,6 +3,7 @@ package com.example.mobile6.ui.doctor.doctor_list
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import com.example.mobile6.databinding.FragmentDoctorListBinding
 import com.example.mobile6.ui.base.BaseFragment
 import androidx.fragment.app.viewModels
@@ -40,6 +41,7 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
         }
 
         setupRecyclerView()
+        setupSearchView()
     }
 
     private fun setupRecyclerView() {
@@ -48,6 +50,12 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
         binding.doctorsRecyclerView.apply {
             adapter = doctorListAdapter
             layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun setupSearchView() {
+        binding.searchEditText.doOnTextChanged { text, _, _, _ ->
+            viewModel.searchDoctors(text.toString())
         }
     }
 
