@@ -42,7 +42,7 @@ class MedicineSearchFragment : BaseFragment<FragmentMedicineSearchBinding>() {
     private fun setupRecyclerView() {
         medicineAdapter = MedicineAdapter { medicine ->
             val bundle = Bundle().apply {
-                putLong("medicineId", medicine.id);
+                putLong("medicineId", medicine.id)
             }
             navigateTo(
                 R.id.action_medicineSearchFragment_to_medicineDetailFragment,
