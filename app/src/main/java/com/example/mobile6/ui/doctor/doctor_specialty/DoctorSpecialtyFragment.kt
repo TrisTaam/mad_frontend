@@ -11,7 +11,7 @@ import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentDoctorSpecialtyBinding
-import com.example.mobile6.ui.adapter.DoctorAdapter
+import com.example.mobile6.ui.adapter.DoctorSpecialtyAdapter
 import com.example.mobile6.ui.base.BaseFragment
 import com.example.mobile6.ui.util.defaultAnim
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class DoctorSpecialtyFragment : BaseFragment<FragmentDoctorSpecialtyBinding>() {
 
     private val viewModel: DoctorSpecialtyViewModel by viewModels()
-    private lateinit var doctorAdapter: DoctorAdapter
+    private lateinit var doctorSpecialtyAdapter: DoctorSpecialtyAdapter
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentDoctorSpecialtyBinding
         get() = { inflater, container ->
@@ -38,7 +38,7 @@ class DoctorSpecialtyFragment : BaseFragment<FragmentDoctorSpecialtyBinding>() {
     }
 
     private fun setupRecyclerView() {
-        doctorAdapter = DoctorAdapter { doctor ->
+        doctorSpecialtyAdapter = DoctorSpecialtyAdapter { doctor ->
             val bundle = Bundle().apply {
                 putString("specialty", doctor.specialty)
             }
@@ -50,7 +50,7 @@ class DoctorSpecialtyFragment : BaseFragment<FragmentDoctorSpecialtyBinding>() {
         }
 
         binding.doctorsRecyclerView.apply {
-            adapter = doctorAdapter
+            adapter = doctorSpecialtyAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -70,7 +70,7 @@ class DoctorSpecialtyFragment : BaseFragment<FragmentDoctorSpecialtyBinding>() {
                     val uniqueSpecialties = state.doctors
                         .groupBy { it.specialty }
                         .map { it.value.first() }
-                    doctorAdapter.submitList(uniqueSpecialties)
+                    doctorSpecialtyAdapter.submitList(uniqueSpecialties)
                 }
             }
         }

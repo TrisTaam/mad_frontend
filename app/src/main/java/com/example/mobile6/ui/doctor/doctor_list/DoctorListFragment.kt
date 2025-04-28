@@ -9,12 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mobile6.R
-import com.example.mobile6.ui.adapter.DoctorAdapter
-import com.example.mobile6.ui.adapter.MedicineAdapter
-import com.example.mobile6.ui.util.defaultAnim
+import com.example.mobile6.ui.adapter.DoctorListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,7 +20,7 @@ import timber.log.Timber
 class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
 
     private val viewModel: DoctorListViewModel by viewModels()
-//    private lateinit var doctorAdapter: DoctorAdapter
+    private lateinit var doctorListAdapter: DoctorListAdapter
     private var specialty: String = ""
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentDoctorListBinding
@@ -43,15 +39,17 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
             back()
         }
 
-//        setupRecyclerView()
+        setupRecyclerView()
     }
-//
-//    private fun setupRecyclerView() {
-//        binding.doctorsRecyclerView.apply {
-//            adapter = doctorAdapter
-//            layoutManager = LinearLayoutManager(requireContext())
-//        }
-//    }
+
+    private fun setupRecyclerView() {
+        doctorListAdapter = DoctorListAdapter {  }
+
+        binding.doctorsRecyclerView.apply {
+            adapter = doctorListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
 
     override fun initObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -65,7 +63,7 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
                         handleErrorState(state.error)
                         return@collectLatest
                     }
-//                    doctorAdapter.submitList(state.doctors)
+                    doctorListAdapter.submitList(state.doctors)
                 }
             }
         }
