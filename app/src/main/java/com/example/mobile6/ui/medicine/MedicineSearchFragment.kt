@@ -46,8 +46,7 @@ class MedicineSearchFragment : BaseFragment<FragmentMedicineSearchBinding>() {
             }
             navigateTo(
                 R.id.action_medicineSearchFragment_to_medicineDetailFragment,
-                bundle,
-                NavOptions.Builder().defaultAnim().build()
+                bundle
             )
         }
 

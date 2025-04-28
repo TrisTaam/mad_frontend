@@ -88,8 +88,7 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
         }
         navigateTo(
             R.id.action_medicineDetailFragment_to_medicationWarningDialogFragment,
-            bundle,
-            NavOptions.Builder().defaultAnim().build()
+            bundle
         )
     }
 
