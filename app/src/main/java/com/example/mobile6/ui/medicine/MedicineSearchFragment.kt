@@ -21,10 +21,10 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MedicineSearchFragment : BaseFragment<FragmentMedicineSearchBinding>() {
-    
+
     private val viewModel: MedicineListViewModel by viewModels()
     private lateinit var medicineAdapter: MedicineAdapter
-    
+
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentMedicineSearchBinding
         get() = { inflater, container ->
             FragmentMedicineSearchBinding.inflate(inflater, container, false)
@@ -34,7 +34,7 @@ class MedicineSearchFragment : BaseFragment<FragmentMedicineSearchBinding>() {
         binding.backButton.setOnClickListener {
             back()
         }
-        
+
         setupRecyclerView()
         setupSearchView()
     }
@@ -50,13 +50,13 @@ class MedicineSearchFragment : BaseFragment<FragmentMedicineSearchBinding>() {
                 NavOptions.Builder().defaultAnim().build()
             )
         }
-        
+
         binding.medicinesRecyclerView.apply {
             adapter = medicineAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
-    
+
     private fun setupSearchView() {
         binding.searchEditText.doOnTextChanged { text, _, _, _ ->
             viewModel.searchMedicines(text.toString())
@@ -67,19 +67,25 @@ class MedicineSearchFragment : BaseFragment<FragmentMedicineSearchBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { state ->
-                    handleLoadingState(state.isLoading)
-                    handleErrorState(state.error)
+                    if (state.isLoading) {
+                        handleLoadingState(true)
+                        return@collectLatest
+                    }
+                    if (state.error != null) {
+                        handleErrorState(state.error)
+                        return@collectLatest
+                    }
                     medicineAdapter.submitList(state.medicines)
                 }
             }
         }
     }
-    
+
     private fun handleLoadingState(isLoading: Boolean) {
         // Show/hide loading indicator if you have one
         // binding.progressBar.isVisible = isLoading
     }
-    
+
     private fun handleErrorState(error: String?) {
         // Show error message if needed
         // error?.let {

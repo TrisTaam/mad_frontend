@@ -36,6 +36,7 @@ class MedicineDetailViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Resource.Error -> {
                     _uiState.update {
                         it.copy(
@@ -44,23 +45,25 @@ class MedicineDetailViewModel @Inject constructor(
                         )
                     }
                 }
-                is Resource.Exception->{
+
+                is Resource.Exception -> {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            error=result.throwable.message ?: "Lỗi fetchMedicineDetail"
+                            error = result.throwable.message ?: "Lỗi fetchMedicineDetail"
                         )
                     }
                 }
             }
         }
     }
-    
+
     fun checkMedicineInteractions(newMedicineId: Long, existingMedicineIds: List<Long>) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-            
-            when (val result = medicineRepository.checkMedicineInteractions(newMedicineId, existingMedicineIds)) {
+
+            when (val result =
+                medicineRepository.checkMedicineInteractions(newMedicineId, existingMedicineIds)) {
                 is Resource.Success -> {
                     _uiState.update {
                         it.copy(
@@ -70,6 +73,7 @@ class MedicineDetailViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Resource.Error -> {
                     _uiState.update {
                         it.copy(
@@ -78,6 +82,7 @@ class MedicineDetailViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Resource.Exception -> {
                     _uiState.update {
                         it.copy(
@@ -89,17 +94,13 @@ class MedicineDetailViewModel @Inject constructor(
             }
         }
     }
-    
-    fun clearMedicineInteraction() {
-        _uiState.update { it.copy(medicineInteraction = null) }
-    }
-    
+
     fun addMedicineToPrescription(medicineId: Long) {
         viewModelScope.launch {
             try {
             } catch (e: Exception) {
-                _uiState.update { 
-                    it.copy(error = "Không thể thêm thuốc vào đơn: ${e.message}") 
+                _uiState.update {
+                    it.copy(error = "Không thể thêm thuốc vào đơn: ${e.message}")
                 }
             }
         }

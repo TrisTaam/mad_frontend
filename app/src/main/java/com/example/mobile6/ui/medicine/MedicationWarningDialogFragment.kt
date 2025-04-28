@@ -29,14 +29,12 @@ class MedicationWarningDialogFragment : BaseDialog<FragmentMedicationWarningDial
         binding.tvWarningMessage.text = message
 
         binding.btnWarningReview.setOnClickListener {
-            viewModel.clearMedicineInteraction()
             dismiss()
         }
 
         binding.btnWarningContinue.setOnClickListener {
             // Hải xử lý giúp phần này nhé, ấn vào đây thì mình cho thuốc này vào đơn luôn
             viewModel.addMedicineToPrescription(medicineId)
-            viewModel.clearMedicineInteraction()
             dismiss()
         }
     }

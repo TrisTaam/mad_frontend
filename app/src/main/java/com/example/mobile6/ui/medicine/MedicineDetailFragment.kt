@@ -43,6 +43,8 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
         binding.addToPrescriptionButton.setOnClickListener {
             val existingMedicineIds = listOf(
+                2L,
+                3L,
                 4L,
                 5L
             ) // (Sau Hải sửa cái này nhé - ném list id của các thuốc đang có trong đơn thuốc vào đây)
@@ -54,8 +56,14 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { state ->
-                    handleLoadingState(state.isLoading)
-                    handleErrorState(state.error)
+                    if (state.isLoading) {
+                        handleLoadingState(true)
+                        return@collectLatest
+                    }
+                    if (state.error != null) {
+                        handleErrorState(state.error)
+                        return@collectLatest
+                    }
                     state.medicine?.let {
                         bindMedicineData(it)
                     }
