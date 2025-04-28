@@ -1,5 +1,6 @@
 package com.example.mobile6.data.repository
 
+import com.example.mobile6.data.remote.dto.request.MessageRequest
 import com.example.mobile6.data.remote.service.MessageService
 import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.domain.model.Message
@@ -11,7 +12,8 @@ class MessageRepositoryImpl @Inject constructor(
     private val messageService: MessageService
 ) : MessageRepository {
     override suspend fun sendMessage(senderId: Long, receiverId: Long, content: String): Message {
-        return messageService.sendMessage(senderId, receiverId, content)
+        val request = MessageRequest(senderId, receiverId, content)
+        return messageService.sendMessage(request)
     }
 
     override suspend fun getConversation(user1Id: Long, user2Id: Long): List<Message> {
@@ -19,7 +21,7 @@ class MessageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllUsersForDoctor(doctorId: Long): List<User> {
-        return messageService.getAllUsersForDoctor(doctorId)
+        return messageService.getAllUsersForDoctor(id = doctorId, doctorId = doctorId)
     }
 
     override suspend fun getAllDoctorsForUser(userId: Long): List<Doctor> {

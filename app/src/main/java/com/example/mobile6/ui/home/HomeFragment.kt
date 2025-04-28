@@ -48,6 +48,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             navigateTo(R.id.action_homeFragment_to_testDialogFragment)
         }
 
+        binding.btnTestChat.setOnClickListener {
+            navigateTo(R.id.action_homeFragment_to_chatListDoctorFragment)
+        }
     }
 
     override fun initObservers() {
