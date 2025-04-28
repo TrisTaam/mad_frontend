@@ -28,4 +28,18 @@ class DoctorRepositoryImpl @Inject constructor(
                 doctors.map { it.toDoctor() }
             }
     }
+
+    override suspend fun getDoctorsBySpecialty(specialty: String): Resource<List<Doctor>> =
+        withContext(Dispatchers.IO) {
+            doctorService.getDoctorsBySpecialty(specialty)
+                .onError { message, code ->
+                    Timber.e("Lỗi khi lấy danh sách bác sĩ: $message, code: $code")
+                }
+                .onException { e ->
+                    Timber.e(e, "Ngoại lệ khi lấy danh sách bác sĩ")
+                }
+                .map { doctors ->
+                    doctors.map { it.toDoctor() }
+                }
+        }
 }

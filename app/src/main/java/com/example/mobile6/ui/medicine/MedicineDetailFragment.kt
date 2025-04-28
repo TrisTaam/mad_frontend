@@ -7,14 +7,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import com.bumptech.glide.Glide
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentMedicineDetailBinding
 import com.example.mobile6.domain.model.Medicine
 import com.example.mobile6.domain.model.MedicineInteraction
 import com.example.mobile6.ui.base.BaseFragment
-import com.example.mobile6.ui.util.defaultAnim
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

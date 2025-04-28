@@ -6,6 +6,15 @@ import com.example.mobile6.domain.model.Doctor
 fun DoctorResponse.toDoctor(): Doctor {
     return Doctor(
         id = id,
-        specialty = specialty
+        specialty = specialty,
+        firstName = firstName,
+        lastName = lastName,
+        email = email,
+        phoneNumber = phoneNumber,
+        gender = gender,
+        dateOfBirth = dateOfBirth,
+        weight = weight,
+        height = height,
+        role = role
     )
 }

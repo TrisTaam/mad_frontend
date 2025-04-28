@@ -40,7 +40,7 @@ class DoctorSpecialtyFragment : BaseFragment<FragmentDoctorSpecialtyBinding>() {
     private fun setupRecyclerView() {
         doctorAdapter = DoctorAdapter { doctor ->
             val bundle = Bundle().apply {
-                putLong("doctorId", doctor.id)
+                putString("specialty", doctor.specialty)
             }
             navigateTo(
                 R.id.action_doctorSpecialtyFragment_to_doctorListFragment,
