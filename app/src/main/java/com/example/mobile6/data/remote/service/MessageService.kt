@@ -3,6 +3,7 @@ package com.example.mobile6.data.remote.service
 import com.example.mobile6.data.remote.dto.request.MessageRequest
 import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.domain.model.Message
+import com.example.mobile6.domain.model.Resource
 import com.example.mobile6.domain.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,13 +19,13 @@ interface MessageService {
     suspend fun getAllDoctorsForUser(
         @Path("id") id: Long,
         @Query("userId") userId: Long
-    ): List<Doctor>
+    ): Resource<List<Doctor>>
 
     /**
      * Gửi tin nhắn
      */
     @POST("/api/v1/message/send")
-    suspend fun sendMessage(@Body request: MessageRequest): Message
+    suspend fun sendMessage(@Body request: MessageRequest): Resource<Message>
 
     /**
      * Lấy hội thoại giữa 2 user
@@ -33,7 +34,7 @@ interface MessageService {
     suspend fun getConversation(
         @Query("user1") user1Id: Long,
         @Query("user2") user2Id: Long
-    ): List<Message>
+    ): Resource<List<Message>>
 
     /**
      * Lấy danh sách user đã từng tư vấn với bác sĩ
@@ -42,6 +43,5 @@ interface MessageService {
     suspend fun getAllUsersForDoctor(
         @Path("id") id: Long,
         @Query("doctorId") doctorId: Long
-    ): List<User>
+    ): Resource<List<User>>
 }
-
