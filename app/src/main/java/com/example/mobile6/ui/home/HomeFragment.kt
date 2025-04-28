@@ -47,6 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.btnTestDialog.setOnClickListener {
             navigateTo(R.id.action_homeFragment_to_testDialogFragment)
         }
+
     }
 
     override fun initObservers() {
