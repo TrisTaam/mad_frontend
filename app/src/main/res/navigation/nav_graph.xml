@@ -135,4 +135,9 @@
         android:name="com.example.mobile6.ui.test.TestDialogFragment"
         android:label="fragment_test_dialog"
         tools:layout="@layout/fragment_test_dialog" />
+    <fragment
+        android:id="@+id/profileCompletionFragment"
+        android:name="com.example.mobile6.ui.profile.ProfileCompletionFragment"
+        android:label="fragment_profile_completion"
+        tools:layout="@layout/fragment_profile_completion" />
 </navigation>
