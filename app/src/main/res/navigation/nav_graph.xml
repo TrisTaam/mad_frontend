@@ -140,4 +140,16 @@
         android:name="com.example.mobile6.ui.profile.ProfileCompletionFragment"
         android:label="fragment_profile_completion"
         tools:layout="@layout/fragment_profile_completion" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.mobile6.ui.auth.register.RegisterFragment"
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_profileCompletionFragment"
+            app:destination="@id/profileCompletionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 </navigation>

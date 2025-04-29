@@ -6,10 +6,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentSignInBinding
 import com.example.mobile6.ui.MainActivity
 import com.example.mobile6.ui.base.BaseFragment
+import com.example.mobile6.ui.util.defaultAnim
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -26,6 +28,9 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
     override fun initViews() {
         binding.btnTestSignIn.setOnClickListener {
             viewModel.signIn("0865231695", "12345678")
+        }
+        binding.btnTestRegister.setOnClickListener{
+            navigateTo(R.id.registerFragment, null, NavOptions.Builder().defaultAnim().build())
         }
     }
 

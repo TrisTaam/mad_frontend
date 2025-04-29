@@ -3,6 +3,7 @@ package com.example.mobile6.data.repository
 import com.example.mobile6.data.local.TokenManager
 import com.example.mobile6.data.remote.dto.request.RefreshTokenRequest
 import com.example.mobile6.data.remote.dto.request.SignInRequest
+import com.example.mobile6.data.remote.dto.request.SignUpRequest
 import com.example.mobile6.data.remote.service.AuthService
 import com.example.mobile6.data.remote.util.map
 import com.example.mobile6.data.remote.util.onError
@@ -38,6 +39,22 @@ class AuthRepositoryImpl @Inject constructor(
             }
             .onException { e ->
                 tokenManager.clearTokens()
+            }
+            .map {
+                true
+            }
+    }
+
+    override suspend fun signUp(request: SignUpRequest): Resource<Boolean> = withContext(Dispatchers.IO) {
+        authService.signUp(request)
+            .onSuccess { data, message ->
+                Timber.i("Đăng ký thành công: $message")
+            }
+            .onError { code, error ->
+                Timber.e("Lỗi đăng ký: $error - Mã lỗi: $code")
+            }
+            .onException { e ->
+                Timber.e("Lỗi đăng ký:", e)
             }
             .map {
                 true
