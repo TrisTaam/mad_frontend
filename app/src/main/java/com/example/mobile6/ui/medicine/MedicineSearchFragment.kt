@@ -8,13 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentMedicineSearchBinding
 import com.example.mobile6.ui.adapter.MedicineAdapter
 import com.example.mobile6.ui.base.BaseFragment
-import com.example.mobile6.ui.util.defaultAnim
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

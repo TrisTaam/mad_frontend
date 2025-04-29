@@ -16,7 +16,6 @@ import com.example.mobile6.ui.adapter.DoctorListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
