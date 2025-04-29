@@ -2,8 +2,6 @@ package com.example.mobile6.ui.profile
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -46,12 +44,10 @@ class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>(
         binding.cvGender.setOnClickListener {
             showGenderSelectionDialog()
         }
-
         // Date of birth selection
         binding.cvDateOfBirth.setOnClickListener {
             showDatePickerDialog()
         }
-
         // Complete button
         binding.btnComplete.setOnClickListener {
             validateAndSaveProfile()
@@ -68,27 +64,23 @@ class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>(
         }
 
         // Observe date of birth changes
-        viewModel.dateOfBirth.observe(viewLifecycleOwner) { timestamp ->
-            if (timestamp > 0) {
-                val calendar = Calendar.getInstance().apply {
-                    timeInMillis = timestamp
-                }
-                val formattedDate = dateFormatter.format(calendar.time)
+        viewModel.dateOfBirth.observe(viewLifecycleOwner) { date ->
+            if (date != null) {
+                val formattedDate = dateFormatter.format(date)
                 binding.tvDateOfBirth.text = formattedDate
                 binding.tvDateOfBirth.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
             }
         }
+
     }
 
     private fun showGenderSelectionDialog() {
         val dialog = Dialog(requireContext()).apply {
             setContentView(R.layout.dialog_gender_selection)
         }
-
         val radioGroup = dialog.findViewById<RadioGroup>(R.id.rg_gender)
         val btnCancel = dialog.findViewById<Button>(R.id.btn_cancel)
         val btnConfirm = dialog.findViewById<Button>(R.id.btn_confirm)
-
         // Pre-select the previously selected gender if any
         viewModel.gender.value?.let { currentGender ->
             when (currentGender) {
@@ -97,11 +89,9 @@ class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>(
                 "Khác" -> dialog.findViewById<RadioButton>(R.id.rb_other).isChecked = true
             }
         }
-
         btnCancel.setOnClickListener {
             dialog.dismiss()
         }
-
         btnConfirm.setOnClickListener {
             val selectedId = radioGroup.checkedRadioButtonId
             if (selectedId != -1) {
@@ -110,42 +100,37 @@ class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>(
             }
             dialog.dismiss()
         }
-
         dialog.show()
     }
 
     private fun showDatePickerDialog() {
-        val calendar = if (viewModel.dateOfBirth.value != null && viewModel.dateOfBirth.value!! > 0) {
+        val calendar = if (viewModel.dateOfBirth.value != null) {
             Calendar.getInstance().apply {
-                timeInMillis = viewModel.dateOfBirth.value!!
+                timeInMillis = viewModel.dateOfBirth.value?.time!!
             }
         } else {
             Calendar.getInstance()
         }
-
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->
                 val selectedCalendar = Calendar.getInstance().apply {
                     set(year, month, dayOfMonth)
                 }
-                viewModel.setDateOfBirth(selectedCalendar.timeInMillis)
+                viewModel.setDateOfBirth(selectedCalendar.time)
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
-
         // Set max date to current date (no future dates)
         datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-
         datePickerDialog.show()
     }
 
     private fun validateAndSaveProfile() {
         val weight = binding.etWeight.text.toString()
         val height = binding.etHeight.text.toString()
-
         viewModel.validateAndSaveProfile(weight, height)
     }
 

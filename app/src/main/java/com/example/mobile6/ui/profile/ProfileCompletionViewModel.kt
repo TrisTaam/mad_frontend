@@ -1,16 +1,20 @@
 package com.example.mobile6.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobile6.data.remote.dto.request.UpdateAdditionalUserInfoRequest
+import com.example.mobile6.data.remote.util.onError
+import com.example.mobile6.data.remote.util.onSuccess
 import com.example.mobile6.domain.repository.UserRepository
+import com.example.mobile6.ui.util.DateUtils.toRequestDateString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,8 +28,8 @@ class ProfileCompletionViewModel @Inject constructor(
     private val _gender = MutableLiveData<String>()
     val gender: LiveData<String> = _gender
 
-    private val _dateOfBirth = MutableLiveData<Long>()
-    val dateOfBirth: LiveData<Long> = _dateOfBirth
+    private val _dateOfBirth = MutableLiveData<Date>()
+    val dateOfBirth: LiveData<Date> = _dateOfBirth
 
     private val _weightError = MutableLiveData<String?>()
     val weightError: LiveData<String?> = _weightError
@@ -40,7 +44,7 @@ class ProfileCompletionViewModel @Inject constructor(
         _gender.value = gender
     }
 
-    fun setDateOfBirth(timestamp: Long) {
+    fun setDateOfBirth(timestamp: Date) {
         _dateOfBirth.value = timestamp
     }
 
@@ -60,7 +64,7 @@ class ProfileCompletionViewModel @Inject constructor(
         }
 
         // Validate date of birth
-        if (_dateOfBirth.value == null || _dateOfBirth.value == 0L) {
+        if (_dateOfBirth.value == null || _dateOfBirth.value?.time == 0L) {
             viewModelScope.launch {
                 _uiMessage.emit("Vui lòng chọn ngày sinh")
             }
@@ -103,25 +107,31 @@ class ProfileCompletionViewModel @Inject constructor(
 
         // If all validations pass, save the profile
         if (isValid) {
-            saveProfile(weightStr.toFloat(), heightStr.toInt())
+            saveProfile(weightStr.toInt(), heightStr.toInt())
         }
     }
 
-    private fun saveProfile(weight: Float, height: Int) {
+    private fun saveProfile(weight: Int, height: Int) {
         viewModelScope.launch {
             try {
-                val userProfile = UserProfile(
+                val userProfile = UpdateAdditionalUserInfoRequest(
                     gender = _gender.value ?: "",
-                    dateOfBirth = _dateOfBirth.value ?: 0,
+                    dateOfBirth = _dateOfBirth.value?.toRequestDateString() ?: "",
                     weight = weight,
                     height = height
                 )
 
-//                userRepository.saveUserProfile(userProfile)
-                Timber.tag("PROFILE_COMPLETION").d("SAVE USER : $userProfile")
-                _uiMessage.emit("Hồ sơ đã được lưu thành công")
+                userRepository.updateAdditionalInformation(userProfile)
+                    .onSuccess { data, message ->
+                        _uiMessage.emit("Hồ sơ đã được lưu thành công")
+                    }
+                    .onError { message, code ->
+                        _uiMessage.emit("Lưu không thành công")
+                    }
+
                 _navigateToNextScreen.value = true
             } catch (e: Exception) {
+                Timber.e(e)
                 _uiMessage.emit("Lỗi: ${e.message}")
             }
         }
@@ -131,10 +141,3 @@ class ProfileCompletionViewModel @Inject constructor(
         _navigateToNextScreen.value = false
     }
 }
-
-data class UserProfile(
-    val gender: String,
-    val dateOfBirth: Long,
-    val weight: Float,
-    val height: Int
-)
