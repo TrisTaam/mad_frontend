@@ -24,11 +24,6 @@
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
     <fragment
-        android:id="@+id/appointmentsFragment"
-        android:name="com.example.mobile6.ui.appointments.AppointmentsFragment"
-        android:label="fragment_appointments"
-        tools:layout="@layout/fragment_appointments" />
-    <fragment
         android:id="@+id/prescriptionsFragment"
         android:name="com.example.mobile6.ui.prescriptions.PrescriptionsFragment"
         android:label="fragment_prescriptions"
@@ -129,7 +124,20 @@
         android:id="@+id/doctorDetailFragment"
         android:name="com.example.mobile6.ui.doctor.doctor_detail.DoctorDetailFragment"
         android:label="fragment_doctor_detail"
-        tools:layout="@layout/fragment_doctor_detail" />
+        tools:layout="@layout/fragment_doctor_detail">
+        <action
+            android:id="@+id/action_doctorDetailFragment_to_appointmentsFragment"
+            app:destination="@id/appointmentsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointmentsFragment"
+        android:name="com.example.mobile6.ui.appointments.AppointmentsFragment"
+        android:label="fragment_appointments"
+        tools:layout="@layout/fragment_appointments" />
     <dialog
         android:id="@+id/testDialogFragment"
         android:name="com.example.mobile6.ui.test.TestDialogFragment"

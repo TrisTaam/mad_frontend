@@ -38,7 +38,7 @@ class DoctorDetailFragment : BaseFragment<FragmentDoctorDetailBinding>() {
         }
 
         binding.appointmentButton.setOnClickListener {
-            Timber.d("muinv onClick appointment")
+            navigateTo(R.id.action_doctorDetailFragment_to_appointmentsFragment)
         }
 
         doctor?.let { doctor ->
