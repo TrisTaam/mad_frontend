@@ -16,7 +16,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val testRepository: TestRepository
 ) : ViewModel() {
-    private val _testMessage = MutableSharedFlow<String>(replay = 1)
+    private val _testMessage = MutableSharedFlow<String>()
     val testMessage = _testMessage.asSharedFlow()
 
     fun test3() {
