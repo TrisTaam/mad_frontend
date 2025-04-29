@@ -134,11 +134,6 @@ class DoctorAppointmentsFragment : BaseFragment<FragmentDoctorAppointmentsBindin
             return false
         }
 
-        if (binding.appointmentReason.text.toString().trim().isEmpty()) {
-            Toast.makeText(requireContext(), "Vui lòng nhập lý do khám bệnh", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
         return true
     }
 
