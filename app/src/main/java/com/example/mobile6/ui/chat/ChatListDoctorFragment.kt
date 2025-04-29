@@ -9,11 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.mobile6.databinding.FragmentChatListDoctorBinding
 import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import android.widget.Toast
+import com.example.mobile6.R
 
 @AndroidEntryPoint
 class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
@@ -27,7 +29,14 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
 
     override fun initViews() {
         messageAdapter = MessageAdapter { doctor ->
-            // Xử lý khi chọn bác sĩ (ví dụ: mở chat)
+            val bundle = Bundle().apply {
+                putString("doctorName", doctor.firstname + " " + doctor.lastname)
+                // Nếu có id: putLong("doctorId", doctor.id)
+            }
+            findNavController().navigate(
+                R.id.action_chatListDoctorFragment_to_chatBoxFragment,
+                bundle
+            )
         }
         binding.rvDoctorList.apply {
             adapter = messageAdapter

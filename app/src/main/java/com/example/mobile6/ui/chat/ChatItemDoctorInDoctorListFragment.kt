@@ -18,6 +18,7 @@ class ChatItemDoctorInDoctorListFragment : BaseFragment<FragmentChatItemDoctorIn
         }
 
     override fun initViews() {
+
     }
 
     override fun initObservers() {

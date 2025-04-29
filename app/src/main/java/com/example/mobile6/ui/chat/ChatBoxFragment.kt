@@ -18,6 +18,11 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
         }
 
     override fun initViews() {
+        // Nhận dữ liệu truyền sang từ ChatListDoctorFragment
+        val doctorName = arguments?.getString("doctorName")
+        // Nếu có id: val doctorId = arguments?.getLong("doctorId")
+        // Hiển thị tên bác sĩ trên giao diện (ví dụ)
+        binding.tvDoctorName?.text = doctorName
     }
 
     override fun initObservers() {
