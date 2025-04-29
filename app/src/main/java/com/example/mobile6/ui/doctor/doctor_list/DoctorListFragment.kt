@@ -16,6 +16,7 @@ import com.example.mobile6.ui.adapter.DoctorListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
@@ -31,7 +32,9 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
 
     override fun processArguments(args: Bundle) {
         specialty = arguments?.getString("specialty") ?: ""
-        viewModel.fetchDoctorsBySpecialty(specialty)
+        if (viewModel.uiState.value.doctors.isEmpty()) {
+            viewModel.fetchDoctorsBySpecialty(specialty)
+        }
     }
 
     override fun initViews() {
@@ -61,6 +64,7 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
     }
 
     private fun setupSearchView() {
+        viewModel.searchDoctors("Mùi")
         binding.searchEditText.doOnTextChanged { text, _, _, _ ->
             viewModel.searchDoctors(text.toString())
         }

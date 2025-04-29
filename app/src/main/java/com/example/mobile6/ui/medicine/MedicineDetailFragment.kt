@@ -31,7 +31,9 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
     override fun processArguments(args: Bundle) {
         medicineId = arguments?.getLong("medicineId") ?: 0L
-        viewModel.fetchMedicineDetail(medicineId)
+        if (viewModel.uiState.value.medicine == null) {
+            viewModel.fetchMedicineDetail(medicineId)
+        }
     }
 
     override fun initViews() {
