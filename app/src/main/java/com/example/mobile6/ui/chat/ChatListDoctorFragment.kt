@@ -31,9 +31,8 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
         }
         binding.rvDoctorList.adapter = messageAdapter
 
-        // Gọi lấy danh sách bác sĩ cho user hiện tại
-        val userId = getCurrentUserId() // TODO: thay bằng cách lấy userId thực tế
-        viewModel.fetchDoctorsForUser(userId)
+        // Gọi lấy danh sách bác sĩ cho user hiện tại, KHÔNG cần userId nữa
+        viewModel.fetchDoctorsForUser()
     }
 
     override fun initObservers() {
@@ -70,10 +69,5 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
                 }
             }
         }
-    }
-
-    private fun getCurrentUserId(): Long {
-        // TODO: Lấy userId thực tế từ SharedPreferences, SessionManager hoặc AuthManager
-        return 1L // Giá trị mẫu
     }
 }

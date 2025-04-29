@@ -9,5 +9,5 @@ interface MessageRepository {
     suspend fun sendMessage(senderId: Long, receiverId: Long, content: String): Resource<Message>
     suspend fun getConversation(user1Id: Long, user2Id: Long): Resource<List<Message>>
     suspend fun getAllUsersForDoctor(doctorId: Long): Resource<List<User>>
-    suspend fun getAllDoctorsForUser(userId: Long): Resource<List<Doctor>>
+    suspend fun getAllDoctorsForUser(): Resource<List<Doctor>>
 }

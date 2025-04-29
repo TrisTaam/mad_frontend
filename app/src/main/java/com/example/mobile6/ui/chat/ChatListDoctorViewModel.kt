@@ -30,13 +30,13 @@ class ChatListDoctorViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
-    fun fetchDoctorsForUser(userId: Long) {
+    fun fetchDoctorsForUser() {
         viewModelScope.launch {
             _isLoading.value = true
-            val result = messageRepository.getAllDoctorsForUser(userId)
+            val result = messageRepository.getAllDoctorsForUser()
             result
                 .onSuccess { doctors, _ ->
-                    _doctors.update { doctors }
+                    _doctors.update { doctors.map { Doctor(it.specialty, it.firstname, it.lastname) } }
                     _uiMessage.emit("Lấy danh sách bác sĩ thành công")
                 }
                 .onError { message, _ ->

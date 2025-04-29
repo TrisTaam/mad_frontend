@@ -15,11 +15,8 @@ interface MessageService {
     /**
      * Lấy danh sách bác sĩ đã từng tư vấn với user
      */
-    @GET("/api/v1/message/getAllDoctors/{id}")
-    suspend fun getAllDoctorsForUser(
-        @Path("id") id: Long,
-        @Query("userId") userId: Long
-    ): Resource<List<Doctor>>
+    @GET("/api/v1/message/getAllDoctors")
+    suspend fun getAllDoctorsForUser(): Resource<List<Doctor>>
 
     /**
      * Gửi tin nhắn
@@ -39,7 +36,7 @@ interface MessageService {
     /**
      * Lấy danh sách user đã từng tư vấn với bác sĩ
      */
-    @GET("/api/v1/message/getAllUsers/{id}")
+    @GET("/api/v1/message/getAllUsers/")
     suspend fun getAllUsersForDoctor(
         @Path("id") id: Long,
         @Query("doctorId") doctorId: Long

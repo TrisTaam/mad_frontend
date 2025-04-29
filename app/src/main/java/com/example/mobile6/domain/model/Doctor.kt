@@ -1,13 +1,15 @@
 package com.example.mobile6.domain.model
 
+import kotlinx.serialization.Serializable
+
 /**
- * Doctor model tương ứng với entity Doctor ở backend
+ * Doctor model tương ứng với response DoctorInfoResponse ở backend
  */
+@Serializable
 data class Doctor(
-    val id: Long,
     val specialty: String,
-    val name: String?, // Nếu backend trả về tên bác sĩ, thêm trường này
-    val avatarUrl: String? = null // Nếu backend trả về ảnh bác sĩ
+    val firstname: String,
+    val lastname: String
 )
 
 /**

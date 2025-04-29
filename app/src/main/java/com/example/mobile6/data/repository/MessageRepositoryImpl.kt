@@ -29,8 +29,8 @@ class MessageRepositoryImpl @Inject constructor(
             messageService.getAllUsersForDoctor(id = doctorId, doctorId = doctorId)
         }
 
-    override suspend fun getAllDoctorsForUser(userId: Long): Resource<List<Doctor>> =
+    override suspend fun getAllDoctorsForUser(): Resource<List<Doctor>> =
         withContext(Dispatchers.IO) {
-            messageService.getAllDoctorsForUser(id = userId, userId = userId)
+            messageService.getAllDoctorsForUser()
         }
 }

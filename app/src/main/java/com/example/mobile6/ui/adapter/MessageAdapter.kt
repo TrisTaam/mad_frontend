@@ -32,7 +32,7 @@ class MessageAdapter(
     inner class DoctorViewHolder(private val binding: FragmentChatItemDoctorInDoctorListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(doctor: Doctor) {
-            binding.tvDoctorName.text = doctor.name
+            binding.tvDoctorName.text = "${doctor.firstname} ${doctor.lastname}"
             binding.tvDoctorSpecialty.text = doctor.specialty
             // Nếu có avatarUrl thì load bằng Glide/Picasso vào binding.doctorAvatar
             binding.btnSelect.setOnClickListener { onDoctorClick(doctor) }
