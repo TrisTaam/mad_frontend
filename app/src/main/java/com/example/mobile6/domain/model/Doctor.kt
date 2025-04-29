@@ -1,7 +1,10 @@
 package com.example.mobile6.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.sql.Date
 
+@Parcelize
 data class Doctor(
     val id: Long,
     val specialty: String?,
@@ -14,5 +17,6 @@ data class Doctor(
     val weight: Int?,
     val height: Int?,
     val role: String?,
-    val avatar: String?
-)
+    val avatar: String?,
+    val doctorInfos: List<DoctorInfo>?
+) : Parcelable

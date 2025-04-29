@@ -16,6 +16,7 @@ fun DoctorResponse.toDoctor(): Doctor {
         weight = weight,
         height = height,
         role = role,
-        avatar = avatar
+        avatar = avatar,
+        doctorInfos = doctorInfos?.map { it.toDoctorInfo() }
     )
 }

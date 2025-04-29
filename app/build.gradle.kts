@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kotlin.plugin.serialization)
+    id("kotlin-parcelize")
 }
 
 android {

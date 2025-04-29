@@ -10,15 +10,15 @@ import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.ui.base.BaseAdapter
 
 class DoctorListAdapter(
-    private val onMedicineClick: (Doctor) -> Unit
-) : BaseAdapter<Doctor, DoctorListAdapter.DoctorViewHolder>(
+    private val onDoctorClick: (Doctor) -> Unit
+) : BaseAdapter<Doctor, DoctorListAdapter.DoctorListViewHolder>(
     simpleDiffCallback<Doctor>(
         areItemsTheSame = { old, new -> old.id == new.id },
         areContentsTheSame = { old, new -> old == new }
     )
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
-        return DoctorViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorListViewHolder {
+        return DoctorListViewHolder(
             ItemDoctorBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -27,12 +27,12 @@ class DoctorListAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: DoctorViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DoctorListViewHolder, position: Int) {
         val doctor = getItem(position)
         holder.bind(doctor)
     }
 
-    inner class DoctorViewHolder(private val binding: ItemDoctorBinding) :
+    inner class DoctorListViewHolder(private val binding: ItemDoctorBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(doctor: Doctor) {
             binding.apply {
@@ -43,7 +43,7 @@ class DoctorListAdapter(
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .error(R.drawable.ic_launcher_foreground)
                     .into(doctorAvatar)
-                root.setOnClickListener { onMedicineClick(doctor) }
+                root.setOnClickListener { onDoctorClick(doctor) }
             }
         }
     }

@@ -18,5 +18,6 @@ data class DoctorResponse(
     val weight: Int? = null,
     val height: Int? = null,
     val role: String? = null,
-    val avatar: String? = null
+    val avatar: String? = null,
+    val doctorInfos: List<DoctorInfoResponse>? = null
 )

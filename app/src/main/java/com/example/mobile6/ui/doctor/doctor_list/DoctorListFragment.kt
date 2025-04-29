@@ -11,11 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mobile6.R
 import com.example.mobile6.ui.adapter.DoctorListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
@@ -32,7 +32,6 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
     override fun processArguments(args: Bundle) {
         specialty = arguments?.getString("specialty") ?: ""
         viewModel.fetchDoctorsBySpecialty(specialty)
-        Timber.d("muinv ${viewModel.uiState}")
     }
 
     override fun initViews() {
@@ -45,7 +44,15 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
     }
 
     private fun setupRecyclerView() {
-        doctorListAdapter = DoctorListAdapter {  }
+        doctorListAdapter = DoctorListAdapter { doctor ->
+            val bundle = Bundle().apply {
+                putParcelable("doctor", doctor)
+            }
+            navigateTo(
+                R.id.action_doctorListFragment_to_doctorDetailFragment,
+                bundle
+            )
+        }
 
         binding.doctorsRecyclerView.apply {
             adapter = doctorListAdapter
@@ -57,6 +64,7 @@ class DoctorListFragment : BaseFragment<FragmentDoctorListBinding>() {
         binding.searchEditText.doOnTextChanged { text, _, _, _ ->
             viewModel.searchDoctors(text.toString())
         }
+        binding.listTitle.text = "Danh sách bác sĩ $specialty"
     }
 
     override fun initObservers() {

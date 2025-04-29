@@ -8,15 +8,15 @@ import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.ui.base.BaseAdapter
 
 class DoctorSpecialtyAdapter(
-    private val onMedicineClick: (Doctor) -> Unit
-) : BaseAdapter<Doctor, DoctorSpecialtyAdapter.DoctorViewHolder>(
+    private val onDoctorSpecialtyClick: (Doctor) -> Unit
+) : BaseAdapter<Doctor, DoctorSpecialtyAdapter.DoctorSpecialtyViewHolder>(
     simpleDiffCallback<Doctor>(
         areItemsTheSame = { old, new -> old.id == new.id },
         areContentsTheSame = { old, new -> old == new }
     )
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
-        return DoctorViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorSpecialtyViewHolder {
+        return DoctorSpecialtyViewHolder(
             ItemDoctorSpecialtyBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -25,17 +25,17 @@ class DoctorSpecialtyAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: DoctorViewHolder, position: Int) {
-        val doctor = getItem(position)
-        holder.bind(doctor)
+    override fun onBindViewHolder(holder: DoctorSpecialtyViewHolder, position: Int) {
+        val doctorSpecialty = getItem(position)
+        holder.bind(doctorSpecialty)
     }
 
-    inner class DoctorViewHolder(private val binding: ItemDoctorSpecialtyBinding) :
+    inner class DoctorSpecialtyViewHolder(private val binding: ItemDoctorSpecialtyBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(doctor: Doctor) {
             binding.apply {
                 doctorSpecialty.text = doctor.specialty
-                root.setOnClickListener { onMedicineClick(doctor) }
+                root.setOnClickListener { onDoctorSpecialtyClick(doctor) }
             }
         }
     }
