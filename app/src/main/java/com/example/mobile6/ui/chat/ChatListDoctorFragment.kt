@@ -29,9 +29,10 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
         messageAdapter = MessageAdapter { doctor ->
             // Xử lý khi chọn bác sĩ (ví dụ: mở chat)
         }
-        binding.rvDoctorList.adapter = messageAdapter
-
-        // Gọi lấy danh sách bác sĩ cho user hiện tại, KHÔNG cần userId nữa
+        binding.rvDoctorList.apply {
+            adapter = messageAdapter
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+        }
         viewModel.fetchDoctorsForUser()
     }
 

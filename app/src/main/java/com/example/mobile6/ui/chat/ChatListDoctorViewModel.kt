@@ -1,5 +1,6 @@
 package com.example.mobile6.ui.chat
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile6.data.remote.util.onError
@@ -36,14 +37,20 @@ class ChatListDoctorViewModel @Inject constructor(
             val result = messageRepository.getAllDoctorsForUser()
             result
                 .onSuccess { doctors, _ ->
+                    Log.d("ChatListDoctorViewModel", "Doctors: size=${doctors.size}, data=$doctors")
+                    if (doctors.isEmpty()) {
+                        Log.d("ChatListDoctorViewModel", "Danh sách bác sĩ rỗng!")
+                    }
                     _doctors.update { doctors.map { Doctor(it.specialty, it.firstname, it.lastname) } }
                     _uiMessage.emit("Lấy danh sách bác sĩ thành công")
                 }
                 .onError { message, _ ->
+                    Log.d("ChatListDoctorViewModel", "Lỗi lấy danh sách bác sĩ: $message")
                     _doctors.update { emptyList() }
                     _uiMessage.emit(message)
                 }
                 .onException { throwable ->
+                    Log.d("ChatListDoctorViewModel", "Exception: ${throwable.message}")
                     _doctors.update { emptyList() }
                     _uiMessage.emit(throwable.message ?: "Có lỗi xảy ra")
                 }
