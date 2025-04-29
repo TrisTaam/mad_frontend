@@ -52,7 +52,7 @@ class RegisterFragment : BaseFragment<FragmentAuthRegisterBinding>() {
 
     private fun navigateToLogin() {
         // Navigate to login screen
-        navigateTo(R.id.signInFragment, null, NavOptions.Builder().defaultAnim().build())
+        navigateTo(R.id.action_registerFragment_to_loginFragment)
     }
 
     override fun initObservers() {
@@ -101,13 +101,11 @@ class RegisterFragment : BaseFragment<FragmentAuthRegisterBinding>() {
         // Observe loading state
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.btnRegister.isEnabled = !isLoading
-            // You can also show a progress indicator if needed
         }
 
         // Observe registration success
         viewModel.registrationSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
-                // Navigate to next screen (e.g., profile completion or home)
                 navigateTo(R.id.action_registerFragment_to_profileCompletionFragment)
                 viewModel.resetRegistrationSuccess()
             }
