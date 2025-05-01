@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentMedicationWarningDialogBinding
 import com.example.mobile6.ui.base.BaseDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MedicationWarningDialogFragment : BaseDialog<FragmentMedicationWarningDialogBinding>() {
@@ -33,9 +35,12 @@ class MedicationWarningDialogFragment : BaseDialog<FragmentMedicationWarningDial
         }
 
         binding.btnWarningContinue.setOnClickListener {
-            // Hải xử lý giúp phần này nhé, ấn vào đây thì mình cho thuốc này vào đơn luôn
-            viewModel.addMedicineToPrescription(medicineId)
+            val bundle = Bundle().apply {
+                putSerializable("selectedMedicine", viewModel.uiState.value.medicine)
+            }
+            parentFragmentManager.setFragmentResult("prescriptionDataSelectMedicine", bundle)
             dismiss()
+            navigateTo(R.id.prescriptionCreateFragment)
         }
     }
 

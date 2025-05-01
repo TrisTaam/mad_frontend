@@ -167,4 +167,20 @@
         android:id="@+id/genderSelectDialogFragment"
         android:name="com.example.mobile6.ui.profile.GenderSelectDialogFragment"
         android:label="GenderSelectDialogFragment" />
+    <fragment
+        android:id="@+id/prescriptionCreateFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionCreateFragment"
+        android:label="PrescriptionCreateFragment" >
+        <action
+            android:id="@+id/action_prescriptionCreateFragment_to_prescriptionDetailEditFragment"
+            app:destination="@id/prescriptionDetailEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prescriptionDetailEditFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailEditFragment"
+        android:label="PrescriptionDetailEditFragment" >
+        <action
+            android:id="@+id/action_prescriptionDetailEditFragment_to_medicineSearchFragment"
+            app:destination="@id/medicineSearchFragment" />
+    </fragment>
 </navigation>

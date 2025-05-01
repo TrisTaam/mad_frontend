@@ -213,7 +213,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_medicine_details"
                 tools:itemCount="2"
-                tools:listitem="@layout/item_medicine_in_prescription" />
+                tools:listitem="@layout/item_prescription_detail" />
 
             <!-- Add Medicine FAB -->
             <com.google.android.material.floatingactionbutton.FloatingActionButton

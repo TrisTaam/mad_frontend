@@ -33,4 +33,13 @@ object DateUtils {
     // Helper: Convert java.util.Date to java.time.LocalDate
     fun Date.toLocalDate(): LocalDate =
         this.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+
+    fun String.toUtilDate(): Date = DateUtils.dateFormatter.parse(this)!!
+
+    fun String.toLocalDateTime(): LocalDateTime =
+        LocalDateTime.parse(this, DateUtils.isoDateTimeFormatter)
+
+    // Convert LocalDateTime to string
+    fun LocalDateTime.toRequestDateTimeString(): String =
+        this.format(isoDateTimeFormatter)
 }
