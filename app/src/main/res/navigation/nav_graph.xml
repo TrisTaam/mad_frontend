@@ -139,7 +139,11 @@
         android:id="@+id/profileCompletionFragment"
         android:name="com.example.mobile6.ui.profile.ProfileCompletionFragment"
         android:label="fragment_profile_completion"
-        tools:layout="@layout/fragment_profile_completion" />
+        tools:layout="@layout/fragment_profile_completion" >
+        <action
+            android:id="@+id/action_profileCompletionFragment_to_genderSelectDialogFragment"
+            app:destination="@id/genderSelectDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.mobile6.ui.auth.register.RegisterFragment"
@@ -159,4 +163,8 @@
         android:id="@+id/loginFragment"
         android:name="com.example.mobile6.ui.auth.login.LoginFragment"
         android:label="LoginFragment" />
+    <dialog
+        android:id="@+id/genderSelectDialogFragment"
+        android:name="com.example.mobile6.ui.profile.GenderSelectDialogFragment"
+        android:label="GenderSelectDialogFragment" />
 </navigation>

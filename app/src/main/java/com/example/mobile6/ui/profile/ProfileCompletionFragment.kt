@@ -2,6 +2,7 @@ package com.example.mobile6.ui.profile
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -75,32 +76,10 @@ class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>(
     }
 
     private fun showGenderSelectionDialog() {
-        val dialog = Dialog(requireContext()).apply {
-            setContentView(R.layout.dialog_gender_selection)
+        val bundle = Bundle().apply {
+            putString("currentGender", viewModel.gender.value)
         }
-        val radioGroup = dialog.findViewById<RadioGroup>(R.id.rg_gender)
-        val btnCancel = dialog.findViewById<Button>(R.id.btn_cancel)
-        val btnConfirm = dialog.findViewById<Button>(R.id.btn_confirm)
-        // Pre-select the previously selected gender if any
-        viewModel.gender.value?.let { currentGender ->
-            when (currentGender) {
-                "Nam" -> dialog.findViewById<RadioButton>(R.id.rb_male).isChecked = true
-                "Nữ" -> dialog.findViewById<RadioButton>(R.id.rb_female).isChecked = true
-                "Khác" -> dialog.findViewById<RadioButton>(R.id.rb_other).isChecked = true
-            }
-        }
-        btnCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-        btnConfirm.setOnClickListener {
-            val selectedId = radioGroup.checkedRadioButtonId
-            if (selectedId != -1) {
-                val radioButton = dialog.findViewById<RadioButton>(selectedId)
-                viewModel.setGender(radioButton.text.toString())
-            }
-            dialog.dismiss()
-        }
-        dialog.show()
+        navigateTo(R.id.action_profileCompletionFragment_to_genderSelectDialogFragment, bundle)
     }
 
     private fun showDatePickerDialog() {
