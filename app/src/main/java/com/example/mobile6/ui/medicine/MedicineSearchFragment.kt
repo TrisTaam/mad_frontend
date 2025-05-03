@@ -79,14 +79,8 @@ class MedicineSearchFragment : BaseFragment<FragmentMedicineSearchBinding>() {
     }
 
     private fun handleLoadingState(isLoading: Boolean) {
-        // Show/hide loading indicator if you have one
-        // binding.progressBar.isVisible = isLoading
     }
 
     private fun handleErrorState(error: String?) {
-        // Show error message if needed
-        // error?.let {
-        //     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        // }
     }
 }

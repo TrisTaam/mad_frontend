@@ -8,16 +8,25 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.mobile6.databinding.FragmentDoctorAppointmentsBinding
 import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 @AndroidEntryPoint
 class DoctorAppointmentsFragment : BaseFragment<FragmentDoctorAppointmentsBinding>() {
+
+    private val viewModel: DoctorAppointmentsViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentDoctorAppointmentsBinding
         get() = { layoutInflater, container ->
@@ -118,7 +127,7 @@ class DoctorAppointmentsFragment : BaseFragment<FragmentDoctorAppointmentsBindin
     private fun setupConfirmButton() {
         binding.confirmAppointmentButton.setOnClickListener {
             if (validateInputs()) {
-                saveAppointment()
+                createAppointment()
             }
         }
     }
@@ -137,16 +146,42 @@ class DoctorAppointmentsFragment : BaseFragment<FragmentDoctorAppointmentsBindin
         return true
     }
 
-    private fun saveAppointment() {
-        // API call
-        Toast.makeText(
-            requireContext(),
-            "Đặt lịch hẹn thành công vào ${binding.selectedDateText.text}, ${binding.selectedTimeText.text}",
-            Toast.LENGTH_LONG
-        ).show()
-        back()
+    private fun createAppointment() {
+        doctor?.let { viewModel.createAppointment(it.id, calendar) }
     }
 
     override fun initObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { state ->
+                    if (state.isLoading) {
+                        handleLoadingState(true)
+                        return@collectLatest
+                    }
+                    if (state.error != null) {
+                        handleErrorState(state.error)
+                        return@collectLatest
+                    }
+                    if (state.isSuccess) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Đặt lịch hẹn thành công vào ${binding.selectedDateText.text}, ${binding.selectedTimeText.text}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        back()
+                        return@collectLatest
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleLoadingState(isLoading: Boolean) {
+    }
+
+    private fun handleErrorState(error: String?) {
+        error?.let {
+            Toast.makeText(requireContext(), "Lỗi: ${it}", Toast.LENGTH_LONG).show()
+        }
     }
 }
