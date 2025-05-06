@@ -129,7 +129,20 @@
         android:id="@+id/doctorDetailFragment"
         android:name="com.example.mobile6.ui.doctor.doctor_detail.DoctorDetailFragment"
         android:label="fragment_doctor_detail"
-        tools:layout="@layout/fragment_doctor_detail" />
+        tools:layout="@layout/fragment_doctor_detail">
+        <action
+            android:id="@+id/action_doctorDetailFragment_to_doctorAppointmentsFragment"
+            app:destination="@id/doctorAppointmentsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorAppointmentsFragment"
+        android:name="com.example.mobile6.ui.doctor.doctor_appointments.DoctorAppointmentsFragment"
+        android:label="fragment_doctor_appointments"
+        tools:layout="@layout/fragment_doctor_appointments" />
     <dialog
         android:id="@+id/testDialogFragment"
         android:name="com.example.mobile6.ui.test.TestDialogFragment"

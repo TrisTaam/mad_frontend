@@ -6,9 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface DoctorService {
-    @GET("api/v1/doctors")
+    @GET("api/v1/doctor")
     suspend fun getSpecialties(): Resource<List<DoctorResponse>>
 
-    @GET("api/v1/doctors")
+    @GET("api/v1/doctor")
     suspend fun getDoctorsBySpecialty(@Query("specialty") specialty: String): Resource<List<DoctorResponse>>
 }

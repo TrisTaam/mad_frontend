@@ -1,5 +1,6 @@
 package com.example.mobile6.data.remote.di
 
+import com.example.mobile6.data.remote.service.AppointmentService
 import com.example.mobile6.data.remote.service.AuthService
 import com.example.mobile6.data.remote.service.DoctorService
 import com.example.mobile6.data.remote.service.MedicineService
@@ -36,5 +37,11 @@ object ApiServiceModule {
     @Singleton
     fun provideDoctorService(retrofit: Retrofit): DoctorService {
         return retrofit.create(DoctorService::class.java)
+    }
+    
+    @Provides
+    @Singleton
+    fun provideAppointmentService(retrofit: Retrofit): AppointmentService {
+        return retrofit.create(AppointmentService::class.java)
     }
 }

@@ -11,12 +11,12 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface MedicineService {
-    @GET("/api/v1/medicines")
+    @GET("/api/v1/medicine")
     suspend fun getMedicines(): Resource<List<MedicineResponse>>
     
-    @GET("/api/v1/medicines/{id}")
+    @GET("/api/v1/medicine/{id}")
     suspend fun getMedicineById(@Path("id") id: Long): Resource<MedicineResponse>
     
-    @POST("/api/v1/medicines/check-interactions")
+    @POST("/api/v1/medicine/check-interactions")
     suspend fun checkMedicineInteractions(@Body request: MedicineInteractionRequest): Resource<MedicineInteractionResponse>
 } 

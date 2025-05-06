@@ -38,7 +38,10 @@ class DoctorDetailFragment : BaseFragment<FragmentDoctorDetailBinding>() {
         }
 
         binding.appointmentButton.setOnClickListener {
-            Timber.d("muinv onClick appointment")
+            val bundle = Bundle().apply {
+                putParcelable("doctor", doctor)
+            }
+            navigateTo(R.id.action_doctorDetailFragment_to_doctorAppointmentsFragment, bundle)
         }
 
         doctor?.let { doctor ->

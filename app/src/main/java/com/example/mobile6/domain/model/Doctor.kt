@@ -2,7 +2,6 @@ package com.example.mobile6.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.sql.Date
 
 @Parcelize
 data class Doctor(
@@ -13,7 +12,7 @@ data class Doctor(
     val email: String?,
     val phoneNumber: String?,
     val gender: String?,
-    val dateOfBirth: Date?,
+    val dateOfBirth: String?,
     val weight: Int?,
     val height: Int?,
     val role: String?,
