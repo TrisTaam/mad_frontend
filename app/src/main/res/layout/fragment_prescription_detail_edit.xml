@@ -98,22 +98,22 @@
                         android:layout_marginEnd="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        tools:text="Panadol Extra 500mg"
                         android:textColor="#212121"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_select_medicine"
                         app:layout_constraintStart_toEndOf="@+id/iv_medicine_icon"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Panadol Extra 500mg" />
 
                     <TextView
                         android:id="@+id/tv_select_medicine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="Chọn thuốc"
                         android:textColor="#757575"
                         android:textSize="14sp"
-                        android:layout_marginEnd="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_arrow_right"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -125,7 +125,7 @@
                         android:src="@drawable/ic_arrow_right"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -140,8 +140,8 @@
                 app:cardBackgroundColor="#F5F5F5"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_unit"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cv_medicine_selection">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -183,16 +183,16 @@
                 android:id="@+id/tv_unit"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="0dp"
                 android:background="@drawable/bg_unit_badge"
                 android:paddingVertical="14dp"
-                android:textAlignment="center"
-                android:layout_margin="0dp"
                 android:text="Viên"
+                android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
-                app:layout_constraintTop_toTopOf="@id/cv_quantity"
                 app:layout_constraintBottom_toBottomOf="@id/cv_quantity"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cv_quantity" />
 
             <!-- Dosage Field -->
             <androidx.cardview.widget.CardView

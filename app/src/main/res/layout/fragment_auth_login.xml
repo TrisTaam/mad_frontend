@@ -76,16 +76,16 @@
         android:id="@+id/tv_email_validation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:textColor="#E53935"
         android:textSize="12sp"
         android:visibility="gone"
-        tools:text="Vui lòng nhập email hoặc số điện thoại"
-        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_email" />
+        app:layout_constraintTop_toBottomOf="@+id/cv_email"
+        tools:text="Vui lòng nhập email hoặc số điện thoại"
+        tools:visibility="visible" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_password"
@@ -132,16 +132,16 @@
         android:id="@+id/tv_password_validation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:textColor="#E53935"
         android:textSize="12sp"
         android:visibility="gone"
-        tools:text="Vui lòng nhập mật khẩu"
-        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cv_password" />
+        app:layout_constraintTop_toBottomOf="@+id/cv_password"
+        tools:text="Vui lòng nhập mật khẩu"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_forgot_password"
