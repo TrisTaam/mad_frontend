@@ -2,14 +2,17 @@ package com.example.mobile6.data.di
 
 import com.example.mobile6.data.repository.AppointmentRepositoryImpl
 import com.example.mobile6.data.repository.AuthRepositoryImpl
-import com.example.mobile6.data.repository.DoctorRepositoryImpl
 import com.example.mobile6.data.repository.MedicineRepositoryImpl
+import com.example.mobile6.data.repository.PrescriptionRepositoryImpl
 import com.example.mobile6.data.repository.TestRepositoryImpl
 import com.example.mobile6.domain.repository.AppointmentRepository
+import com.example.mobile6.data.repository.UserRepositoryImpl
 import com.example.mobile6.domain.repository.AuthRepository
 import com.example.mobile6.domain.repository.DoctorRepository
 import com.example.mobile6.domain.repository.TestRepository
 import com.example.mobile6.domain.repository.MedicineRepository
+import com.example.mobile6.domain.repository.PrescriptionRepository
+import com.example.mobile6.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -48,4 +51,16 @@ interface RepositoryModule {
     fun bindAppointmentRepository(
         appointmentRepositoryImpl: AppointmentRepositoryImpl
     ): AppointmentRepository
+
+    @Binds
+    @Singleton
+    fun bindUserRepository(
+        userRepositoryImpl: UserRepositoryImpl
+    ): UserRepository
+
+    @Binds
+    @Singleton
+    fun bindPrescriptionRepository(
+        prescriptionRepositoryImpl: PrescriptionRepositoryImpl
+    ): PrescriptionRepository
 }

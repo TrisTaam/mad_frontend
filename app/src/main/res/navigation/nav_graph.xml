@@ -148,4 +148,52 @@
         android:name="com.example.mobile6.ui.test.TestDialogFragment"
         android:label="fragment_test_dialog"
         tools:layout="@layout/fragment_test_dialog" />
+    <fragment
+        android:id="@+id/profileCompletionFragment"
+        android:name="com.example.mobile6.ui.profile.ProfileCompletionFragment"
+        android:label="fragment_profile_completion"
+        tools:layout="@layout/fragment_profile_completion" >
+        <action
+            android:id="@+id/action_profileCompletionFragment_to_genderSelectDialogFragment"
+            app:destination="@id/genderSelectDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.mobile6.ui.auth.register.RegisterFragment"
+        android:label="RegisterFragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_profileCompletionFragment"
+            app:destination="@id/profileCompletionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.mobile6.ui.auth.login.LoginFragment"
+        android:label="LoginFragment" />
+    <dialog
+        android:id="@+id/genderSelectDialogFragment"
+        android:name="com.example.mobile6.ui.profile.GenderSelectDialogFragment"
+        android:label="GenderSelectDialogFragment" />
+    <fragment
+        android:id="@+id/prescriptionCreateFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionCreateFragment"
+        android:label="PrescriptionCreateFragment" >
+        <action
+            android:id="@+id/action_prescriptionCreateFragment_to_prescriptionDetailEditFragment"
+            app:destination="@id/prescriptionDetailEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prescriptionDetailEditFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailEditFragment"
+        android:label="PrescriptionDetailEditFragment" >
+        <action
+            android:id="@+id/action_prescriptionDetailEditFragment_to_medicineSearchFragment"
+            app:destination="@id/medicineSearchFragment" />
+    </fragment>
 </navigation>

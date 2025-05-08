@@ -23,6 +23,7 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
     private val viewModel: MedicineDetailViewModel by viewModels();
     private var medicineId: Long = 0L
+    private var usedMedicineIds: List<Long> = listOf()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentMedicineDetailBinding
         get() = { inflater, container ->
@@ -41,14 +42,13 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
             back()
         }
 
+        parentFragmentManager.setFragmentResultListener("prescriptionData", viewLifecycleOwner) { _, bundle ->
+            val usedMedicineIdStrings = bundle.getStringArrayList("usedMedicineIds")
+            usedMedicineIds = usedMedicineIdStrings?.map { it.toLong() } ?: listOf()
+        }
+
         binding.addToPrescriptionButton.setOnClickListener {
-            val existingMedicineIds = listOf(
-                2L,
-                3L,
-                4L,
-                5L
-            ) // (Sau Hải sửa cái này nhé - ném list id của các thuốc đang có trong đơn thuốc vào đây)
-            viewModel.checkMedicineInteractions(medicineId, existingMedicineIds)
+            viewModel.checkMedicineInteractions(medicineId, usedMedicineIds)
         }
     }
 
@@ -78,7 +78,12 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
     private fun handleMedicineInteraction(interaction: MedicineInteraction) {
         if (!interaction.hasInteraction) {
             Timber.d("không có tương tác thuốc muinv")
-            viewModel.addMedicineToPrescription(medicineId)
+            val bundle = Bundle().apply {
+                putSerializable("selectedMedicine", viewModel.uiState.value.medicine)
+            }
+            parentFragmentManager.setFragmentResult("prescriptionDataSelectMedicine", bundle)
+            back()
+            back()
             return
         }
 

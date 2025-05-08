@@ -2,6 +2,7 @@ package com.example.mobile6.ui.medicine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobile6.data.remote.util.onSuccess
 import com.example.mobile6.domain.model.Medicine
 import com.example.mobile6.domain.model.MedicineInteraction
 import com.example.mobile6.domain.model.Resource
@@ -90,17 +91,6 @@ class MedicineDetailViewModel @Inject constructor(
                             error = result.throwable.message ?: "Lỗi kiểm tra tương tác thuốc"
                         )
                     }
-                }
-            }
-        }
-    }
-
-    fun addMedicineToPrescription(medicineId: Long) {
-        viewModelScope.launch {
-            try {
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(error = "Không thể thêm thuốc vào đơn: ${e.message}")
                 }
             }
         }
