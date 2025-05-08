@@ -51,7 +51,7 @@ class RegisterFragment : BaseFragment<FragmentAuthRegisterBinding>() {
 
     private fun navigateToLogin() {
         // Navigate to login screen
-        navigateTo(R.id.action_registerFragment_to_loginFragment)
+        back()
     }
 
     override fun initObservers() {

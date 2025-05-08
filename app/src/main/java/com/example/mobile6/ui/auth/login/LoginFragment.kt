@@ -56,7 +56,7 @@ class LoginFragment : BaseFragment<FragmentAuthLoginBinding>() {
 
     private fun navigateToRegister() {
         // Navigate to registration screen
-        back()
+        navigateTo(R.id.action_loginFragment_to_registerFragment)
     }
 
     private fun navigateToForgotPassword() {
@@ -94,7 +94,7 @@ class LoginFragment : BaseFragment<FragmentAuthLoginBinding>() {
         // Observe login success
         viewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
-                navigateTo(R.id.homeFragment, null, NavOptions.Builder().defaultAnim().build())
+                navigateTo(R.id.action_loginFragment_to_homeFragment)
                 viewModel.resetLoginSuccess()
             }
         }
