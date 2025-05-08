@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import com.example.mobile6.databinding.FragmentDoctorListBinding
-import com.example.mobile6.ui.base.BaseFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile6.R
+import com.example.mobile6.databinding.FragmentDoctorListBinding
 import com.example.mobile6.ui.adapter.DoctorListAdapter
+import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

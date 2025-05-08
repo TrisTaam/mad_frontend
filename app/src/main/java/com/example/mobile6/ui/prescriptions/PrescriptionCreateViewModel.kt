@@ -12,8 +12,6 @@ import com.example.mobile6.data.remote.dto.response.PrescriptionResponse
 import com.example.mobile6.data.remote.util.onError
 import com.example.mobile6.data.remote.util.onException
 import com.example.mobile6.data.remote.util.onSuccess
-import com.example.mobile6.domain.model.Medicine
-import com.example.mobile6.domain.model.Prescription
 import com.example.mobile6.domain.repository.PrescriptionRepository
 import com.example.mobile6.ui.util.DateUtils.toRequestDateTimeString
 import com.example.mobile6.ui.util.DateUtils.toUtilDate
@@ -43,7 +41,8 @@ class PrescriptionCreateViewModel @Inject constructor(
     private val _prescriptionDate = MutableLiveData<Date>()
     val prescriptionDate: LiveData<Date> = _prescriptionDate
 
-    private val _prescriptionDetails = MutableLiveData<List<PrescriptionDetailResponse>>(emptyList())
+    private val _prescriptionDetails =
+        MutableLiveData<List<PrescriptionDetailResponse>>(emptyList())
     val prescriptionDetail: LiveData<List<PrescriptionDetailResponse>> = _prescriptionDetails
 
     private val _saveSuccess = MutableLiveData<Boolean>()
@@ -124,7 +123,8 @@ class PrescriptionCreateViewModel @Inject constructor(
             return
         }
 
-        val date = _prescriptionDate.value?.toRequestDateTimeString() ?: Date().toRequestDateTimeString()
+        val date =
+            _prescriptionDate.value?.toRequestDateTimeString() ?: Date().toRequestDateTimeString()
         val medicines = _prescriptionDetails.value ?: emptyList()
 
         val request = CreatePrescriptionRequest(

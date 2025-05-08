@@ -1,12 +1,8 @@
 package com.example.mobile6.ui.prescriptions
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -49,7 +45,10 @@ class PrescriptionDetailEditFragment : BaseFragment<FragmentPrescriptionDetailEd
     }
 
     private fun setupMedicineSelection() {
-        parentFragmentManager.setFragmentResultListener("prescriptionDataSelectMedicine", viewLifecycleOwner) { _, bundle ->
+        parentFragmentManager.setFragmentResultListener(
+            "prescriptionDataSelectMedicine",
+            viewLifecycleOwner
+        ) { _, bundle ->
             val selectedMedicine = bundle.getSerializable("selectedMedicine")
             viewModel.setSelectedMedicine(selectedMedicine as Medicine)
         }
@@ -63,7 +62,12 @@ class PrescriptionDetailEditFragment : BaseFragment<FragmentPrescriptionDetailEd
         viewModel.selectedMedicine.observe(viewLifecycleOwner) { medicine ->
             medicine?.let {
                 binding.tvSelectedMedicine.text = it.name
-                binding.tvSelectedMedicine.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+                binding.tvSelectedMedicine.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.black
+                    )
+                )
 
                 // Update medicine info
                 updatePrescriptionDetailInfo(it)
@@ -97,39 +101,7 @@ class PrescriptionDetailEditFragment : BaseFragment<FragmentPrescriptionDetailEd
     }
 
     private fun showUnitSelectionDialog() {
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.fragment_medicine_unit_select_dialog)
-
-        val window = dialog.window
-        window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
-//        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        // Set click listeners for unit options
-        dialog.findViewById<CardView>(R.id.cv_unit_tablet).setOnClickListener {
-            viewModel.setSelectedUnit("Viên")
-            dialog.dismiss()
-        }
-
-        dialog.findViewById<CardView>(R.id.cv_unit_sachet).setOnClickListener {
-            viewModel.setSelectedUnit("Gói")
-            dialog.dismiss()
-        }
-
-        dialog.findViewById<CardView>(R.id.cv_unit_blister).setOnClickListener {
-            viewModel.setSelectedUnit("Vỉ")
-            dialog.dismiss()
-        }
-
-        dialog.findViewById<CardView>(R.id.cv_unit_box).setOnClickListener {
-            viewModel.setSelectedUnit("Hộp")
-            dialog.dismiss()
-        }
-
-        dialog.show()
+        navigateTo(R.id.action_prescriptionDetailEditFragment_to_unitSelectDialogFragment)
     }
 
     private fun setupSaveButton() {

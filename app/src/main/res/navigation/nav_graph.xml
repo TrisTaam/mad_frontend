@@ -152,15 +152,20 @@
         android:id="@+id/profileCompletionFragment"
         android:name="com.example.mobile6.ui.profile.ProfileCompletionFragment"
         android:label="fragment_profile_completion"
-        tools:layout="@layout/fragment_profile_completion" >
+        tools:layout="@layout/fragment_profile_completion">
         <action
             android:id="@+id/action_profileCompletionFragment_to_genderSelectDialogFragment"
-            app:destination="@id/genderSelectDialogFragment" />
+            app:destination="@id/genderSelectDialogFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.mobile6.ui.auth.register.RegisterFragment"
-        android:label="RegisterFragment" >
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_auth_register">
         <action
             android:id="@+id/action_registerFragment_to_profileCompletionFragment"
             app:destination="@id/profileCompletionFragment"
@@ -175,25 +180,49 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.mobile6.ui.auth.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_auth_login" />
     <dialog
         android:id="@+id/genderSelectDialogFragment"
         android:name="com.example.mobile6.ui.profile.GenderSelectDialogFragment"
-        android:label="GenderSelectDialogFragment" />
+        android:label="GenderSelectDialogFragment"
+        tools:layout="@layout/fragment_gender_select_dialog" />
     <fragment
         android:id="@+id/prescriptionCreateFragment"
         android:name="com.example.mobile6.ui.prescriptions.PrescriptionCreateFragment"
-        android:label="PrescriptionCreateFragment" >
+        android:label="PrescriptionCreateFragment"
+        tools:layout="@layout/fragment_prescription_create">
         <action
             android:id="@+id/action_prescriptionCreateFragment_to_prescriptionDetailEditFragment"
-            app:destination="@id/prescriptionDetailEditFragment" />
+            app:destination="@id/prescriptionDetailEditFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/prescriptionDetailEditFragment"
         android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailEditFragment"
-        android:label="PrescriptionDetailEditFragment" >
+        android:label="PrescriptionDetailEditFragment"
+        tools:layout="@layout/fragment_prescription_detail_edit">
         <action
             android:id="@+id/action_prescriptionDetailEditFragment_to_medicineSearchFragment"
-            app:destination="@id/medicineSearchFragment" />
+            app:destination="@id/medicineSearchFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_prescriptionDetailEditFragment_to_unitSelectDialogFragment"
+            app:destination="@id/unitSelectDialogFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+    <dialog
+        android:id="@+id/unitSelectDialogFragment"
+        android:name="com.example.mobile6.ui.prescriptions.UnitSelectDialogFragment"
+        android:label="UnitSelectDialogFragment"
+        tools:layout="@layout/fragment_medicine_unit_select_dialog" />
 </navigation>

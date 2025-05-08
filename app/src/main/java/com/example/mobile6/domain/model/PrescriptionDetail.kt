@@ -1,6 +1,6 @@
 package com.example.mobile6.domain.model
 
-data class PrescriptionDetail (
+data class PrescriptionDetail(
     val id: Long,
     val prescriptionId: Long,
     val medicineId: Long,

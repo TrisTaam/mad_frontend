@@ -28,7 +28,7 @@ object ApiServiceModule {
     fun provideTestService(retrofit: Retrofit): TestService {
         return retrofit.create(TestService::class.java)
     }
-    
+
     @Provides
     @Singleton
     fun provideMedicineService(retrofit: Retrofit): MedicineService {

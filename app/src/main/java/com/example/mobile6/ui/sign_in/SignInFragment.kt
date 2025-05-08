@@ -29,7 +29,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
         binding.btnTestSignIn.setOnClickListener {
             viewModel.signIn("0865231695", "12345678")
         }
-        binding.btnTestNormalFlow.setOnClickListener{
+        binding.btnTestNormalFlow.setOnClickListener {
             navigateTo(R.id.registerFragment, null, NavOptions.Builder().defaultAnim().build())
         }
     }

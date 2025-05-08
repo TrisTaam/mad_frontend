@@ -32,17 +32,18 @@ class MedicineRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun getMedicineById(id: Long): Resource<Medicine> = withContext(Dispatchers.IO) {
-        medicineService.getMedicineById(id)
-            .onError { message, code ->
-                Timber.e("Lỗi khi lấy chi tiết thuốc: $message, code: $code")
-            }
-            .onException { e ->
-                Timber.e(e, "Ngoại lệ khi lấy chi tiết thuốc id: $id")
-            }
-            .map { it.toMedicine() }
-    }
-    
+    override suspend fun getMedicineById(id: Long): Resource<Medicine> =
+        withContext(Dispatchers.IO) {
+            medicineService.getMedicineById(id)
+                .onError { message, code ->
+                    Timber.e("Lỗi khi lấy chi tiết thuốc: $message, code: $code")
+                }
+                .onException { e ->
+                    Timber.e(e, "Ngoại lệ khi lấy chi tiết thuốc id: $id")
+                }
+                .map { it.toMedicine() }
+        }
+
     override suspend fun checkMedicineInteractions(
         newMedicineId: Long,
         existingMedicineIds: List<Long>

@@ -8,7 +8,6 @@ import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentMedicationWarningDialogBinding
 import com.example.mobile6.ui.base.BaseDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MedicationWarningDialogFragment : BaseDialog<FragmentMedicationWarningDialogBinding>() {

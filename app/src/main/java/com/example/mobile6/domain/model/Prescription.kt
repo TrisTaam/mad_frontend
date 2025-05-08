@@ -2,7 +2,7 @@ package com.example.mobile6.domain.model
 
 import java.util.Date
 
-data class Prescription (
+data class Prescription(
     val id: Long,
     val userId: Long,
     val doctorId: Long,

@@ -1,13 +1,9 @@
 package com.example.mobile6.ui.profile
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -25,7 +21,7 @@ import java.util.Calendar
 import java.util.Locale
 
 @AndroidEntryPoint
-class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>() {
+class ProfileCompletionFragment : BaseFragment<FragmentProfileCompletionBinding>() {
     private val viewModel: ProfileCompletionViewModel by viewModels()
 
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -60,7 +56,12 @@ class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>(
         viewModel.gender.observe(viewLifecycleOwner) { gender ->
             if (gender.isNotEmpty()) {
                 binding.tvGender.text = gender
-                binding.tvGender.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+                binding.tvGender.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.black
+                    )
+                )
             }
         }
 
@@ -69,7 +70,12 @@ class ProfileCompletionFragment: BaseFragment<FragmentProfileCompletionBinding>(
             if (date != null) {
                 val formattedDate = dateFormatter.format(date)
                 binding.tvDateOfBirth.text = formattedDate
-                binding.tvDateOfBirth.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+                binding.tvDateOfBirth.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.black
+                    )
+                )
             }
         }
 

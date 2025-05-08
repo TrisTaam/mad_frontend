@@ -10,8 +10,11 @@ import javax.inject.Inject
 class AppointmentRepositoryImpl @Inject constructor(
     private val appointmentService: AppointmentService
 ) : AppointmentRepository {
-    
-    override suspend fun createAppointment(doctorId: Long, appointmentDate: String): Resource<AppointmentResponse> {
+
+    override suspend fun createAppointment(
+        doctorId: Long,
+        appointmentDate: String
+    ): Resource<AppointmentResponse> {
         val request = CreateAppointmentRequest(doctorId, appointmentDate)
         return appointmentService.createAppointment(request)
     }

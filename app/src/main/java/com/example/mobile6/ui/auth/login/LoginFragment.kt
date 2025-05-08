@@ -56,7 +56,7 @@ class LoginFragment : BaseFragment<FragmentAuthLoginBinding>() {
 
     private fun navigateToRegister() {
         // Navigate to registration screen
-         back()
+        back()
     }
 
     private fun navigateToForgotPassword() {

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile6.R
 import com.example.mobile6.data.remote.dto.response.PrescriptionDetailResponse
 import com.example.mobile6.data.remote.util.onError
 import com.example.mobile6.data.remote.util.onSuccess
@@ -86,7 +85,10 @@ class PrescriptionDetailEditViewModel @Inject constructor(
         _selectedUnit.value = unit
     }
 
-    fun savePrescriptionDetail(quantityStr: String, quantityUsage: String): PrescriptionDetailResponse? {
+    fun savePrescriptionDetail(
+        quantityStr: String,
+        quantityUsage: String
+    ): PrescriptionDetailResponse? {
         val selectedMedicine = _selectedMedicine.value
         if (selectedMedicine == null) {
             viewModelScope.launch {

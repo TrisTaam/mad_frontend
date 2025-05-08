@@ -98,7 +98,7 @@
                         android:layout_marginEnd="8dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Panadol Extra 500mg"
+                        tools:text="Panadol Extra 500mg"
                         android:textColor="#212121"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -172,7 +172,7 @@
                         android:textColorHint="#757575"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/tv_unit"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/iv_quantity_icon"
                         app:layout_constraintTop_toTopOf="parent" />
 

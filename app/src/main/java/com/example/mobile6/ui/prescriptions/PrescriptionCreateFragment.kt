@@ -88,7 +88,12 @@ class PrescriptionCreateFragment : BaseFragment<FragmentPrescriptionCreateBindin
         viewModel.prescriptionDate.observe(viewLifecycleOwner) { timestamp ->
             val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             binding.tvPrescriptionDate.text = dateFormat.format(Date(timestamp.time))
-            binding.tvPrescriptionDate.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+            binding.tvPrescriptionDate.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    android.R.color.black
+                )
+            )
         }
     }
 
@@ -112,7 +117,8 @@ class PrescriptionCreateFragment : BaseFragment<FragmentPrescriptionCreateBindin
 
     private fun showContextMenu(prescriptionDetail: PrescriptionDetailResponse, anchorView: View) {
         val popupWindow = PopupWindow(requireContext())
-        val menuView = LayoutInflater.from(requireContext()).inflate(R.layout.item_prescription_detail_menu, null)
+        val menuView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.item_prescription_detail_menu, null)
 
         popupWindow.contentView = menuView
 //        popupWindow.width = resources.getDimensionPixelSize(R.dimen.context_menu_width)
@@ -137,7 +143,10 @@ class PrescriptionCreateFragment : BaseFragment<FragmentPrescriptionCreateBindin
     }
 
     private fun setupAddMedicineButton() {
-        parentFragmentManager.setFragmentResultListener("savePrescriptionDetailResult", viewLifecycleOwner) { _, bundle ->
+        parentFragmentManager.setFragmentResultListener(
+            "savePrescriptionDetailResult",
+            viewLifecycleOwner
+        ) { _, bundle ->
             val detail = bundle.getSerializable("prescriptionDetail") as PrescriptionDetailResponse
             if (viewModel.isEditMode.value == true) {
                 viewModel.updatePrescriptionDetail(detail)
@@ -152,7 +161,9 @@ class PrescriptionCreateFragment : BaseFragment<FragmentPrescriptionCreateBindin
     }
 
     private fun sendUsedMedicineIds() {
-        val usedMedicineIds: ArrayList<String> = viewModel.prescriptionDetail.value?.map { it.medicineId.toString() }?.let { ArrayList(it) } ?: arrayListOf()
+        val usedMedicineIds: ArrayList<String> =
+            viewModel.prescriptionDetail.value?.map { it.medicineId.toString() }
+                ?.let { ArrayList(it) } ?: arrayListOf()
         val bundle = Bundle().apply {
             putStringArrayList("usedMedicineIds", usedMedicineIds)
         }

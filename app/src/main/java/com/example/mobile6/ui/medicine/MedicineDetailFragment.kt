@@ -42,7 +42,10 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
             back()
         }
 
-        parentFragmentManager.setFragmentResultListener("prescriptionData", viewLifecycleOwner) { _, bundle ->
+        parentFragmentManager.setFragmentResultListener(
+            "prescriptionData",
+            viewLifecycleOwner
+        ) { _, bundle ->
             val usedMedicineIdStrings = bundle.getStringArrayList("usedMedicineIds")
             usedMedicineIds = usedMedicineIdStrings?.map { it.toLong() } ?: listOf()
         }

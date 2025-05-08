@@ -9,11 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.data.remote.dto.response.PrescriptionDetailResponse
 import com.example.mobile6.databinding.ItemPrescriptionDetailBinding
 
-class PrescriptionDetailAdapter (
+class PrescriptionDetailAdapter(
     private val onMoreClick: (PrescriptionDetailResponse, View) -> Unit
-) : ListAdapter<PrescriptionDetailResponse, PrescriptionDetailAdapter.PrescriptionDetailViewHolder>(PrescriptionDetailDiffCallback()) {
+) : ListAdapter<PrescriptionDetailResponse, PrescriptionDetailAdapter.PrescriptionDetailViewHolder>(
+    PrescriptionDetailDiffCallback()
+) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrescriptionDetailViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PrescriptionDetailViewHolder {
         val binding = ItemPrescriptionDetailBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -41,12 +46,19 @@ class PrescriptionDetailAdapter (
         }
     }
 
-    private class PrescriptionDetailDiffCallback : DiffUtil.ItemCallback<PrescriptionDetailResponse>() {
-        override fun areItemsTheSame(oldItem: PrescriptionDetailResponse, newItem: PrescriptionDetailResponse): Boolean {
+    private class PrescriptionDetailDiffCallback :
+        DiffUtil.ItemCallback<PrescriptionDetailResponse>() {
+        override fun areItemsTheSame(
+            oldItem: PrescriptionDetailResponse,
+            newItem: PrescriptionDetailResponse
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: PrescriptionDetailResponse, newItem: PrescriptionDetailResponse): Boolean {
+        override fun areContentsTheSame(
+            oldItem: PrescriptionDetailResponse,
+            newItem: PrescriptionDetailResponse
+        ): Boolean {
             return oldItem == newItem
         }
     }

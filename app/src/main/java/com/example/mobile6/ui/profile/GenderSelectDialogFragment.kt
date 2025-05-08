@@ -13,7 +13,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class GenderSelectDialogFragment : BaseDialog<FragmentGenderSelectDialogBinding>() {
 
     private var currentGender: String = ""
-    private val viewModel: ProfileCompletionViewModel by viewModels()
+    private val viewModel: ProfileCompletionViewModel by viewModels(
+        ownerProducer = { requireParentFragment().childFragmentManager.fragments.first() }
+    )
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentGenderSelectDialogBinding
         get() = { inflater, container ->

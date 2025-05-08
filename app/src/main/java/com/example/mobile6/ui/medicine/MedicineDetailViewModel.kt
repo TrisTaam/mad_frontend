@@ -2,7 +2,6 @@ package com.example.mobile6.ui.medicine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile6.data.remote.util.onSuccess
 import com.example.mobile6.domain.model.Medicine
 import com.example.mobile6.domain.model.MedicineInteraction
 import com.example.mobile6.domain.model.Resource

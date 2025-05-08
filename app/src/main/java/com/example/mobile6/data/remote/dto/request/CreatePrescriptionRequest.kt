@@ -3,7 +3,7 @@ package com.example.mobile6.data.remote.dto.request
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CreatePrescriptionRequest (
+data class CreatePrescriptionRequest(
     val prescriptionName: String,
     val prescriptionDate: String,
     val notes: String,
@@ -11,7 +11,7 @@ data class CreatePrescriptionRequest (
 )
 
 @Serializable
-data class CreatePrescriptionDetailRequest (
+data class CreatePrescriptionDetailRequest(
     val medicineId: Long,
     val quantity: Int,
     val quantityUnit: String,

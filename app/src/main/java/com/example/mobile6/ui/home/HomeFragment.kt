@@ -48,7 +48,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             navigateTo(R.id.action_homeFragment_to_testDialogFragment)
         }
         binding.btnTestAddPrescription.setOnClickListener {
-            navigateTo(R.id.prescriptionCreateFragment, null, NavOptions.Builder().defaultAnim().build())
+            navigateTo(
+                R.id.prescriptionCreateFragment,
+                null,
+                NavOptions.Builder().defaultAnim().build()
+            )
         }
     }
 

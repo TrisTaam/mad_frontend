@@ -45,21 +45,22 @@ class AuthRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun signUp(request: SignUpRequest): Resource<Boolean> = withContext(Dispatchers.IO) {
-        authService.signUp(request)
-            .onSuccess { data, message ->
-                Timber.i("Đăng ký thành công: $message")
-            }
-            .onError { code, error ->
-                Timber.e("Lỗi đăng ký: $error - Mã lỗi: $code")
-            }
-            .onException { e ->
-                Timber.e("Lỗi đăng ký:", e)
-            }
-            .map {
-                true
-            }
-    }
+    override suspend fun signUp(request: SignUpRequest): Resource<Boolean> =
+        withContext(Dispatchers.IO) {
+            authService.signUp(request)
+                .onSuccess { data, message ->
+                    Timber.i("Đăng ký thành công: $message")
+                }
+                .onError { code, error ->
+                    Timber.e("Lỗi đăng ký: $error - Mã lỗi: $code")
+                }
+                .onException { e ->
+                    Timber.e("Lỗi đăng ký:", e)
+                }
+                .map {
+                    true
+                }
+        }
 
     override suspend fun refreshToken(): Resource<Boolean> =
         withContext(Dispatchers.IO) {
