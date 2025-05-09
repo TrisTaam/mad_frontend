@@ -1,8 +1,9 @@
 package com.example.mobile6.data.remote.service
 
 import com.example.mobile6.data.remote.dto.request.MessageRequest
+import com.example.mobile6.data.remote.dto.response.ChatDoctorInfoResponse
+import com.example.mobile6.data.remote.dto.response.DoctorListResponse
 import com.example.mobile6.data.remote.dto.response.MessageListResponse
-import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.domain.model.Resource
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,7 +16,7 @@ interface MessageService {
      * Lấy danh sách bác sĩ đã từng tư vấn với user
      */
     @GET("/api/v1/message/getAllDoctors")
-    suspend fun getAllDoctorsForUser(): Resource<List<Doctor>>
+    suspend fun getAllDoctorsForUser(): Resource<List<ChatDoctorInfoResponse>>
 
     /**
      * Gửi tin nhắn

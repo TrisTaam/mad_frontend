@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mobile6.databinding.FragmentChatListDoctorBinding
 import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import android.widget.Toast
 import com.example.mobile6.R
@@ -28,6 +29,10 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
     private lateinit var messageAdapter: MessageAdapter
 
     override fun initViews() {
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView() {
         messageAdapter = MessageAdapter { doctor ->
             val bundle = Bundle().apply {
                 putString("doctorName", doctor.firstName + " " + doctor.lastName)
@@ -41,42 +46,33 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
             adapter = messageAdapter
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
         }
-        viewModel.fetchDoctorsForUser()
     }
 
     override fun initObservers() {
-        collectDoctors()
-//        collectLoading()
-        collectUiMessage()
-    }
-
-    private fun collectDoctors() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.doctors.collect { doctors ->
-                    messageAdapter.submitList(doctors)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { state ->
+                    if (state.isLoading) {
+                        handleLoadingState(true)
+                        return@collectLatest
+                    }
+                    if (state.error != null) {
+                        handleErrorState(state.error)
+                        return@collectLatest
+                    }
+                    messageAdapter.submitList(state.doctors)
+                    handleLoadingState(false)
                 }
             }
         }
     }
 
-//    private fun collectLoading() {
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.isLoading.collect { isLoading ->
-//                    binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-//                }
-//            }
-//        }
-//    }
+    private fun handleLoadingState(isLoading: Boolean) {
+        // TODO: Implement loading state UI
+        // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 
-    private fun collectUiMessage() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiMessage.collect { msg ->
-                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+    private fun handleErrorState(error: String) {
+        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
     }
 }
