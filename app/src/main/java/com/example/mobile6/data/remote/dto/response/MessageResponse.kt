@@ -21,11 +21,3 @@ data class MessageResponse(
     val sentAt: String
 )
 
-@Serializable
-data class MessageListResponse(
-    @SerialName("message")
-    val message: String = "",
-    
-    @SerialName("data")
-    val data: List<MessageResponse> = emptyList()
-)

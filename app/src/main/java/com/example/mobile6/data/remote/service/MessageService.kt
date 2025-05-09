@@ -3,7 +3,7 @@ package com.example.mobile6.data.remote.service
 import com.example.mobile6.data.remote.dto.request.MessageRequest
 import com.example.mobile6.data.remote.dto.response.ChatDoctorInfoResponse
 import com.example.mobile6.data.remote.dto.response.DoctorListResponse
-import com.example.mobile6.data.remote.dto.response.MessageListResponse
+import com.example.mobile6.data.remote.dto.response.MessageResponse
 import com.example.mobile6.domain.model.Resource
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -22,7 +22,7 @@ interface MessageService {
      * Gửi tin nhắn
      */
     @POST("/api/v1/message/send")
-    suspend fun sendMessage(@Body request: MessageRequest): Resource<MessageListResponse>
+    suspend fun sendMessage(@Body request: MessageRequest): Resource<List<MessageResponse>>
 
     /**
      * Lấy hội thoại giữa 2 user
@@ -30,7 +30,7 @@ interface MessageService {
     @GET("/api/v1/message/conversation")
     suspend fun getConversation(
         @Query("user2") user2Id: Long
-    ): Resource<MessageListResponse>
+    ): Resource<List<MessageResponse>>
 
     /**
      * Lấy danh sách user đã từng tư vấn với bác sĩ

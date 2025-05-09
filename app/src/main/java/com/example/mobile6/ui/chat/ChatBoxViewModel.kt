@@ -3,7 +3,7 @@ package com.example.mobile6.ui.chat
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile6.data.remote.dto.response.MessageListResponse
+import com.example.mobile6.data.remote.dto.response.MessageResponse
 import com.example.mobile6.domain.model.Message
 import com.example.mobile6.domain.model.Resource
 import com.example.mobile6.domain.repository.MessageRepository
@@ -38,7 +38,7 @@ class ChatBoxViewModel @Inject constructor(
             when (val result = messageRepository.getConversation(doctorId)) {
                 is Resource.Success -> {
                     Log.d("ChatBoxViewModel", "Got conversation: ${result.data}")
-                    val messages = result.data.data.map { messageResponse ->
+                    val messages = result.data.map { messageResponse ->
                         Message(
                             id = messageResponse.id,
                             senderId = messageResponse.senderId,
@@ -90,7 +90,7 @@ class ChatBoxViewModel @Inject constructor(
             when (val result = messageRepository.sendMessage(doctorId, content)) {
                 is Resource.Success -> {
                     Log.d("ChatBoxViewModel", "Message sent successfully")
-                    val messages = result.data.data.map { messageResponse ->
+                    val messages = result.data.map { messageResponse ->
                         Message(
                             id = messageResponse.id,
                             senderId = messageResponse.senderId,

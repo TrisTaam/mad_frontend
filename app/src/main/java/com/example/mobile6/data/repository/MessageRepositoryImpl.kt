@@ -2,7 +2,7 @@ package com.example.mobile6.data.repository
 
 import com.example.mobile6.data.mapper.toDoctor
 import com.example.mobile6.data.remote.dto.request.MessageRequest
-import com.example.mobile6.data.remote.dto.response.MessageListResponse
+import com.example.mobile6.data.remote.dto.response.MessageResponse
 import com.example.mobile6.data.remote.service.MessageService
 import com.example.mobile6.data.remote.util.map
 import com.example.mobile6.data.remote.util.onError
@@ -18,22 +18,26 @@ import javax.inject.Inject
 class MessageRepositoryImpl @Inject constructor(
     private val messageService: MessageService
 ) : MessageRepository {
-    override suspend fun sendMessage(receiverId: Long, content: String): Resource<MessageListResponse> =
+    override suspend fun sendMessage(receiverId: Long, content: String): Resource<List<MessageResponse>> =
         withContext(Dispatchers.IO) {
-            try {
-                messageService.sendMessage(MessageRequest(receiverId = receiverId, content = content))
-            } catch (e: Exception) {
-                Resource.Error(e.message ?: "Unknown error occurred")
-            }
+            messageService.sendMessage(MessageRequest(receiverId = receiverId, content = content))
+                .onError { message, code ->
+                    Timber.e("Lỗi khi gửi tin nhắn: $message, code: $code")
+                }
+                .onException { e ->
+                    Timber.e(e, "Ngoại lệ khi gửi tin nhắn")
+                }
         }
 
-    override suspend fun getConversation(user2Id: Long): Resource<MessageListResponse> =
+    override suspend fun getConversation(user2Id: Long): Resource<List<MessageResponse>> =
         withContext(Dispatchers.IO) {
-            try {
-                messageService.getConversation(user2Id)
-            } catch (e: Exception) {
-                Resource.Error(e.message ?: "Unknown error occurred")
-            }
+            messageService.getConversation(user2Id)
+                .onError { message, code ->
+                    Timber.e("Lỗi khi tải tin nhắn: $message, code: $code")
+                }
+                .onException { e ->
+                    Timber.e(e, "Ngoại lệ khi tải tin nhắn")
+                }
         }
 
 //    override suspend fun getAllUsersForDoctor(doctorId: Long): Resource<List<User>> =
