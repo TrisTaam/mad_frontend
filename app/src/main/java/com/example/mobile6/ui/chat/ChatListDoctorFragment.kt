@@ -35,12 +35,13 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
     private fun setupRecyclerView() {
         messageAdapter = MessageAdapter { doctor ->
             val bundle = Bundle().apply {
-                putString("doctorName", doctor.firstName + " " + doctor.lastName)
+                putLong("doctorId", doctor.id)
+                putString("doctorName", "${doctor.firstName} ${doctor.lastName}")
             }
-//            findNavController().navigate(
-//                R.id.action_chatListDoctorFragment_to_chatBoxFragment,
-//                bundle
-//            )
+            navigateTo(
+                R.id.action_chatListDoctorFragment_to_chatBoxFragment,
+                bundle
+            )
         }
         binding.rvDoctorList.apply {
             adapter = messageAdapter
@@ -68,8 +69,7 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
     }
 
     private fun handleLoadingState(isLoading: Boolean) {
-        // TODO: Implement loading state UI
-        // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+//        binding.progressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun handleErrorState(error: String) {

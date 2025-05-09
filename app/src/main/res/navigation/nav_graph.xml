@@ -238,5 +238,13 @@
         android:id="@+id/chatListDoctorFragment"
         android:name="com.example.mobile6.ui.chat.ChatListDoctorFragment"
         android:label="fragment_chat_list_doctor"
-        tools:layout="@layout/fragment_chat_list_doctor" />
+        tools:layout="@layout/fragment_chat_list_doctor" >
+        <action
+            android:id="@+id/action_chatListDoctorFragment_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatBoxFragment"
+        android:name="com.example.mobile6.ui.chat.ChatBoxFragment"
+        android:label="ChatBoxFragment" />
 </navigation>
