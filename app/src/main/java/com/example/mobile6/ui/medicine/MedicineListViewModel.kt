@@ -30,7 +30,7 @@ class MedicineListViewModel @Inject constructor(
     fun fetchMedicines() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-            
+
             when (val result = medicineRepository.getMedicines()) {
                 is Resource.Success -> {
                     allMedicines = result.data
@@ -42,6 +42,7 @@ class MedicineListViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Resource.Error -> {
                     _uiState.update {
                         it.copy(
@@ -50,6 +51,7 @@ class MedicineListViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Resource.Exception -> {
                     _uiState.update {
                         it.copy(
@@ -67,14 +69,14 @@ class MedicineListViewModel @Inject constructor(
             _uiState.update { it.copy(medicines = allMedicines) }
             return
         }
-        
+
         val filteredList = allMedicines.filter {
             it.name.contains(query, ignoreCase = true) ||
-            it.ingredients.any { ingredient -> 
-                ingredient.name.contains(query, ignoreCase = true)
-            }
+                    it.ingredients.any { ingredient ->
+                        ingredient.name.contains(query, ignoreCase = true)
+                    }
         }
-        
+
         _uiState.update { it.copy(medicines = filteredList) }
     }
 }

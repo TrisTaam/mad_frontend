@@ -7,14 +7,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavOptions
 import com.bumptech.glide.Glide
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentMedicineDetailBinding
 import com.example.mobile6.domain.model.Medicine
 import com.example.mobile6.domain.model.MedicineInteraction
 import com.example.mobile6.ui.base.BaseFragment
-import com.example.mobile6.ui.util.defaultAnim
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,6 +23,7 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
     private val viewModel: MedicineDetailViewModel by viewModels();
     private var medicineId: Long = 0L
+    private var usedMedicineIds: List<Long> = listOf()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentMedicineDetailBinding
         get() = { inflater, container ->
@@ -33,7 +32,9 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
     override fun processArguments(args: Bundle) {
         medicineId = arguments?.getLong("medicineId") ?: 0L
-        viewModel.fetchMedicineDetail(medicineId)
+        if (viewModel.uiState.value.medicine == null) {
+            viewModel.fetchMedicineDetail(medicineId)
+        }
     }
 
     override fun initViews() {
@@ -41,14 +42,16 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
             back()
         }
 
+        parentFragmentManager.setFragmentResultListener(
+            "prescriptionData",
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val usedMedicineIdStrings = bundle.getStringArrayList("usedMedicineIds")
+            usedMedicineIds = usedMedicineIdStrings?.map { it.toLong() } ?: listOf()
+        }
+
         binding.addToPrescriptionButton.setOnClickListener {
-            val existingMedicineIds = listOf(
-                2L,
-                3L,
-                4L,
-                5L
-            ) // (Sau Hải sửa cái này nhé - ném list id của các thuốc đang có trong đơn thuốc vào đây)
-            viewModel.checkMedicineInteractions(medicineId, existingMedicineIds)
+            viewModel.checkMedicineInteractions(medicineId, usedMedicineIds)
         }
     }
 
@@ -78,7 +81,12 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
     private fun handleMedicineInteraction(interaction: MedicineInteraction) {
         if (!interaction.hasInteraction) {
             Timber.d("không có tương tác thuốc muinv")
-            viewModel.addMedicineToPrescription(medicineId)
+            val bundle = Bundle().apply {
+                putSerializable("selectedMedicine", viewModel.uiState.value.medicine)
+            }
+            parentFragmentManager.setFragmentResult("prescriptionDataSelectMedicine", bundle)
+            back()
+            back()
             return
         }
 
@@ -109,14 +117,8 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
 
 
     private fun handleLoadingState(isLoading: Boolean) {
-        // Show/hide loading indicator if you have one
-        // binding.progressBar.isVisible = isLoading
     }
 
     private fun handleErrorState(error: String?) {
-        // Show error message if needed
-        // error?.let {
-        //     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        // }
     }
 }

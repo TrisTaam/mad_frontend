@@ -30,13 +30,13 @@ class ResourceCall<T>(
                         val resource = Resource.Success(body.data, body.message)
                         callback.onResponse(
                             this@ResourceCall,
-                            Response.success(resource)
+                            Response.success<Resource<T>>(resource as Resource<T>)
                         )
                     } else {
                         val resource = Resource.Error("Kết quả trả về không hợp lệ")
                         callback.onResponse(
                             this@ResourceCall,
-                            Response.success(resource)
+                            Response.success<Resource<T>>(resource as Resource<T>)
                         )
                     }
                 } else {
@@ -62,7 +62,7 @@ class ResourceCall<T>(
                     val resource = Resource.Error(errorMessage, response.code())
                     callback.onResponse(
                         this@ResourceCall,
-                        Response.success(resource)
+                        Response.success<Resource<T>>(resource as Resource<T>)
                     )
                 }
             }
@@ -75,7 +75,7 @@ class ResourceCall<T>(
                 }
                 callback.onResponse(
                     this@ResourceCall,
-                    Response.success(resource)
+                    Response.success<Resource<T>>(resource as Resource<T>)
                 )
             }
         })

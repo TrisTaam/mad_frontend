@@ -1,6 +1,5 @@
 package com.example.mobile6.data.remote.dto.response
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable

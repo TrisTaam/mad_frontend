@@ -94,17 +94,6 @@ class MedicineDetailViewModel @Inject constructor(
             }
         }
     }
-
-    fun addMedicineToPrescription(medicineId: Long) {
-        viewModelScope.launch {
-            try {
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(error = "Không thể thêm thuốc vào đơn: ${e.message}")
-                }
-            }
-        }
-    }
 }
 
 data class MedicineDetailUiState(

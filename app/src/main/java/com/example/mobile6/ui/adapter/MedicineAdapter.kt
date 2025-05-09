@@ -35,14 +35,14 @@ class MedicineAdapter(
         fun bind(medicine: Medicine) {
             binding.apply {
                 medicineName.text = medicine.name
-                
+
                 val ingredientsText = if (medicine.ingredients.isNotEmpty()) {
                     "Thành phần: " + medicine.ingredients.joinToString(", ") { it.name }
                 } else {
                     "Chưa có thông tin thành phần"
                 }
                 medicineIngredients.text = ingredientsText
-                
+
                 root.setOnClickListener { onMedicineClick(medicine) }
             }
         }

@@ -1,9 +1,13 @@
 package com.example.mobile6.data.remote.di
 
+import com.example.mobile6.data.remote.service.AppointmentService
 import com.example.mobile6.data.remote.service.AuthService
+import com.example.mobile6.data.remote.service.DoctorService
 import com.example.mobile6.data.remote.service.MessageService
 import com.example.mobile6.data.remote.service.MedicineService
+import com.example.mobile6.data.remote.service.PrescriptionService
 import com.example.mobile6.data.remote.service.TestService
+import com.example.mobile6.data.remote.service.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +29,7 @@ object ApiServiceModule {
     fun provideTestService(retrofit: Retrofit): TestService {
         return retrofit.create(TestService::class.java)
     }
-    
+
     @Provides
     @Singleton
     fun provideMedicineService(retrofit: Retrofit): MedicineService {
@@ -34,6 +38,26 @@ object ApiServiceModule {
 
     @Provides
     @Singleton
+    fun provideUserService(retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePrescriptionService(retrofit: Retrofit): PrescriptionService {
+        return retrofit.create(PrescriptionService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDoctorService(retrofit: Retrofit): DoctorService {
+        return retrofit.create(DoctorService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppointmentService(retrofit: Retrofit): AppointmentService {
+        return retrofit.create(AppointmentService::class.java)
     fun provideDoctorService(retrofit: Retrofit): MessageService {
         return retrofit.create(MessageService::class.java)
     }

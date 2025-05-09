@@ -51,7 +51,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             if (isLoggedIn == null) return@onEach
             if (!isLoggedIn) {
                 navController.navigate(
-                    R.id.signInFragment,
+                    R.id.welcomeFragment,
                     null,
                     NavOptions.Builder()
                         .defaultAnim()
