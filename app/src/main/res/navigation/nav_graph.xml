@@ -17,6 +17,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatListDoctorFragment"
+            app:destination="@id/chatListDoctorFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -231,4 +234,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+    <fragment
+        android:id="@+id/chatListDoctorFragment"
+        android:name="com.example.mobile6.ui.chat.ChatListDoctorFragment"
+        android:label="fragment_chat_list_doctor"
+        tools:layout="@layout/fragment_chat_list_doctor" />
 </navigation>

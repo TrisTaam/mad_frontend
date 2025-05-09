@@ -54,6 +54,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 NavOptions.Builder().defaultAnim().build()
             )
         }
+
+        binding.btnTestChat.setOnClickListener {
+            navigateTo(
+                R.id.chatListDoctorFragment
+            )
+        }
     }
 
     override fun initObservers() {
