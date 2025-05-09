@@ -25,7 +25,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
     override fun initViews() {
         binding.btnTestSignIn.setOnClickListener {
-            viewModel.signIn("0969623248", "12345678")
+            viewModel.signIn("0900000001", "hashedpassword")
         }
     }
 

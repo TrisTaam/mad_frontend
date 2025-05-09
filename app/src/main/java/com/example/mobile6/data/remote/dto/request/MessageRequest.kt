@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MessageRequest(
-    val senderId: Long,
+
     val receiverId: Long,
     val content: String,
 )

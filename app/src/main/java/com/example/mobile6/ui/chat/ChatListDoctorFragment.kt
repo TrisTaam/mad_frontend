@@ -31,7 +31,6 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
         messageAdapter = MessageAdapter { doctor ->
             val bundle = Bundle().apply {
                 putString("doctorName", doctor.firstname + " " + doctor.lastname)
-                // Nếu có id: putLong("doctorId", doctor.id)
             }
             findNavController().navigate(
                 R.id.action_chatListDoctorFragment_to_chatBoxFragment,

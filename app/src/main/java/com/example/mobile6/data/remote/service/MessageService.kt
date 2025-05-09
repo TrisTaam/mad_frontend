@@ -1,6 +1,7 @@
 package com.example.mobile6.data.remote.service
 
 import com.example.mobile6.data.remote.dto.request.MessageRequest
+import com.example.mobile6.data.remote.dto.response.MessageListResponse
 import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.domain.model.Message
 import com.example.mobile6.domain.model.Resource
@@ -22,21 +23,20 @@ interface MessageService {
      * Gửi tin nhắn
      */
     @POST("/api/v1/message/send")
-    suspend fun sendMessage(@Body request: MessageRequest): Resource<Message>
+    suspend fun sendMessage(@Body request: MessageRequest): Resource<MessageListResponse>
 
     /**
      * Lấy hội thoại giữa 2 user
      */
     @GET("/api/v1/message/conversation")
     suspend fun getConversation(
-        @Query("user1") user1Id: Long,
         @Query("user2") user2Id: Long
-    ): Resource<List<Message>>
+    ): Resource<MessageListResponse>
 
     /**
      * Lấy danh sách user đã từng tư vấn với bác sĩ
      */
-    @GET("/api/v1/message/getAllUsers/")
+    @GET("/api/v1/message/getAllUsers/{id}")
     suspend fun getAllUsersForDoctor(
         @Path("id") id: Long,
         @Query("doctorId") doctorId: Long

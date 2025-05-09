@@ -1,6 +1,7 @@
 package com.example.mobile6.data.repository
 
 import com.example.mobile6.data.remote.dto.request.MessageRequest
+import com.example.mobile6.data.remote.dto.response.MessageListResponse
 import com.example.mobile6.data.remote.service.MessageService
 import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.domain.model.Message
@@ -14,23 +15,39 @@ import javax.inject.Inject
 class MessageRepositoryImpl @Inject constructor(
     private val messageService: MessageService
 ) : MessageRepository {
-    override suspend fun sendMessage(senderId: Long, receiverId: Long, content: String): Resource<Message> =
+    override suspend fun sendMessage(receiverId: Long, content: String): Resource<MessageListResponse> =
         withContext(Dispatchers.IO) {
-            messageService.sendMessage(MessageRequest(senderId, receiverId, content))
+            try {
+                messageService.sendMessage(MessageRequest(receiverId = receiverId, content = content))
+            } catch (e: Exception) {
+                Resource.Error(e.message ?: "Unknown error occurred")
+            }
         }
 
-    override suspend fun getConversation(user1Id: Long, user2Id: Long): Resource<List<Message>> =
+    override suspend fun getConversation(user2Id: Long): Resource<MessageListResponse> =
         withContext(Dispatchers.IO) {
-            messageService.getConversation(user1Id, user2Id)
+            try {
+                messageService.getConversation(user2Id)
+            } catch (e: Exception) {
+                Resource.Error(e.message ?: "Unknown error occurred")
+            }
         }
 
     override suspend fun getAllUsersForDoctor(doctorId: Long): Resource<List<User>> =
         withContext(Dispatchers.IO) {
-            messageService.getAllUsersForDoctor(id = doctorId, doctorId = doctorId)
+            try {
+                messageService.getAllUsersForDoctor(id = doctorId, doctorId = doctorId)
+            } catch (e: Exception) {
+                Resource.Error(e.message ?: "Unknown error occurred")
+            }
         }
 
     override suspend fun getAllDoctorsForUser(): Resource<List<Doctor>> =
         withContext(Dispatchers.IO) {
-            messageService.getAllDoctorsForUser()
+            try {
+                messageService.getAllDoctorsForUser()
+            } catch (e: Exception) {
+                Resource.Error(e.message ?: "Unknown error occurred")
+            }
         }
 }

@@ -41,7 +41,7 @@ class ChatListDoctorViewModel @Inject constructor(
                     if (doctors.isEmpty()) {
                         Log.d("ChatListDoctorViewModel", "Danh sách bác sĩ rỗng!")
                     }
-                    _doctors.update { doctors.map { Doctor(it.specialty, it.firstname, it.lastname) } }
+                    _doctors.update { doctors.map { Doctor(it.id, it.specialty, it.firstname, it.lastname) } }
                     _uiMessage.emit("Lấy danh sách bác sĩ thành công")
                 }
                 .onError { message, _ ->
