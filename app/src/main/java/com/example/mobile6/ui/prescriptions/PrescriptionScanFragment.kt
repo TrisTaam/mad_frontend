@@ -10,6 +10,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
@@ -37,6 +38,19 @@ class PrescriptionScanFragment : BaseFragment<FragmentPrescriptionScanBinding>()
     private var cameraSource: CameraSource? = null
     private var barcodeDetector: BarcodeDetector? = null
     private var isDetectorOperational = false
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startCameraSource()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Cần quyền truy cập camera để quét mã QR",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentPrescriptionScanBinding
         get() = { inflater, container ->
@@ -173,12 +187,9 @@ class PrescriptionScanFragment : BaseFragment<FragmentPrescriptionScanBinding>()
     }
 
     private fun requestCameraPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(Manifest.permission.CAMERA),
-            CAMERA_PERMISSION_REQUEST_CODE
-        )
+        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -200,7 +211,13 @@ class PrescriptionScanFragment : BaseFragment<FragmentPrescriptionScanBinding>()
 
     override fun onResume() {
         super.onResume()
-        startCameraSource()
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startCameraSource()
+        }
     }
 
     override fun onPause() {
