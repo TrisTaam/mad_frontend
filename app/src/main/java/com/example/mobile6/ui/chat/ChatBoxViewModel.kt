@@ -90,19 +90,17 @@ class ChatBoxViewModel @Inject constructor(
             when (val result = messageRepository.sendMessage(doctorId, content)) {
                 is Resource.Success -> {
                     Log.d("ChatBoxViewModel", "Message sent successfully")
-                    val messages = result.data.map { messageResponse ->
-                        Message(
-                            id = messageResponse.id,
-                            senderId = messageResponse.senderId,
-                            receiverId = messageResponse.receiverId,
-                            content = messageResponse.content,
-                            sentAt = messageResponse.sentAt,
-                            isFromCurrentUser = messageResponse.senderId == getCurrentUserId()
-                        )
-                    }
+                    val newMessage = Message(
+                        id = result.data.id,
+                        senderId = result.data.senderId,
+                        receiverId = result.data.receiverId,
+                        content = result.data.content,
+                        sentAt = result.data.sentAt,
+                        isFromCurrentUser = result.data.senderId == getCurrentUserId()
+                    )
                     _uiState.update {
                         it.copy(
-                            messages = messages,
+                            messages = it.messages + newMessage,
                             isSending = false,
                             error = null
                         )

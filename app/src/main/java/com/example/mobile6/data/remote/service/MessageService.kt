@@ -22,7 +22,7 @@ interface MessageService {
      * Gửi tin nhắn
      */
     @POST("/api/v1/message/send")
-    suspend fun sendMessage(@Body request: MessageRequest): Resource<List<MessageResponse>>
+    suspend fun sendMessage(@Body request: MessageRequest): Resource<MessageResponse>
 
     /**
      * Lấy hội thoại giữa 2 user

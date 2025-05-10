@@ -71,7 +71,7 @@
             android:textSize="14sp" />
 
         <ImageButton
-            android:id="@+id/sendImageButton"
+            android:id="@+id/sendMessageBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
@@ -80,7 +80,7 @@
             android:src="@drawable/send_message_icon" />
 
         <ImageButton
-            android:id="@+id/sendButton"
+            android:id="@+id/sendImgBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"

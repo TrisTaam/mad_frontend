@@ -66,19 +66,19 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
 
     private fun setupMessageInput() {
         // Ẩn nút gửi ảnh vì chưa implement
-        binding.sendImageButton.visibility = View.GONE
+        binding.sendImgBtn.visibility = View.GONE
         
         // Enable/disable nút gửi dựa trên nội dung input
         binding.messageInput.addTextChangedListener { text ->
-            binding.sendButton.isEnabled = !text.isNullOrBlank()
+            binding.sendMessageBtn.isEnabled = !text.isNullOrBlank()
         }
         
-        binding.sendButton.setOnClickListener {
+        binding.sendMessageBtn.setOnClickListener {
             val content = binding.messageInput.text.toString().trim()
             if (content.isNotEmpty()) {
                 viewModel.sendMessage(doctorId, content)
                 binding.messageInput.text.clear()
-                binding.sendButton.isEnabled = false
+                binding.sendMessageBtn.isEnabled = false
             }
         }
     }
@@ -101,7 +101,7 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
                     
                     // Disable input khi đang gửi tin nhắn
                     binding.messageInput.isEnabled = !state.isSending
-                    binding.sendButton.isEnabled = !state.isSending && !binding.messageInput.text.isNullOrBlank()
+                    binding.sendMessageBtn.isEnabled = !state.isSending && !binding.messageInput.text.isNullOrBlank()
                 }
             }
         }

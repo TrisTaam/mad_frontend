@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MessageRepositoryImpl @Inject constructor(
     private val messageService: MessageService
 ) : MessageRepository {
-    override suspend fun sendMessage(receiverId: Long, content: String): Resource<List<MessageResponse>> =
+    override suspend fun sendMessage(receiverId: Long, content: String): Resource<MessageResponse> =
         withContext(Dispatchers.IO) {
             messageService.sendMessage(MessageRequest(receiverId = receiverId, content = content))
                 .onError { message, code ->
