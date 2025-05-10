@@ -202,7 +202,10 @@ class PrescriptionCreateFragment : BaseFragment<FragmentPrescriptionCreateBindin
         // Observe save success
         viewModel.saveSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
-                back()
+                val bundle = Bundle().apply {
+                    putLong("prescriptionId", viewModel.prescriptionId!!)
+                }
+                navigateTo(R.id.action_prescriptionCreateFragment_to_prescriptionQrFragment, bundle)
                 viewModel.resetSaveSuccess()
             }
         }

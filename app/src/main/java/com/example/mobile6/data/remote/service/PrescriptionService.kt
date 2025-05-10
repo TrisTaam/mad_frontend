@@ -13,15 +13,15 @@ interface PrescriptionService {
     @POST("/api/v1/prescription/")
     suspend fun createPrescription(@Body request: CreatePrescriptionRequest): Resource<PrescriptionResponse>
 
-    @POST("/api/v1/{id}/connect")
+    @POST("/api/v1/prescription/{id}/connect")
     suspend fun connectPrescription(@Path("id") id: Long): Resource<PrescriptionResponse>
 
-    @GET("/api/v1/{id}")
+    @GET("/api/v1/prescription/{id}")
     suspend fun getPrescription(@Path("id") id: Long): Resource<PrescriptionResponse>
 
-    @GET("/api/v1/{id}/deactivate")
+    @GET("/api/v1/prescription/{id}/deactivate")
     suspend fun deactivatePrescription(@Path("id") id: Long): Resource<String>
 
-    @GET("/api/v1/detail/{id}")
+    @GET("/api/v1/prescription/detail/{id}")
     suspend fun getPrescriptionDetail(@Path("id") id: Long): Resource<PrescriptionDetailResponse>
 }

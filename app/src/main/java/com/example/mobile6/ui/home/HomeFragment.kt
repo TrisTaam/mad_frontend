@@ -60,6 +60,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 R.id.chatListDoctorFragment
             )
         }
+        binding.btnTestScanPrescription.setOnClickListener {
+            navigateTo(R.id.prescriptionScanFragment)
+        }
     }
 
     override fun initObservers() {
