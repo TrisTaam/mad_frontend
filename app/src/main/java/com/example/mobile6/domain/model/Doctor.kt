@@ -19,3 +19,4 @@ data class Doctor(
     val avatar: String?,
     val doctorInfos: List<DoctorInfo>?
 ) : Parcelable
+

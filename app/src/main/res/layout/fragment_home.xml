@@ -36,4 +36,10 @@
         android:layout_height="wrap_content"
         android:text="test_add_prescription" />
 
+    <Button
+        android:id="@+id/btn_test_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test_chat" />
+
 </LinearLayout>
