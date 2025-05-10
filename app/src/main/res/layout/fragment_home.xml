@@ -34,6 +34,12 @@
         android:id="@+id/btn_test_add_prescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test_add_prescription" />
+        android:text="Bác sĩ: Tạo đơn thuốc" />
+
+    <Button
+        android:id="@+id/btn_test_scan_prescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bệnh nhân: scan đơn thuốc" />
 
 </LinearLayout>

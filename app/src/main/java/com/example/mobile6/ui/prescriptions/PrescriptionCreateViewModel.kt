@@ -48,13 +48,15 @@ class PrescriptionCreateViewModel @Inject constructor(
     private val _saveSuccess = MutableLiveData<Boolean>()
     val saveSuccess: LiveData<Boolean> = _saveSuccess
 
-    private var prescriptionId: Long? = null
+    private var _prescriptionId: Long? = null
+    val prescriptionId
+        get() = _prescriptionId
 
     init {
         // Check if we're editing an existing prescription
         _prescriptionDate.value = Date()
         savedStateHandle.get<Long>("prescriptionId")?.let { id ->
-            prescriptionId = id
+            _prescriptionId = id
             _isEditMode.value = true
             loadPrescription(id)
         } ?: run {
@@ -145,7 +147,9 @@ class PrescriptionCreateViewModel @Inject constructor(
             try {
                 if (_isEditMode.value != true) {
                     prescriptionRepository.createPrescription(request)
-                    _uiMessage.emit("Đã lưu đơn thuốc")
+                        .onSuccess { data, message ->
+                            _prescriptionId = data.prescriptionId
+                        }
                 }
                 _saveSuccess.value = true
             } catch (e: Exception) {

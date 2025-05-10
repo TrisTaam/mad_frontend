@@ -54,6 +54,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 NavOptions.Builder().defaultAnim().build()
             )
         }
+        binding.btnTestScanPrescription.setOnClickListener {
+            navigateTo(R.id.prescriptionScanFragment)
+        }
     }
 
     override fun initObservers() {
