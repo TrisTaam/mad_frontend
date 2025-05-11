@@ -7,16 +7,16 @@ import kotlinx.serialization.Serializable
 data class MessageResponse(
     @SerialName("id")
     val id: Long,
-    
+
     @SerialName("senderId")
     val senderId: Long,
-    
+
     @SerialName("receiverId")
     val receiverId: Long,
-    
+
     @SerialName("content")
     val content: String,
-    
+
     @SerialName("sentAt")
     val sentAt: String
 )

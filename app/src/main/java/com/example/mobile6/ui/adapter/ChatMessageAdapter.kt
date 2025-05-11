@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.databinding.ItemMessageBinding
 import com.example.mobile6.domain.model.Message
 
-class ChatMessageAdapter : ListAdapter<Message, ChatMessageAdapter.MessageViewHolder>(MessageDiffCallback()) {
+class ChatMessageAdapter :
+    ListAdapter<Message, ChatMessageAdapter.MessageViewHolder>(MessageDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         val binding = ItemMessageBinding.inflate(
@@ -27,13 +28,13 @@ class ChatMessageAdapter : ListAdapter<Message, ChatMessageAdapter.MessageViewHo
     inner class MessageViewHolder(
         private val binding: ItemMessageBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        
+
         fun bind(message: Message) {
             if (message.isFromCurrentUser) {
                 binding.sentMessageLayout.visibility = View.VISIBLE
                 binding.receivedMessageLayout.visibility = View.GONE
                 binding.sentMessageText.text = message.content
-                
+
 //                if (message.imageUrl != null) {
 //                    binding.sentImage.visibility = View.VISIBLE
 //                    // TODO: Load image using Glide or Coil
@@ -44,7 +45,7 @@ class ChatMessageAdapter : ListAdapter<Message, ChatMessageAdapter.MessageViewHo
                 binding.receivedMessageLayout.visibility = View.VISIBLE
                 binding.sentMessageLayout.visibility = View.GONE
                 binding.receivedMessageText.text = message.content
-                
+
 //                if (message.imageUrl != null) {
 //                    binding.receivedImage.visibility = View.VISIBLE
 //                    // TODO: Load image using Glide or Coil

@@ -34,7 +34,7 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
     override fun processArguments(args: Bundle) {
         doctorId = args.getLong("doctorId")
         doctorName = args.getString("doctorName", "")
-        
+
         // Load conversation when fragment is created
         if (viewModel.uiState.value.messages.isEmpty()) {
             viewModel.getConversation(doctorId)
@@ -67,12 +67,12 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
     private fun setupMessageInput() {
         // Ẩn nút gửi ảnh vì chưa implement
         binding.sendImgBtn.visibility = View.GONE
-        
+
         // Enable/disable nút gửi dựa trên nội dung input
         binding.messageInput.addTextChangedListener { text ->
             binding.sendMessageBtn.isEnabled = !text.isNullOrBlank()
         }
-        
+
         binding.sendMessageBtn.setOnClickListener {
             val content = binding.messageInput.text.toString().trim()
             if (content.isNotEmpty()) {
@@ -98,10 +98,11 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
                     messageAdapter.submitList(state.messages)
                     binding.messagesRecyclerView.scrollToPosition(state.messages.size - 1)
                     handleLoadingState(false)
-                    
+
                     // Disable input khi đang gửi tin nhắn
                     binding.messageInput.isEnabled = !state.isSending
-                    binding.sendMessageBtn.isEnabled = !state.isSending && !binding.messageInput.text.isNullOrBlank()
+                    binding.sendMessageBtn.isEnabled =
+                        !state.isSending && !binding.messageInput.text.isNullOrBlank()
                 }
             }
         }

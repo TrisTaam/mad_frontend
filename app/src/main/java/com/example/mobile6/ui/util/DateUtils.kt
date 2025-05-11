@@ -13,6 +13,7 @@ object DateUtils {
 
     private val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val isoDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+    private val ddMMyyyyFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     // Convert java.util.Date to java.sql.Date
     fun Date.toSqlDate(): SqlDate = SqlDate(this.time)
@@ -22,6 +23,8 @@ object DateUtils {
 
     // Convert java.util.Date to string "yyyy-MM-dd"
     fun Date.toRequestDateString(): String = dateFormatter.format(this)
+
+    fun Date.toddMMyyyyString(): String = ddMMyyyyFormatter.format(this)
 
     // Convert java.util.Date to ISO datetime string "yyyy-MM-dd'T'HH:mm:ss"
     fun Date.toRequestDateTimeString(): String {

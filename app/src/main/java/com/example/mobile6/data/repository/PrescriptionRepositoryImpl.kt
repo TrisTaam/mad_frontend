@@ -38,4 +38,14 @@ class PrescriptionRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             prescriptionService.getPrescriptionDetail(id)
         }
+
+    override suspend fun getPrescriptionsForUser(): Resource<List<PrescriptionResponse>> =
+        withContext(Dispatchers.IO) {
+            prescriptionService.getPrescriptionsForUser()
+        }
+
+    override suspend fun getPrescriptionsForDoctor(): Resource<List<PrescriptionResponse>> =
+        withContext(Dispatchers.IO) {
+            prescriptionService.getPrescriptionsForDoctor()
+        }
 }
