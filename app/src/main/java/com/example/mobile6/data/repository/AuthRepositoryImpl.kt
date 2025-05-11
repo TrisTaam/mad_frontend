@@ -1,10 +1,12 @@
 package com.example.mobile6.data.repository
 
 import com.example.mobile6.data.local.TokenManager
+import com.example.mobile6.data.local.pref.Preferences
 import com.example.mobile6.data.remote.dto.request.RefreshTokenRequest
 import com.example.mobile6.data.remote.dto.request.SignInRequest
 import com.example.mobile6.data.remote.dto.request.SignUpRequest
 import com.example.mobile6.data.remote.service.AuthService
+import com.example.mobile6.data.remote.service.UserService
 import com.example.mobile6.data.remote.util.map
 import com.example.mobile6.data.remote.util.onError
 import com.example.mobile6.data.remote.util.onException
@@ -21,7 +23,9 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authService: AuthService,
-    private val tokenManager: TokenManager
+    private val userService: UserService,
+    private val tokenManager: TokenManager,
+    private val preferences: Preferences
 ) : AuthRepository {
     override suspend fun signIn(
         login: String,
@@ -33,6 +37,7 @@ class AuthRepositoryImpl @Inject constructor(
                     accessToken = authResponse.accessToken.toString(),
                     refreshToken = authResponse.refreshToken.toString()
                 )
+                handleCurrentUser()
             }
             .onError { code, error ->
                 tokenManager.clearTokens()
@@ -42,6 +47,26 @@ class AuthRepositoryImpl @Inject constructor(
             }
             .map {
                 true
+            }
+    }
+
+    private suspend fun handleCurrentUser() {
+        userService.getDetailInfo()
+            .onSuccess { userResponse, message ->
+                if (preferences.isDoctorSignedIn) return@onSuccess
+                if (userResponse.role == "DOCTOR") {
+                    preferences.isDoctorSignedIn = true
+                    preferences.isDoctorMode = true
+                } else {
+                    preferences.isDoctorSignedIn = false
+                    preferences.isDoctorMode = false
+                }
+            }
+            .onError { code, error ->
+                Timber.e("Lỗi lấy thông tin người dùng: $error - Mã lỗi: $code")
+            }
+            .onException { e ->
+                Timber.e("Lỗi lấy thông tin người dùng: $e")
             }
     }
 
@@ -55,7 +80,7 @@ class AuthRepositoryImpl @Inject constructor(
                     Timber.e("Lỗi đăng ký: $error - Mã lỗi: $code")
                 }
                 .onException { e ->
-                    Timber.e("Lỗi đăng ký:", e)
+                    Timber.e("Lỗi đăng ký: $e")
                 }
                 .map {
                     true
@@ -89,6 +114,8 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun signOut(): Resource<Unit> = withContext(Dispatchers.IO) {
         tokenManager.clearTokens()
+        preferences.isDoctorSignedIn = false
+        preferences.isDoctorMode = false
         Resource.Success(Unit, "Đăng xuất thành công")
     }
 
@@ -97,5 +124,17 @@ class AuthRepositoryImpl @Inject constructor(
             .map { accessToken ->
                 !accessToken.isNullOrBlank()
             }
+    }
+
+    override suspend fun isDoctorSignedIn(): Boolean = withContext(Dispatchers.IO) {
+        preferences.isDoctorSignedIn
+    }
+
+    override suspend fun isDoctorMode(): Boolean = withContext(Dispatchers.IO) {
+        preferences.isDoctorMode
+    }
+
+    override suspend fun changeDoctorMode(isDoctorMode: Boolean) = withContext(Dispatchers.IO) {
+        preferences.isDoctorMode = isDoctorMode
     }
 }

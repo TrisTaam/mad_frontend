@@ -2,38 +2,36 @@ package com.example.mobile6.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile6.data.remote.util.onError
-import com.example.mobile6.data.remote.util.onException
-import com.example.mobile6.data.remote.util.onSuccess
-import com.example.mobile6.domain.repository.TestRepository
+import com.example.mobile6.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val testRepository: TestRepository
+    private val authRepository: AuthRepository
 ) : ViewModel() {
-    private val _testMessage = MutableSharedFlow<String>()
-    val testMessage = _testMessage.asSharedFlow()
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
 
-    fun test3() {
+    init {
+        getMode()
+    }
+
+    fun getMode() {
         viewModelScope.launch {
-            val result = testRepository.test3()
-
-            var tmpMessage = ""
-            result
-                .onSuccess { test, message ->
-                    tmpMessage = "Test3 success ${test.id} ${test.username} $message"
-                }.onError { message, code ->
-                    tmpMessage = "Test3 error $message $code"
-                }.onException { throwable ->
-                    tmpMessage = "Test3 exception ${throwable.message}"
-                }
-
-            _testMessage.emit(tmpMessage)
+            _uiState.update { it.copy(isLoading = true) }
+            val mode = authRepository.isDoctorMode()
+            _uiState.update { it.copy(isLoading = false, isDoctorMode = mode) }
         }
     }
+
+    data class UiState(
+        val isLoading: Boolean = false,
+        val error: String? = null,
+        val isDoctorMode: Boolean = false
+    )
 }

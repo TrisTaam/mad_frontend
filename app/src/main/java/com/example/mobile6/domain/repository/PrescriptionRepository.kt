@@ -15,4 +15,8 @@ interface PrescriptionRepository {
     suspend fun deactivatePrescription(id: Long): Resource<String>
 
     suspend fun getPrescriptionDetail(id: Long): Resource<PrescriptionDetailResponse>
+
+    suspend fun getPrescriptionsForUser(): Resource<List<PrescriptionResponse>>
+
+    suspend fun getPrescriptionsForDoctor(): Resource<List<PrescriptionResponse>>
 }

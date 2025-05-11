@@ -10,4 +10,7 @@ interface AuthRepository {
     suspend fun refreshToken(): Resource<Boolean>
     suspend fun signOut(): Resource<Unit>
     fun isLoggedIn(): Flow<Boolean>
+    suspend fun isDoctorSignedIn(): Boolean
+    suspend fun isDoctorMode(): Boolean
+    suspend fun changeDoctorMode(isDoctorMode: Boolean)
 }

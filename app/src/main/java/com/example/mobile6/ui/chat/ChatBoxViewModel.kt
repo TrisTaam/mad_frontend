@@ -3,7 +3,6 @@ package com.example.mobile6.ui.chat
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile6.data.remote.dto.response.MessageResponse
 import com.example.mobile6.domain.model.Message
 import com.example.mobile6.domain.model.Resource
 import com.example.mobile6.domain.repository.MessageRepository
@@ -34,7 +33,7 @@ class ChatBoxViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
             Log.d("ChatBoxViewModel", "Getting conversation with doctor: $doctorId")
-            
+
             when (val result = messageRepository.getConversation(doctorId)) {
                 is Resource.Success -> {
                     Log.d("ChatBoxViewModel", "Got conversation: ${result.data}")
@@ -56,7 +55,7 @@ class ChatBoxViewModel @Inject constructor(
                         )
                     }
                 }
-                
+
                 is Resource.Error -> {
                     Log.e("ChatBoxViewModel", "Error getting conversation: ${result.message}")
                     _uiState.update {
@@ -66,9 +65,12 @@ class ChatBoxViewModel @Inject constructor(
                         )
                     }
                 }
-                
+
                 is Resource.Exception -> {
-                    Log.e("ChatBoxViewModel", "Exception getting conversation: ${result.throwable.message}")
+                    Log.e(
+                        "ChatBoxViewModel",
+                        "Exception getting conversation: ${result.throwable.message}"
+                    )
                     _uiState.update {
                         it.copy(
                             isLoading = false,
@@ -82,11 +84,11 @@ class ChatBoxViewModel @Inject constructor(
 
     fun sendMessage(doctorId: Long, content: String) {
         if (content.isBlank()) return
-        
+
         viewModelScope.launch {
             _uiState.update { it.copy(isSending = true, error = null) }
             Log.d("ChatBoxViewModel", "Sending message to doctor $doctorId: $content")
-            
+
             when (val result = messageRepository.sendMessage(doctorId, content)) {
                 is Resource.Success -> {
                     Log.d("ChatBoxViewModel", "Message sent successfully")
@@ -106,7 +108,7 @@ class ChatBoxViewModel @Inject constructor(
                         )
                     }
                 }
-                
+
                 is Resource.Error -> {
                     Log.e("ChatBoxViewModel", "Error sending message: ${result.message}")
                     _uiState.update {
@@ -116,9 +118,12 @@ class ChatBoxViewModel @Inject constructor(
                         )
                     }
                 }
-                
+
                 is Resource.Exception -> {
-                    Log.e("ChatBoxViewModel", "Exception sending message: ${result.throwable.message}")
+                    Log.e(
+                        "ChatBoxViewModel",
+                        "Exception sending message: ${result.throwable.message}"
+                    )
                     _uiState.update {
                         it.copy(
                             isSending = false,

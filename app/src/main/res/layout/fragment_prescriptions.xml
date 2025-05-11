@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".ui.chat.doctor.ChatListDoctorFragment">
+    tools:context=".ui.prescriptions.PrescriptionsFragment">
 
-    <!-- Header with title and back button -->
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
@@ -31,15 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Chọn bác sĩ"
+            android:text="Quản lý đơn thuốc"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <!-- Search Bar -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/search_card"
+        android:id="@+id/cv_search"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -71,7 +68,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="Tìm kiếm bác sĩ"
+                android:hint="Tên đơn thuốc"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:textColorHint="#C0C0C0"
@@ -79,29 +76,31 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- Doctor List Title -->
-    <TextView
-        android:id="@+id/list_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Danh sách bác sĩ"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_card" />
-
-    <!-- Doctor List RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_doctor_list"
+        android:id="@+id/rv_prescriptions"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/list_title" />
+        app:layout_constraintTop_toBottomOf="@id/cv_search"
+        tools:listitem="@layout/item_prescription" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_prescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#C58BF2"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearance="@style/circle_image_view"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

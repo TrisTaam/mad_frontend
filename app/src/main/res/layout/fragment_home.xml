@@ -1,63 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <Button
-        android:id="@+id/btn_open_medicine_search"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_open_medicine_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mở tìm kiếm thuốc" />
+
+        <Button
+            android:id="@+id/btn_open_specialty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mở chọn chuyên môn" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mở tìm kiếm thuốc" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#C58BF2"
+        android:src="@drawable/ic_chat"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearance="@style/circle_image_view"
+        app:tint="@color/white" />
 
-    <Button
-        android:id="@+id/btn_open_specialty"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_chat_ai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mở chọn chuyên môn" />
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#C58BF2"
+        android:src="@drawable/ic_chat_ai"
+        android:visibility="gone"
+        app:fabCustomSize="40dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_chat"
+        app:layout_constraintEnd_toStartOf="@id/fab_chat"
+        app:layout_constraintTop_toTopOf="@+id/fab_chat"
+        app:shapeAppearance="@style/circle_image_view"
+        app:tint="@color/white" />
 
-    <Button
-        android:id="@+id/btn_test3"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_chat_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test3" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#C58BF2"
+        android:src="@drawable/ic_chat_user"
+        android:visibility="gone"
+        app:fabCustomSize="40dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_chat"
+        app:layout_constraintEnd_toStartOf="@+id/fab_chat"
+        app:layout_constraintStart_toStartOf="@+id/fab_chat"
+        app:shapeAppearance="@style/circle_image_view"
+        app:tint="@color/white" />
 
-    <Button
-        android:id="@+id/btn_test_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test dialog" />
-
-    <Button
-        android:id="@+id/btn_test_add_prescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bác sĩ: Tạo đơn thuốc" />
-
-    <Button
-        android:id="@+id/btn_test_scan_prescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bệnh nhân: scan đơn thuốc" />
-
-    <Button
-        android:id="@+id/btn_test_chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test_chat" />
-
-    <Button
-        android:id="@+id/btn_test_chat_doctor_to_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test_chat_doctor_to_user" />
-
-    <Button
-        android:id="@+id/btn_test_chat_ai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test_chat_ai" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

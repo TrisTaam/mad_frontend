@@ -36,14 +36,14 @@ class ChatListDoctorViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
             Log.d("ChatListDoctorViewModel", "Starting to fetch doctors")
-            
+
             when (val result = messageRepository.getAllDoctorsForUser()) {
                 is Resource.Success -> {
                     Log.d("ChatListDoctorViewModel", "Raw doctors data: ${result.data}")
                     if (result.data.isEmpty()) {
                         Log.d("ChatListDoctorViewModel", "Danh sách bác sĩ rỗng!")
                     }
-                    
+
                     _uiState.update {
                         it.copy(
                             doctors = result.data,
@@ -52,7 +52,7 @@ class ChatListDoctorViewModel @Inject constructor(
                         )
                     }
                 }
-                
+
                 is Resource.Error -> {
                     Log.d("ChatListDoctorViewModel", "Lỗi lấy danh sách bác sĩ: ${result.message}")
                     _uiState.update {
@@ -63,7 +63,7 @@ class ChatListDoctorViewModel @Inject constructor(
                         )
                     }
                 }
-                
+
                 is Resource.Exception -> {
                     Log.d("ChatListDoctorViewModel", "Exception: ${result.throwable.message}")
                     _uiState.update {

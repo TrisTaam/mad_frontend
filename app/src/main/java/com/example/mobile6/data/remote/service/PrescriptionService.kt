@@ -24,4 +24,10 @@ interface PrescriptionService {
 
     @GET("/api/v1/prescription/detail/{id}")
     suspend fun getPrescriptionDetail(@Path("id") id: Long): Resource<PrescriptionDetailResponse>
+
+    @GET("/api/v1/prescription/get-by-user")
+    suspend fun getPrescriptionsForUser(): Resource<List<PrescriptionResponse>>
+
+    @GET("/api/v1/prescription/get-by-doctor")
+    suspend fun getPrescriptionsForDoctor(): Resource<List<PrescriptionResponse>>
 }

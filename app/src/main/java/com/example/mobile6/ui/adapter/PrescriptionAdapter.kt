@@ -1,0 +1,67 @@
+package com.example.mobile6.ui.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile6.data.remote.dto.response.PrescriptionResponse
+import com.example.mobile6.databinding.ItemPrescriptionBinding
+import com.example.mobile6.ui.base.BaseAdapter
+import com.example.mobile6.ui.util.DateUtils.toUtilDate
+import com.example.mobile6.ui.util.DateUtils.toddMMyyyyString
+
+class PrescriptionAdapter() :
+    BaseAdapter<PrescriptionResponse, PrescriptionAdapter.PrescriptionViewHolder>(
+        simpleDiffCallback(
+            areItemsTheSame = { old, new -> old.prescriptionId == new.prescriptionId },
+            areContentsTheSame = { old, new -> old == new }
+        )
+    ) {
+    var onPrescriptionClick: (PrescriptionResponse) -> Unit = {}
+    var isDoctorMode: Boolean = false
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): PrescriptionViewHolder {
+        return PrescriptionViewHolder(
+            ItemPrescriptionBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(
+        holder: PrescriptionViewHolder,
+        position: Int
+    ) {
+        val prescription = getItem(position)
+        holder.bind(prescription)
+    }
+
+    inner class PrescriptionViewHolder(private val binding: ItemPrescriptionBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(prescription: PrescriptionResponse) {
+            binding.apply {
+                tvName.text = prescription.prescriptionName
+                tvUserName.text = if (isDoctorMode) {
+                    "Bệnh nhân: ${prescription.userName ?: "N/A"}"
+                } else {
+                    "Bác sĩ: ${prescription.doctorName ?: "N/A"}"
+                }
+                tvDate.text = prescription.prescriptionDate.toUtilDate().toddMMyyyyString()
+                tvStatus.text = "Trạng thái: ${
+                    when (prescription.status) {
+                        "CREATED" -> "Đã tạo"
+                        "ACTIVE" -> "Đang sử dụng"
+                        "DEACTIVATED" -> "Đã hoàn thành"
+                        else -> "N/A"
+                    }
+                }"
+                root.setOnClickListener {
+                    onPrescriptionClick(prescription)
+                }
+            }
+        }
+    }
+}

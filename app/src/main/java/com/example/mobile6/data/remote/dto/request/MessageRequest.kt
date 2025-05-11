@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class MessageRequest(
     @SerialName("receiverId")
     val receiverId: Long,
-    
+
     @SerialName("content")
     val content: String
 )
