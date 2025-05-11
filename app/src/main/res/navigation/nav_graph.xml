@@ -19,10 +19,14 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_chatListDoctorFragment"
-            app:destination="@id/chatListDoctorFragment" />
+            app:destination="@id/chatListDoctorFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_chatListUserFragment"
-            app:destination="@id/chatListUserFragment" />
+            app:destination="@id/chatListUserFragment" />  
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -36,9 +40,9 @@
         tools:layout="@layout/fragment_appointments" />
     <fragment
         android:id="@+id/prescriptionsFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionsFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailScanFragment"
         android:label="fragment_prescriptions"
-        tools:layout="@layout/fragment_prescriptions" />
+        tools:layout="@layout/fragment_prescription_detail_scan" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.mobile6.ui.profile.ProfileFragment"
@@ -179,7 +183,11 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <dialog
         android:id="@+id/genderSelectDialogFragment"
@@ -194,6 +202,13 @@
         <action
             android:id="@+id/action_prescriptionCreateFragment_to_prescriptionDetailEditFragment"
             app:destination="@id/prescriptionDetailEditFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_prescriptionCreateFragment_to_prescriptionQrFragment"
+            app:destination="@id/prescriptionQrFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -238,10 +253,28 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
+        android:id="@+id/prescriptionQrFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionQrFragment"
+        android:label="PrescriptionQrFragment" />
+    <fragment
+        android:id="@+id/prescriptionDetailScanFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailScanFragment"
+        android:label="PrescriptionDetailScanFragment"
+        tools:layout="@layout/fragment_prescription_detail_scan" />
+    <fragment
+        android:id="@+id/prescriptionScanFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionScanFragment"
+        android:label="PrescriptionScanFragment"
+        tools:layout="@layout/fragment_prescription_scan">
+        <action
+            android:id="@+id/action_prescriptionScanFragment_to_prescriptionDetailScanFragment"
+            app:destination="@id/prescriptionDetailScanFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/chatListDoctorFragment"
         android:name="com.example.mobile6.ui.chat.doctor.ChatListDoctorFragment"
         android:label="fragment_chat_list_doctor"
-        tools:layout="@layout/fragment_chat_list_doctor" >
+        tools:layout="@layout/fragment_chat_list_doctor">
         <action
             android:id="@+id/action_chatListDoctorFragment_to_chatBoxFragment"
             app:destination="@id/chatBoxFragment" />
