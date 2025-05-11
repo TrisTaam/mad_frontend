@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_homeFragment_to_chatListDoctorFragment"
             app:destination="@id/chatListDoctorFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatListUserFragment"
+            app:destination="@id/chatListUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -236,7 +239,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatListDoctorFragment"
-        android:name="com.example.mobile6.ui.chat.ChatListDoctorFragment"
+        android:name="com.example.mobile6.ui.chat.doctor.ChatListDoctorFragment"
         android:label="fragment_chat_list_doctor"
         tools:layout="@layout/fragment_chat_list_doctor" >
         <action
@@ -247,4 +250,12 @@
         android:id="@+id/chatBoxFragment"
         android:name="com.example.mobile6.ui.chat.ChatBoxFragment"
         android:label="ChatBoxFragment" />
+    <fragment
+        android:id="@+id/chatListUserFragment"
+        android:name="com.example.mobile6.ui.chat.user.ChatListUserFragment"
+        android:label="ChatListUserFragment" >
+        <action
+            android:id="@+id/action_chatListUserFragment_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+    </fragment>
 </navigation>

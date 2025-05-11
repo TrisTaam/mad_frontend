@@ -1,4 +1,4 @@
-package com.example.mobile6.ui.chat
+package com.example.mobile6.ui.chat.doctor
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

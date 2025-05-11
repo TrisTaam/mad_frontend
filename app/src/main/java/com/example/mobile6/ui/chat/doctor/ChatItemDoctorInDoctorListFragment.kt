@@ -1,13 +1,8 @@
-package com.example.mobile6.ui.chat
+package com.example.mobile6.ui.chat.doctor
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentChatItemDoctorInDoctorListBinding
-import com.example.mobile6.databinding.FragmentChatListDoctorBinding
 import com.example.mobile6.ui.base.BaseFragment
 
 

@@ -1,15 +1,13 @@
-package com.example.mobile6.ui.chat
+package com.example.mobile6.ui.chat.doctor
 
 import MessageAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.example.mobile6.databinding.FragmentChatListDoctorBinding
 import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

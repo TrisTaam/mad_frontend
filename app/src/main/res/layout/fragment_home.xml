@@ -42,4 +42,10 @@
         android:layout_height="wrap_content"
         android:text="test_chat" />
 
+    <Button
+        android:id="@+id/btn_test_chat_doctor_to_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test_chat_doctor_to_user" />
+
 </LinearLayout>

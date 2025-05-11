@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Chọn bác sĩ"
+            android:text="Chọn bệnh nhân"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Danh sách bác sĩ"
+        android:text="Danh sách bệnh nhân"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -95,7 +95,7 @@
 
     <!-- Doctor List RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_doctor_list"
+        android:id="@+id/rv_chat_user_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
