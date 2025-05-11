@@ -44,36 +44,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 NavOptions.Builder().defaultAnim().build()
             )
         }
-        binding.btnTestDialog.setOnClickListener {
-            navigateTo(R.id.action_homeFragment_to_testDialogFragment)
-        }
-        binding.btnTestAddPrescription.setOnClickListener {
-            navigateTo(
-                R.id.prescriptionCreateFragment,
-                null,
-                NavOptions.Builder().defaultAnim().build()
-            )
-        }
-
-        binding.btnTestChat.setOnClickListener {
-            navigateTo(
-                R.id.chatListDoctorFragment
-            )
-        }
-
-        binding.btnTestChatDoctorToUser.setOnClickListener {
-            navigateTo(
-                R.id.chatListUserFragment
-            )
-        }
-        binding.btnTestScanPrescription.setOnClickListener {
-            navigateTo(R.id.prescriptionScanFragment)
-        }
         binding.fabChat.setOnClickListener {
             toggleChatFab()
         }
         binding.fabChatAi.setOnClickListener {
             toggleChatFab()
+            navigateTo(R.id.action_homeFragment_to_chatWithAiFragment)
         }
         binding.fabChatUser.setOnClickListener {
             toggleChatFab()
@@ -94,10 +70,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             binding.fabChatUser.show()
         }
         isFabOpened = !isFabOpened
-
-        binding.btnTestChatAi.setOnClickListener {
-            navigateTo(R.id.chatWithAiFragment)
-        }
     }
 
     override fun initObservers() {

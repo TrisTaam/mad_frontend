@@ -340,6 +340,7 @@
         android:label="ChatBoxFragment" />
     <fragment
         android:id="@+id/chatListUserFragment"
+        tools:layout="@layout/fragment_chat_list_user"
         android:name="com.example.mobile6.ui.chat.user.ChatListUserFragment"
         android:label="ChatListUserFragment" >
         <action
@@ -351,4 +352,9 @@
         android:name="com.example.mobile6.ui.chat.ai.ChatWithAiFragment"
         android:label="fragment_chat_with_ai"
         tools:layout="@layout/fragment_chat_with_ai" />
+    <fragment
+        android:id="@+id/prescriptionDetailFragment"
+        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailFragment"
+        android:label="fragment_prescription_detail"
+        tools:layout="@layout/fragment_prescription_detail" />
 </navigation>
