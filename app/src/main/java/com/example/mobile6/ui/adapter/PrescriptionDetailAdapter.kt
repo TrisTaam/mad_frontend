@@ -3,13 +3,11 @@ package com.example.mobile6.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.data.remote.dto.response.PrescriptionDetailResponse
 import com.example.mobile6.databinding.ItemPrescriptionDetailBinding
-import kotlinx.coroutines.launch
 
 class PrescriptionDetailAdapter(
     private val onMoreClick: (PrescriptionDetailResponse, View) -> Unit

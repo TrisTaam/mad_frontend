@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentMedicationWarningDialogBinding
 import com.example.mobile6.ui.base.BaseDialog
 import dagger.hilt.android.AndroidEntryPoint

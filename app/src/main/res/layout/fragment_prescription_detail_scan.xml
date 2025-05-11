@@ -14,7 +14,7 @@
         android:src="@drawable/ic_back"
         app:layout_constraintBottom_toBottomOf="@+id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_title"/>
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -52,10 +52,10 @@
                 app:cardBackgroundColor="#F5F5F5"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -96,10 +96,10 @@
                 app:cardBackgroundColor="#F5F5F5"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_prescription_name">
+                app:layout_constraintTop_toBottomOf="@+id/cv_prescription_name"
+                app:strokeWidth="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -140,10 +140,10 @@
                 app:cardBackgroundColor="#F5F5F5"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_doctor">
+                app:layout_constraintTop_toBottomOf="@+id/cv_doctor"
+                app:strokeWidth="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -184,10 +184,10 @@
                 app:cardBackgroundColor="#F5F5F5"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_prescription_date">
+                app:layout_constraintTop_toBottomOf="@+id/cv_prescription_date"
+                app:strokeWidth="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

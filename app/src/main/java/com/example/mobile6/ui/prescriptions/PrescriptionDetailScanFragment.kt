@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -88,7 +87,8 @@ class PrescriptionDetailScanFragment : BaseFragment<FragmentPrescriptionDetailSc
         binding.tvDoctorName.text = "Bác sĩ: ${prescription.doctorName}"
 
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        binding.tvPrescriptionDate.text = "Ngày kê đơn: ${dateFormat.format(prescription.prescriptionDate.toUtilDate())}"
+        binding.tvPrescriptionDate.text =
+            "Ngày kê đơn: ${dateFormat.format(prescription.prescriptionDate.toUtilDate())}"
 
         binding.tvNotes.text = prescription.notes
 

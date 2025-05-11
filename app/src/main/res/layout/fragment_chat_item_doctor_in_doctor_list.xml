@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
-    app:cardElevation="0dp"
+    app:cardBackgroundColor="#F5F8FF"
     app:cardCornerRadius="20dp"
-    app:cardBackgroundColor="#F5F8FF">
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,13 +16,13 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/doctor_avatar"
-            android:layout_marginEnd="8dp"
-            android:padding="8dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_doctor_name"
@@ -37,10 +37,10 @@
                 android:id="@+id/tv_doctor_specialty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Chuyên khoa sản"
                 android:textColor="#555555"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btn_select"
@@ -63,9 +63,9 @@
             android:background="@drawable/circle_background"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_doctor"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
