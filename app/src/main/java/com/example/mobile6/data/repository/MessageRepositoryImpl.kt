@@ -1,8 +1,10 @@
 package com.example.mobile6.data.repository
 
 import com.example.mobile6.data.mapper.toDoctor
+import com.example.mobile6.data.remote.dto.request.MessageAIRequest
 import com.example.mobile6.data.remote.dto.request.MessageRequest
 import com.example.mobile6.data.remote.dto.response.ChatUserInfoResponse
+import com.example.mobile6.data.remote.dto.response.MessageAIResponse
 import com.example.mobile6.data.remote.dto.response.MessageResponse
 import com.example.mobile6.data.remote.service.MessageService
 import com.example.mobile6.data.remote.util.map
@@ -62,6 +64,26 @@ class MessageRepositoryImpl @Inject constructor(
                 }
                 .map { doctors ->
                     doctors.map { it.toDoctor() }
+                }
+        }
+
+    override suspend fun chatWithAi(question: String): Resource<String> =
+        withContext(Dispatchers.IO) {
+            val request = MessageAIRequest(
+                model = "gpt-4o-mini",
+                messages = listOf(
+                    MessageAIRequest.Message(
+                        role = "user",
+                        content = question
+                    )
+                )
+            )
+            messageService.chatWithAi(request)
+                .onError { message, code ->
+                    Timber.e("Lỗi khi gọi AI: $message, code: $code")
+                }
+                .onException { e ->
+                    Timber.e(e, "Ngoại lệ khi gọi AI")
                 }
         }
 }

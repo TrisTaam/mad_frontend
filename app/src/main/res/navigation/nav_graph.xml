@@ -26,7 +26,13 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_chatListUserFragment"
-            app:destination="@id/chatListUserFragment" />  
+            app:destination="@id/chatListUserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatWithAiFragment"
+            app:destination="@id/chatWithAiFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatListUserFragment2"
+            app:destination="@id/chatListUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -291,4 +297,9 @@
             android:id="@+id/action_chatListUserFragment_to_chatBoxFragment"
             app:destination="@id/chatBoxFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chatWithAiFragment"
+        android:name="com.example.mobile6.ui.chat.ai.ChatWithAiFragment"
+        android:label="fragment_chat_with_ai"
+        tools:layout="@layout/fragment_chat_with_ai" />
 </navigation>
