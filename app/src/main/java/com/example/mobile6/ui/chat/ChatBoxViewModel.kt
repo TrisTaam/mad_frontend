@@ -45,7 +45,7 @@ class ChatBoxViewModel @Inject constructor(
                             receiverId = messageResponse.receiverId,
                             content = messageResponse.content,
                             sentAt = messageResponse.sentAt,
-                            isFromCurrentUser = messageResponse.senderId == getCurrentUserId()
+                            isFromCurrentUser = messageResponse.senderId != doctorId
                         )
                     }
                     _uiState.update {
