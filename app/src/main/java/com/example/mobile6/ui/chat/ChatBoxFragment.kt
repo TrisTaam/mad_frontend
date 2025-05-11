@@ -32,6 +32,8 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
         }
 
     override fun processArguments(args: Bundle) {
+//        if (viewModel.uiState.isDoctor)
+
         doctorId = args.getLong("doctorId")
         doctorName = args.getString("doctorName", "")
 
@@ -95,6 +97,7 @@ class ChatBoxFragment : BaseFragment<FragmentChatBoxBinding>() {
                         handleErrorState(state.error)
                         return@collectLatest
                     }
+
                     messageAdapter.submitList(state.messages)
                     binding.messagesRecyclerView.scrollToPosition(state.messages.size - 1)
                     handleLoadingState(false)

@@ -5,13 +5,19 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentHomeBinding
+import com.example.mobile6.ui.MainActivity
 import com.example.mobile6.ui.base.BaseFragment
 import com.example.mobile6.ui.util.defaultAnim
 import com.example.mobile6.ui.util.gone
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -53,7 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
         binding.fabChatUser.setOnClickListener {
             toggleChatFab()
-            navigateTo(R.id.action_homeFragment_to_chatListDoctorFragment)
+            onNavigateFabChatUser()
         }
     }
 
@@ -72,9 +78,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         isFabOpened = !isFabOpened
     }
 
+    private var onNavigateFabChatUser = {}
+
     override fun initObservers() {
         observeBackResult<String>("test") { result ->
             Timber.d("Back result: $result")
         }
+        viewModel.uiState.onEach { uiState ->
+            if (uiState.isLoading) {
+                return@onEach
+            }
+            if (uiState.error != null) {
+                (requireActivity() as MainActivity).showToast(uiState.error)
+                return@onEach
+            }
+            onNavigateFabChatUser = if (!uiState.isDoctorMode){
+                {
+                    navigateTo(R.id.action_homeFragment_to_chatListDoctorFragment)
+                }
+            } else {
+                {
+                    navigateTo(R.id.action_homeFragment_to_chatListUserFragment)
+                }
+            }
+        }.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

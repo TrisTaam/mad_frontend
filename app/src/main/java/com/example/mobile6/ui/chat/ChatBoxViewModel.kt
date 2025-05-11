@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile6.domain.model.Message
 import com.example.mobile6.domain.model.Resource
+import com.example.mobile6.domain.repository.AuthRepository
 import com.example.mobile6.domain.repository.MessageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,16 +19,31 @@ data class ChatBoxUiState(
     val messages: List<Message> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
-    val isSending: Boolean = false
+    val isSending: Boolean = false,
+    val isDoctorMode: Boolean = false
+
 )
 
 @HiltViewModel
 class ChatBoxViewModel @Inject constructor(
+    private val authRepository: AuthRepository,
     private val messageRepository: MessageRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ChatBoxUiState())
     val uiState: StateFlow<ChatBoxUiState> = _uiState.asStateFlow()
+//    val mode : Boolean = false
+    init {
+        getMode()
+    }
+
+    fun getMode() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
+             val mode = authRepository.isDoctorMode()
+            _uiState.update { it.copy(isLoading = false, isDoctorMode = mode) }
+        }
+    }
 
     fun getConversation(doctorId: Long) {
         viewModelScope.launch {
@@ -98,7 +114,7 @@ class ChatBoxViewModel @Inject constructor(
                         receiverId = result.data.receiverId,
                         content = result.data.content,
                         sentAt = result.data.sentAt,
-                        isFromCurrentUser = result.data.senderId == getCurrentUserId()
+                        isFromCurrentUser = result.data.senderId != doctorId
                     )
                     _uiState.update {
                         it.copy(

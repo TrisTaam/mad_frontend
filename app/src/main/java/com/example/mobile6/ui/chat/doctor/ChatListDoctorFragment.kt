@@ -28,6 +28,10 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
 
     override fun initViews() {
         setupRecyclerView()
+
+        binding.backButton.setOnClickListener {
+            back()
+        }
     }
 
     private fun setupRecyclerView() {
