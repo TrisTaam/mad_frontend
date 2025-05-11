@@ -1,6 +1,7 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile6.data.remote.dto.response.ChatUserInfoResponse
 import com.example.mobile6.databinding.FragmentChatItemDoctorInDoctorListBinding
 import com.example.mobile6.domain.model.Doctor
 
@@ -9,6 +10,7 @@ class MessageAdapter(
 ) : RecyclerView.Adapter<MessageAdapter.DoctorViewHolder>() {
 
     private val doctors = mutableListOf<Doctor>()
+    private val chatUsers = mutableListOf<ChatUserInfoResponse>()
 
     fun submitList(newList: List<Doctor>) {
         doctors.clear()
@@ -16,6 +18,11 @@ class MessageAdapter(
         notifyDataSetChanged()
     }
 
+    fun submitList2(newList: List<ChatUserInfoResponse>) {
+        chatUsers.clear()
+        chatUsers.addAll(newList)
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
         val binding = FragmentChatItemDoctorInDoctorListBinding.inflate(
             LayoutInflater.from(parent.context), parent, false

@@ -24,6 +24,15 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatListUserFragment"
+            app:destination="@id/chatListUserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatWithAiFragment"
+            app:destination="@id/chatWithAiFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatListUserFragment2"
+            app:destination="@id/chatListUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
@@ -314,7 +323,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatListDoctorFragment"
-        android:name="com.example.mobile6.ui.chat.ChatListDoctorFragment"
+        android:name="com.example.mobile6.ui.chat.doctor.ChatListDoctorFragment"
         android:label="fragment_chat_list_doctor"
         tools:layout="@layout/fragment_chat_list_doctor">
         <action
@@ -328,11 +337,18 @@
     <fragment
         android:id="@+id/chatBoxFragment"
         android:name="com.example.mobile6.ui.chat.ChatBoxFragment"
-        android:label="ChatBoxFragment"
-        tools:layout="@layout/fragment_chat_box" />
+        android:label="ChatBoxFragment" />
     <fragment
-        android:id="@+id/prescriptionDetailFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailFragment"
-        android:label="fragment_prescription_detail"
-        tools:layout="@layout/fragment_prescription_detail" />
+        android:id="@+id/chatListUserFragment"
+        android:name="com.example.mobile6.ui.chat.user.ChatListUserFragment"
+        android:label="ChatListUserFragment" >
+        <action
+            android:id="@+id/action_chatListUserFragment_to_chatBoxFragment"
+            app:destination="@id/chatBoxFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatWithAiFragment"
+        android:name="com.example.mobile6.ui.chat.ai.ChatWithAiFragment"
+        android:label="fragment_chat_with_ai"
+        tools:layout="@layout/fragment_chat_with_ai" />
 </navigation>

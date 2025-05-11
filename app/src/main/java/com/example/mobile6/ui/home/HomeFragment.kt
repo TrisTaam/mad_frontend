@@ -54,6 +54,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 NavOptions.Builder().defaultAnim().build()
             )
         }
+
+        binding.btnTestChat.setOnClickListener {
+            navigateTo(
+                R.id.chatListDoctorFragment
+            )
+        }
+
+        binding.btnTestChatDoctorToUser.setOnClickListener {
+            navigateTo(
+                R.id.chatListUserFragment
+            )
+        }
         binding.btnTestScanPrescription.setOnClickListener {
             navigateTo(R.id.prescriptionScanFragment)
         }
@@ -82,6 +94,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             binding.fabChatUser.show()
         }
         isFabOpened = !isFabOpened
+
+        binding.btnTestChatAi.setOnClickListener {
+            navigateTo(R.id.chatWithAiFragment)
+        }
     }
 
     override fun initObservers() {

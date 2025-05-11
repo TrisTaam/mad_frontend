@@ -1,4 +1,4 @@
-package com.example.mobile6.ui.chat
+package com.example.mobile6.ui.chat.doctor
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
