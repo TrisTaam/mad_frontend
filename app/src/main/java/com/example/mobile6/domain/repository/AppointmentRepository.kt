@@ -8,4 +8,8 @@ interface AppointmentRepository {
         doctorId: Long,
         appointmentDate: String
     ): Resource<AppointmentResponse>
+
+    suspend fun getAppointmentsByUser(): Resource<List<AppointmentResponse>>
+
+    suspend fun getAppointmentsByDoctor(): Resource<List<AppointmentResponse>>
 } 

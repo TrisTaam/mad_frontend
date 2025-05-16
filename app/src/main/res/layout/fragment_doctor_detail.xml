@@ -59,7 +59,6 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/message_button"
         app:layout_constraintStart_toEndOf="@id/doctor_avatar"
         app:layout_constraintTop_toBottomOf="@id/header_layout" />
 
@@ -72,23 +71,8 @@
         android:text="Bác sĩ chuyên khoa sản"
         android:textColor="#555555"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@id/message_button"
         app:layout_constraintStart_toEndOf="@id/doctor_avatar"
         app:layout_constraintTop_toBottomOf="@id/doctor_name" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/message_button"
-        android:layout_width="90dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_primary_background"
-        android:text="Nhắn tin"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/doctor_specialty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/doctor_name" />
 
     <TextView
         android:id="@+id/description_title"

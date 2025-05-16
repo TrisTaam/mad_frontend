@@ -14,6 +14,7 @@ object DateUtils {
     private val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val isoDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
     private val ddMMyyyyFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private val dateTimeFormatter = SimpleDateFormat("dd/MM/yyyy - HH:mm", Locale.getDefault())
 
     // Convert java.util.Date to java.sql.Date
     fun Date.toSqlDate(): SqlDate = SqlDate(this.time)
@@ -25,6 +26,28 @@ object DateUtils {
     fun Date.toRequestDateString(): String = dateFormatter.format(this)
 
     fun Date.toddMMyyyyString(): String = ddMMyyyyFormatter.format(this)
+
+    fun String.toDateTimeString(): String {
+        return try {
+            // Try parsing with standard ISO format
+            val parsedDate = isoDateTimeFormatter.parse(this)
+            dateTimeFormatter.format(parsedDate)
+        } catch (e: Exception) {
+            try {
+                // Fallback parsing if the input has milliseconds or different timezone
+                val alternateFormatter = DateTimeFormatter.ISO_DATE_TIME
+                val dateTime = LocalDateTime.parse(this, alternateFormatter)
+                dateTimeFormatter.format(
+                    Date.from(
+                        dateTime.atZone(ZoneId.systemDefault()).toInstant()
+                    )
+                )
+            } catch (e: Exception) {
+                // Return original string if parsing fails
+                this
+            }
+        }
+    }
 
     // Convert java.util.Date to ISO datetime string "yyyy-MM-dd'T'HH:mm:ss"
     fun Date.toRequestDateTimeString(): String {
@@ -38,10 +61,7 @@ object DateUtils {
     fun Date.toLocalDate(): LocalDate =
         this.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 
-    fun String.toUtilDate(): Date = DateUtils.dateFormatter.parse(this)!!
-
-    fun String.toLocalDateTime(): LocalDateTime =
-        LocalDateTime.parse(this, DateUtils.isoDateTimeFormatter)
+    fun String.toUtilDate(): Date = dateFormatter.parse(this)!!
 
     // Convert LocalDateTime to string
     fun LocalDateTime.toRequestDateTimeString(): String =

@@ -9,7 +9,8 @@ import com.example.mobile6.databinding.ItemMessageReceivedBinding
 import com.example.mobile6.databinding.ItemMessageSentBinding
 import com.example.mobile6.domain.model.ChatAIMessage
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class ChatAIAdapter : ListAdapter<ChatAIMessage, RecyclerView.ViewHolder>(ChatAIDiffCallback()) {
 
@@ -29,6 +30,7 @@ class ChatAIAdapter : ListAdapter<ChatAIMessage, RecyclerView.ViewHolder>(ChatAI
                 )
                 UserMessageViewHolder(binding)
             }
+
             VIEW_TYPE_AI -> {
                 val binding = ItemMessageReceivedBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -37,6 +39,7 @@ class ChatAIAdapter : ListAdapter<ChatAIMessage, RecyclerView.ViewHolder>(ChatAI
                 )
                 AIMessageViewHolder(binding)
             }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }

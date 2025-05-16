@@ -168,6 +168,9 @@ class DoctorAppointmentsFragment : BaseFragment<FragmentDoctorAppointmentsBindin
                             Toast.LENGTH_LONG
                         ).show()
                         back()
+                        back()
+                        back()
+                        back()
                         return@collectLatest
                     }
                 }
