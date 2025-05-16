@@ -1,8 +1,10 @@
+package com.example.mobile6.ui.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.data.remote.dto.response.ChatUserInfoResponse
-import com.example.mobile6.databinding.FragmentChatItemDoctorInDoctorListBinding
+import com.example.mobile6.databinding.ItemChatDoctorInDoctorListBinding
 import com.example.mobile6.domain.model.Doctor
 
 class MessageAdapter(
@@ -25,7 +27,7 @@ class MessageAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
-        val binding = FragmentChatItemDoctorInDoctorListBinding.inflate(
+        val binding = ItemChatDoctorInDoctorListBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return DoctorViewHolder(binding)
@@ -37,7 +39,7 @@ class MessageAdapter(
 
     override fun getItemCount() = doctors.size
 
-    inner class DoctorViewHolder(private val binding: FragmentChatItemDoctorInDoctorListBinding) :
+    inner class DoctorViewHolder(private val binding: ItemChatDoctorInDoctorListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(doctor: Doctor) {
             binding.tvDoctorName.text = "${doctor.firstName} ${doctor.lastName}"

@@ -69,7 +69,9 @@ class AppointmentAdapter :
                             setTextColor(context.getColor(R.color.red))
                         }
 
-                        else -> "N/A"
+                        else -> {
+                            text = "N/A"
+                        }
                     }
                 }
                 root.setOnClickListener {

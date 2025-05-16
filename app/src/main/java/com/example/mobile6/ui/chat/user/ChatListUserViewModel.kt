@@ -1,6 +1,5 @@
 package com.example.mobile6.ui.chat.user
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile6.data.remote.dto.response.ChatUserInfoResponse
@@ -12,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 data class ChatListUserUiState(
@@ -29,6 +29,8 @@ class ChatListUserViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ChatListUserUiState())
     val uiState: StateFlow<ChatListUserUiState> = _uiState.asStateFlow()
 
+    private var allUsers: List<ChatUserInfoResponse> = emptyList()
+
     init {
         fetchUsersForDoctor()
     }
@@ -36,15 +38,16 @@ class ChatListUserViewModel @Inject constructor(
     fun fetchUsersForDoctor() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-            Log.d("ChatListUserViewModel", "Starting to fetch users")
+            Timber.d("Starting to fetch users")
 
             when (val result = messageRepository.getAllUsersForDoctor()) {
                 is Resource.Success -> {
-                    Log.d("ChatListUserViewModel", "Raw users data: ${result.data}")
+                    Timber.d("Raw users data: ${result.data}")
                     if (result.data.isEmpty()) {
-                        Log.d("ChatListUserViewModel", "Danh sách người dùng rỗng!")
+                        Timber.d("Danh sách người dùng rỗng!")
                     }
 
+                    allUsers = result.data
                     _uiState.update {
                         it.copy(
                             users = result.data,
@@ -55,10 +58,7 @@ class ChatListUserViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    Log.d(
-                        "ChatListUserViewModel",
-                        "Lỗi lấy danh sách người dùng: ${result.message}"
-                    )
+                    Timber.d("Lỗi lấy danh sách người dùng: ${result.message}")
                     _uiState.update {
                         it.copy(
                             users = emptyList(),
@@ -69,7 +69,7 @@ class ChatListUserViewModel @Inject constructor(
                 }
 
                 is Resource.Exception -> {
-                    Log.d("ChatListUserViewModel", "Exception: ${result.throwable.message}")
+                    Timber.d("Exception: ${result.throwable.message}")
                     _uiState.update {
                         it.copy(
                             users = emptyList(),
@@ -80,5 +80,13 @@ class ChatListUserViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun search(query: String) {
+        val filteredUsers = allUsers.filter { user ->
+            user.firstName.contains(query, ignoreCase = true) ||
+                    user.lastName.contains(query, ignoreCase = true)
+        }
+        _uiState.update { it.copy(users = filteredUsers) }
     }
 }

@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentHomeBinding
 import com.example.mobile6.ui.MainActivity
@@ -77,7 +76,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 (requireActivity() as MainActivity).showToast(uiState.error)
                 return@onEach
             }
-            onNavigateFabChatUser = if (!uiState.isDoctorMode){
+            onNavigateFabChatUser = if (!uiState.isDoctorMode) {
                 {
                     navigateTo(R.id.action_homeFragment_to_chatListDoctorFragment)
                 }

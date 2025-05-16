@@ -55,19 +55,23 @@ class PrescriptionAdapter() :
                 tvDate.text = prescription.prescriptionDate.toUtilDate().toddMMyyyyString()
                 with(tvStatus) {
                     when (prescription.status) {
-                        "PENDING" -> {
-                            text = "Đang chờ duyệt"
+                        "CREATED" -> {
+                            text = "Đã tạo"
                             setTextColor(context.getColor(R.color.yellow))
                         }
 
-                        "APPROVED" -> {
-                            text = "Đã duyệt"
+                        "ACTIVE" -> {
+                            text = "Đang sử dụng"
                             setTextColor(context.getColor(R.color.green))
                         }
 
-                        "REJECTED" -> {
-                            text = "Đã từ chối"
+                        "DEACTIVATED" -> {
+                            text = "Đã hoàn thành"
                             setTextColor(context.getColor(R.color.red))
+                        }
+
+                        else -> {
+                            text = "N/A"
                         }
                     }
                 }

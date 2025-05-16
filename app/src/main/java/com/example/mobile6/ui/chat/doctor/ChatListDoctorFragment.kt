@@ -1,16 +1,17 @@
 package com.example.mobile6.ui.chat.doctor
 
-import MessageAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentChatListDoctorBinding
+import com.example.mobile6.ui.adapter.MessageAdapter
 import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -48,6 +49,9 @@ class ChatListDoctorFragment : BaseFragment<FragmentChatListDoctorBinding>() {
         binding.rvDoctorList.apply {
             adapter = messageAdapter
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(requireContext())
+        }
+        binding.etSearch.doOnTextChanged { text, _, _, _ ->
+            viewModel.search(text.toString())
         }
     }
 

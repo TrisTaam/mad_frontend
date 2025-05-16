@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.data.remote.dto.response.ChatUserInfoResponse
-import com.example.mobile6.databinding.FragmentChatItemUserInListUserBinding
+import com.example.mobile6.databinding.ItemChatUserInListUserBinding
 
 class ChatUserAdapter(
     private val onUserClick: (ChatUserInfoResponse) -> Unit
@@ -19,7 +19,7 @@ class ChatUserAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val binding = FragmentChatItemUserInListUserBinding.inflate(
+        val binding = ItemChatUserInListUserBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return UserViewHolder(binding)
@@ -31,7 +31,7 @@ class ChatUserAdapter(
 
     override fun getItemCount() = users.size
 
-    inner class UserViewHolder(private val binding: FragmentChatItemUserInListUserBinding) :
+    inner class UserViewHolder(private val binding: ItemChatUserInListUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: ChatUserInfoResponse) {
             binding.apply {
