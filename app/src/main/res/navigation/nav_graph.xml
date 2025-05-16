@@ -94,8 +94,15 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/profileCompletionFragment"
+            app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileCompletionFragment"
+            app:destination="@id/profileCompletionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -340,7 +347,8 @@
     <fragment
         android:id="@+id/chatBoxFragment"
         android:name="com.example.mobile6.ui.chat.ChatBoxFragment"
-        android:label="ChatBoxFragment" />
+        android:label="ChatBoxFragment"
+        tools:layout="@layout/fragment_chat_box" />
     <fragment
         android:id="@+id/chatListUserFragment"
         android:name="com.example.mobile6.ui.chat.user.ChatListUserFragment"

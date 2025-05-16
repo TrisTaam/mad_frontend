@@ -11,8 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentHomeBinding
 import com.example.mobile6.ui.MainActivity
+import com.example.mobile6.ui.adapter.AppointmentAdapter
 import com.example.mobile6.ui.base.BaseFragment
 import com.example.mobile6.ui.util.gone
+import com.example.mobile6.ui.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -25,6 +27,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private var isFabOpened = false
     private lateinit var fabOpenAnimation: Animation
     private lateinit var fabCloseAnimation: Animation
+
+    private lateinit var appointmentAdapter: AppointmentAdapter
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentHomeBinding
         get() = { inflater, container ->
@@ -45,6 +49,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             toggleChatFab()
             onNavigateFabChatUser()
         }
+        appointmentAdapter = AppointmentAdapter()
+        binding.rvAppointment.adapter = appointmentAdapter
     }
 
     private fun toggleChatFab() {
@@ -85,6 +91,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     navigateTo(R.id.action_homeFragment_to_chatListUserFragment)
                 }
             }
+            with(binding.llTodayMedicine) {
+                if (uiState.isDoctorMode) {
+                    gone()
+                } else {
+                    visible()
+                }
+            }
+            binding.tvUserName.text =
+                "${uiState.user.lastName} ${uiState.user.firstName}"
+            appointmentAdapter.isDoctorMode = uiState.isDoctorMode
+            appointmentAdapter.submitList(uiState.appointments)
         }.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }

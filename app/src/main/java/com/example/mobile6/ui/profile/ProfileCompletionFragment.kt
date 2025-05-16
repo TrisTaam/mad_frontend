@@ -26,6 +26,8 @@ class ProfileCompletionFragment : BaseFragment<FragmentProfileCompletionBinding>
 
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
+    private var isEditMode = false
+
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentProfileCompletionBinding
         get() = { inflater, container ->
             FragmentProfileCompletionBinding.inflate(inflater, container, false)
@@ -34,6 +36,27 @@ class ProfileCompletionFragment : BaseFragment<FragmentProfileCompletionBinding>
     override fun initViews() {
         setupClickListeners()
         observeProfileData()
+    }
+
+    override fun processArguments(args: Bundle) {
+        super.processArguments(args)
+        isEditMode = args.getBoolean("isEditMode", false)
+        if (isEditMode) {
+            args.getString("gender")?.let {
+                viewModel.setGender(it)
+            }
+            args.getString("dateOfBirth")?.let {
+                dateFormatter.parse(it)?.let {
+                    viewModel.setDateOfBirth(it)
+                }
+            }
+            args.getInt("weight").let {
+                binding.etWeight.setText(it.toString())
+            }
+            args.getInt("height").let {
+                binding.etHeight.setText(it.toString())
+            }
+        }
     }
 
     private fun setupClickListeners() {
@@ -140,6 +163,12 @@ class ProfileCompletionFragment : BaseFragment<FragmentProfileCompletionBinding>
             if (shouldNavigate) {
                 // Navigate to next screen
                 // findNavController().navigate(R.id.action_profileCompletionFragment_to_nextScreen)
+                if (isEditMode) {
+                    back("updateProfile", true)
+                } else {
+                    back()
+                    back()
+                }
                 viewModel.onNavigationComplete()
             }
         }

@@ -12,4 +12,14 @@ interface AppointmentRepository {
     suspend fun getAppointmentsByUser(): Resource<List<AppointmentResponse>>
 
     suspend fun getAppointmentsByDoctor(): Resource<List<AppointmentResponse>>
+
+    suspend fun getAppointmentsByUserWeek(
+        startDateTime: String,
+        endDateTime: String
+    ): Resource<List<AppointmentResponse>>
+
+    suspend fun getAppointmentsByDoctorWeek(
+        startDateTime: String,
+        endDateTime: String
+    ): Resource<List<AppointmentResponse>>
 } 
