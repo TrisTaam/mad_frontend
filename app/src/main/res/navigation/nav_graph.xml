@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_homeFragment_to_chatListUserFragment2"
             app:destination="@id/chatListUserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatListUserFragment3"
+            app:destination="@id/chatListUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"

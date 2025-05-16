@@ -28,13 +28,17 @@ class ChatListUserFragment : BaseFragment<FragmentChatListUserBinding>() {
 
     override fun initViews() {
         setupRecyclerView()
+
+        binding.backButton.setOnClickListener {
+            back()
+        }
     }
 
     private fun setupRecyclerView() {
         chatUserAdapter = ChatUserAdapter { user ->
             val bundle = Bundle().apply {
-                putLong("userId", user.id)
-                putString("userName", "${user.firstName} ${user.lastName}")
+                putLong("doctorId", user.id)
+                putString("doctorName", "${user.firstName} ${user.lastName}")
             }
             navigateTo(
                 R.id.action_chatListUserFragment_to_chatBoxFragment,
