@@ -1,8 +1,10 @@
 package com.example.mobile6.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile6.R
 import com.example.mobile6.data.remote.dto.response.PrescriptionResponse
 import com.example.mobile6.databinding.ItemPrescriptionBinding
 import com.example.mobile6.ui.base.BaseAdapter
@@ -41,6 +43,7 @@ class PrescriptionAdapter() :
 
     inner class PrescriptionViewHolder(private val binding: ItemPrescriptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(prescription: PrescriptionResponse) {
             binding.apply {
                 tvName.text = prescription.prescriptionName
@@ -50,14 +53,28 @@ class PrescriptionAdapter() :
                     "Bác sĩ: ${prescription.doctorName ?: "N/A"}"
                 }
                 tvDate.text = prescription.prescriptionDate.toUtilDate().toddMMyyyyString()
-                tvStatus.text = "Trạng thái: ${
+                with(tvStatus) {
                     when (prescription.status) {
-                        "CREATED" -> "Đã tạo"
-                        "ACTIVE" -> "Đang sử dụng"
-                        "DEACTIVATED" -> "Đã hoàn thành"
-                        else -> "N/A"
+                        "CREATED" -> {
+                            text = "Đã tạo"
+                            setTextColor(context.getColor(R.color.yellow))
+                        }
+
+                        "ACTIVE" -> {
+                            text = "Đang sử dụng"
+                            setTextColor(context.getColor(R.color.green))
+                        }
+
+                        "DEACTIVATED" -> {
+                            text = "Đã hoàn thành"
+                            setTextColor(context.getColor(R.color.red))
+                        }
+
+                        else -> {
+                            text = "N/A"
+                        }
                     }
-                }"
+                }
                 root.setOnClickListener {
                     onPrescriptionClick(prescription)
                 }

@@ -22,7 +22,7 @@ class ProfileCompletionViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _uiMessage = MutableSharedFlow<String>(replay = 1)
+    private val _uiMessage = MutableSharedFlow<String>()
     val uiMessage = _uiMessage.asSharedFlow()
 
     private val _gender = MutableLiveData<String>()

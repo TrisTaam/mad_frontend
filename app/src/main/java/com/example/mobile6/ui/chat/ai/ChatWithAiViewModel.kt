@@ -1,9 +1,7 @@
 package com.example.mobile6.ui.chat.ai
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobile6.data.remote.dto.response.MessageAIResponse
 import com.example.mobile6.domain.model.Resource
 import com.example.mobile6.domain.repository.MessageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 data class ChatWithAiUiState(
@@ -31,15 +30,15 @@ class ChatWithAiViewModel @Inject constructor(
 
     fun sendMessage(question: String) {
         if (question.isBlank()) return
-        
+
         viewModelScope.launch {
             _uiState.update { it.copy(isSending = true, error = null) }
-            
+
             // Add user's message to list
             val currentMessages = _uiState.value.messages.toMutableList()
             currentMessages.add("You: $question")
             _uiState.update { it.copy(messages = currentMessages) }
-            
+
             // Call AI API
             when (val result = messageRepository.chatWithAi(question)) {
                 is Resource.Success -> {
@@ -53,8 +52,9 @@ class ChatWithAiViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Resource.Error -> {
-                    Log.e("ChatWithAiViewModel", "Error calling AI: ${result.message}")
+                    Timber.e("Error calling AI: ${result.message}")
                     _uiState.update {
                         it.copy(
                             isSending = false,
@@ -62,8 +62,9 @@ class ChatWithAiViewModel @Inject constructor(
                         )
                     }
                 }
+
                 is Resource.Exception -> {
-                    Log.e("ChatWithAiViewModel", "Exception calling AI: ${result.throwable.message}")
+                    Timber.e("Exception calling AI: ${result.throwable.message}")
                     _uiState.update {
                         it.copy(
                             isSending = false,

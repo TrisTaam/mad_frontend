@@ -3,7 +3,7 @@ package com.example.mobile6.data.remote.dto.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChatUserInfoResponse (
+data class ChatUserInfoResponse(
     val id: Long,
     val firstName: String,
     val lastName: String,

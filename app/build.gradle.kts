@@ -107,11 +107,17 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // QR Code generation and scanning
-    implementation("com.google.zxing:core:3.4.1")
-    implementation("com.google.android.gms:play-services-vision:20.1.3")
+    implementation(libs.zxing.core)
+    implementation(libs.play.services.vision)
 
     // Camera
-    implementation("androidx.camera:camera-camera2:1.2.0")
-    implementation("androidx.camera:camera-lifecycle:1.2.0")
-    implementation("androidx.camera:camera-view:1.2.0")
+    implementation(libs.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
+
+    // MP Android Chart
+    implementation(libs.mpandroidchart)
+
+    // Kizitonwose Calendar
+    implementation(libs.kizitonwose.calendar.view)
 }

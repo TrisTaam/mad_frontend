@@ -3,7 +3,7 @@ package com.example.mobile6.data.remote.dto.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MessageAIResponse (
+data class MessageAIResponse(
     val message: String,
     val data: String
 ) {

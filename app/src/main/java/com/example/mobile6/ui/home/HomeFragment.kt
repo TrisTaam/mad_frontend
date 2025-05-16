@@ -8,13 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentHomeBinding
 import com.example.mobile6.ui.MainActivity
+import com.example.mobile6.ui.adapter.AppointmentAdapter
 import com.example.mobile6.ui.base.BaseFragment
-import com.example.mobile6.ui.util.defaultAnim
 import com.example.mobile6.ui.util.gone
+import com.example.mobile6.ui.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -28,6 +28,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var fabOpenAnimation: Animation
     private lateinit var fabCloseAnimation: Animation
 
+    private lateinit var appointmentAdapter: AppointmentAdapter
+
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentHomeBinding
         get() = { inflater, container ->
             FragmentHomeBinding.inflate(inflater, container, false)
@@ -36,20 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun initViews() {
         fabOpenAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_open)
         fabCloseAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_close)
-        binding.btnOpenMedicineSearch.setOnClickListener {
-            navigateTo(
-                R.id.medicineSearchFragment,
-                null,
-                NavOptions.Builder().defaultAnim().build()
-            )
-        }
-        binding.btnOpenSpecialty.setOnClickListener {
-            navigateTo(
-                R.id.doctorSpecialtyFragment,
-                null,
-                NavOptions.Builder().defaultAnim().build()
-            )
-        }
         binding.fabChat.setOnClickListener {
             toggleChatFab()
         }
@@ -61,6 +49,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             toggleChatFab()
             onNavigateFabChatUser()
         }
+        appointmentAdapter = AppointmentAdapter()
+        binding.rvAppointment.adapter = appointmentAdapter
     }
 
     private fun toggleChatFab() {
@@ -92,7 +82,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 (requireActivity() as MainActivity).showToast(uiState.error)
                 return@onEach
             }
-            onNavigateFabChatUser = if (!uiState.isDoctorMode){
+            onNavigateFabChatUser = if (!uiState.isDoctorMode) {
                 {
                     navigateTo(R.id.action_homeFragment_to_chatListDoctorFragment)
                 }
@@ -101,6 +91,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     navigateTo(R.id.action_homeFragment_to_chatListUserFragment)
                 }
             }
+            with(binding.llTodayMedicine) {
+                if (uiState.isDoctorMode) {
+                    gone()
+                } else {
+                    visible()
+                }
+            }
+            binding.tvUserName.text =
+                "${uiState.user.lastName} ${uiState.user.firstName}"
+            appointmentAdapter.isDoctorMode = uiState.isDoctorMode
+            appointmentAdapter.submitList(uiState.appointments)
         }.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }

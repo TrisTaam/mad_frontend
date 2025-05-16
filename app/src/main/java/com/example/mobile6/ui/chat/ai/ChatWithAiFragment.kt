@@ -1,8 +1,6 @@
 package com.example.mobile6.ui.chat.ai
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile6.databinding.FragmentChatWithAiBinding
 import com.example.mobile6.domain.model.ChatAIMessage
 import com.example.mobile6.ui.adapter.ChatAIAdapter
-import com.example.mobile6.ui.adapter.ChatMessageAdapter
 import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

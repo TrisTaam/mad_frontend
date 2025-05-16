@@ -2,6 +2,7 @@ package com.example.mobile6.ui.profile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -16,12 +17,16 @@ import com.example.mobile6.ui.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private val viewModel: ProfileViewModel by viewModels()
+
+    private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentProfileBinding
         get() = { inflater, container ->
@@ -38,9 +43,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         binding.btnChangeMode.setOnClickListener {
             changeMode()
         }
+        binding.btnEdit.setOnClickListener {
+            val bundle = bundleOf(
+                "isEditMode" to true,
+                "gender" to viewModel.uiState.value.user.gender,
+                "dateOfBirth" to viewModel.uiState.value.user.dateOfBirth?.format(
+                    DateTimeFormatter.ofPattern(
+                        "dd/MM/yyyy"
+                    )
+                ),
+                "weight" to viewModel.uiState.value.user.weight,
+                "height" to viewModel.uiState.value.user.height
+            )
+            navigateTo(R.id.action_profileFragment_to_profileCompletionFragment, bundle)
+        }
     }
 
     override fun initObservers() {
+        observeBackResult<Boolean>("updateProfile") { _ ->
+            viewModel.getUserDetail()
+        }
+
         viewModel.uiState.onEach { uiState ->
             if (uiState.isLoading) {
                 binding.clInfo.gone()

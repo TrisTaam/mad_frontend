@@ -17,6 +17,8 @@ import com.example.mobile6.databinding.FragmentPrescriptionsBinding
 import com.example.mobile6.ui.MainActivity
 import com.example.mobile6.ui.adapter.PrescriptionAdapter
 import com.example.mobile6.ui.base.BaseFragment
+import com.example.mobile6.ui.util.gone
+import com.example.mobile6.ui.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -48,13 +50,16 @@ class PrescriptionsFragment : BaseFragment<FragmentPrescriptionsBinding>() {
     override fun initObservers() {
         viewModel.uiState.onEach { uiState ->
             if (uiState.isLoading) {
+                binding.fabAddPrescription.gone()
                 return@onEach
             }
             if (uiState.errorMessage != null) {
                 (requireActivity() as MainActivity).showToast(uiState.errorMessage)
+                binding.fabAddPrescription.gone()
                 return@onEach
             }
-            loadFab(uiState.isDoctorMode)
+            handleMode(uiState.isDoctorMode)
+            binding.fabAddPrescription.visible()
 
             adapter.isDoctorMode = uiState.isDoctorMode
             adapter.submitList(uiState.prescriptions)
@@ -62,7 +67,7 @@ class PrescriptionsFragment : BaseFragment<FragmentPrescriptionsBinding>() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun loadFab(isDoctorMode: Boolean) {
+    private fun handleMode(isDoctorMode: Boolean) {
         binding.fabAddPrescription.setOnClickListener {
             navigateTo(
                 if (isDoctorMode) {

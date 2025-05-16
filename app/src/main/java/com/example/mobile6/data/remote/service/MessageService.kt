@@ -4,14 +4,11 @@ import com.example.mobile6.data.remote.dto.request.MessageAIRequest
 import com.example.mobile6.data.remote.dto.request.MessageRequest
 import com.example.mobile6.data.remote.dto.response.ChatDoctorInfoResponse
 import com.example.mobile6.data.remote.dto.response.ChatUserInfoResponse
-import com.example.mobile6.data.remote.dto.response.DoctorListResponse
-import com.example.mobile6.data.remote.dto.response.MessageAIResponse
 import com.example.mobile6.data.remote.dto.response.MessageResponse
 import com.example.mobile6.domain.model.Resource
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MessageService {

@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,12 +27,11 @@ class ProfileViewModel @Inject constructor(
         getUserDetail()
     }
 
-    private fun getUserDetail() {
+    fun getUserDetail() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
             var isDoctorMode: Boolean? = null
             if (authRepository.isDoctorSignedIn()) {
-                Timber.d("Doctor signed in")
                 isDoctorMode = authRepository.isDoctorMode()
             }
             val result = userRepository.getDetailInfo()
