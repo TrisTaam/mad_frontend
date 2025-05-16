@@ -5,27 +5,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.R
-import com.example.mobile6.data.remote.dto.response.PrescriptionResponse
-import com.example.mobile6.databinding.ItemPrescriptionBinding
+import com.example.mobile6.data.remote.dto.response.AppointmentResponse
+import com.example.mobile6.databinding.ItemAppointmentBinding
 import com.example.mobile6.ui.base.BaseAdapter
-import com.example.mobile6.ui.util.DateUtils.toUtilDate
-import com.example.mobile6.ui.util.DateUtils.toddMMyyyyString
+import com.example.mobile6.ui.util.DateUtils.toDateTimeString
 
-class PrescriptionAdapter() :
-    BaseAdapter<PrescriptionResponse, PrescriptionAdapter.PrescriptionViewHolder>(
+class AppointmentAdapter :
+    BaseAdapter<AppointmentResponse, AppointmentAdapter.AppointmentViewHolder>(
         simpleDiffCallback(
-            areItemsTheSame = { old, new -> old.prescriptionId == new.prescriptionId },
+            areItemsTheSame = { old, new -> old.id == new.id },
             areContentsTheSame = { old, new -> old == new }
         )
     ) {
-    var onPrescriptionClick: (PrescriptionResponse) -> Unit = {}
+    var onAppointmentClick: (AppointmentResponse) -> Unit = {}
     var isDoctorMode: Boolean = false
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PrescriptionViewHolder {
-        return PrescriptionViewHolder(
-            ItemPrescriptionBinding.inflate(
+    ): AppointmentViewHolder {
+        return AppointmentViewHolder(
+            ItemAppointmentBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -34,27 +34,26 @@ class PrescriptionAdapter() :
     }
 
     override fun onBindViewHolder(
-        holder: PrescriptionViewHolder,
+        holder: AppointmentViewHolder,
         position: Int
     ) {
-        val prescription = getItem(position)
-        holder.bind(prescription)
+        val appointment = getItem(position)
+        holder.bind(appointment)
     }
 
-    inner class PrescriptionViewHolder(private val binding: ItemPrescriptionBinding) :
+    inner class AppointmentViewHolder(private val binding: ItemAppointmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(prescription: PrescriptionResponse) {
+        fun bind(appointment: AppointmentResponse) {
             binding.apply {
-                tvName.text = prescription.prescriptionName
                 tvUserName.text = if (isDoctorMode) {
-                    "Bệnh nhân: ${prescription.userName ?: "N/A"}"
+                    "Bệnh nhân: ${appointment.userName}"
                 } else {
-                    "Bác sĩ: ${prescription.doctorName ?: "N/A"}"
+                    "Bác sĩ: ${appointment.doctorName}"
                 }
-                tvDate.text = prescription.prescriptionDate.toUtilDate().toddMMyyyyString()
+                tvDate.text = appointment.appointmentDate.toDateTimeString()
                 with(tvStatus) {
-                    when (prescription.status) {
+                    when (appointment.status) {
                         "PENDING" -> {
                             text = "Đang chờ duyệt"
                             setTextColor(context.getColor(R.color.yellow))
@@ -65,14 +64,16 @@ class PrescriptionAdapter() :
                             setTextColor(context.getColor(R.color.green))
                         }
 
-                        "REJECTED" -> {
-                            text = "Đã từ chối"
+                        "CANCELED" -> {
+                            text = "Đã hủy"
                             setTextColor(context.getColor(R.color.red))
                         }
+
+                        else -> "N/A"
                     }
                 }
                 root.setOnClickListener {
-                    onPrescriptionClick(prescription)
+                    onAppointmentClick(appointment)
                 }
             }
         }

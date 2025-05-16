@@ -11,7 +11,6 @@ import com.example.mobile6.domain.model.Doctor
 import com.example.mobile6.ui.adapter.DoctorDetailAdapter
 import com.example.mobile6.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class DoctorDetailFragment : BaseFragment<FragmentDoctorDetailBinding>() {
@@ -31,10 +30,6 @@ class DoctorDetailFragment : BaseFragment<FragmentDoctorDetailBinding>() {
     override fun initViews() {
         binding.backButton.setOnClickListener {
             back()
-        }
-
-        binding.messageButton.setOnClickListener {
-            Timber.d("muinv onClick message")
         }
 
         binding.appointmentButton.setOnClickListener {

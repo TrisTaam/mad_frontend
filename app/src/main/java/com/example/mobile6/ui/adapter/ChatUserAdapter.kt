@@ -38,7 +38,7 @@ class ChatUserAdapter(
                 tvChatUserName.text = "${user.firstName} ${user.lastName}"
                 // Set other user info as needed
                 // If you have user avatar, you can load it here
-                
+
                 root.setOnClickListener { onUserClick(user) }
             }
         }

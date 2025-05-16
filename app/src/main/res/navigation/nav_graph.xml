@@ -340,9 +340,9 @@
         android:label="ChatBoxFragment" />
     <fragment
         android:id="@+id/chatListUserFragment"
-        tools:layout="@layout/fragment_chat_list_user"
         android:name="com.example.mobile6.ui.chat.user.ChatListUserFragment"
-        android:label="ChatListUserFragment" >
+        android:label="ChatListUserFragment"
+        tools:layout="@layout/fragment_chat_list_user">
         <action
             android:id="@+id/action_chatListUserFragment_to_chatBoxFragment"
             app:destination="@id/chatBoxFragment" />

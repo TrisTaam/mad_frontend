@@ -116,7 +116,7 @@ class PrescriptionScanFragment : BaseFragment<FragmentPrescriptionScanBinding>()
             .setAutoFocusEnabled(true)
             .build()
 
-        startCameraSource()
+        checkCameraPermissionAndStart()
         setupBarcodeProcessor()
     }
 
@@ -190,34 +190,21 @@ class PrescriptionScanFragment : BaseFragment<FragmentPrescriptionScanBinding>()
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startCameraSource()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Cần quyền truy cập camera để quét mã QR",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
+    private fun checkCameraPermissionAndStart() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             startCameraSource()
+        } else {
+            requestCameraPermission()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkCameraPermissionAndStart()
     }
 
     override fun onPause() {

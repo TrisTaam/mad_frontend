@@ -23,6 +23,7 @@ class MessageAdapter(
         chatUsers.addAll(newList)
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
         val binding = FragmentChatItemDoctorInDoctorListBinding.inflate(
             LayoutInflater.from(parent.context), parent, false

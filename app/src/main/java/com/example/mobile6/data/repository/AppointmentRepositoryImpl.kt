@@ -18,4 +18,12 @@ class AppointmentRepositoryImpl @Inject constructor(
         val request = CreateAppointmentRequest(doctorId, appointmentDate)
         return appointmentService.createAppointment(request)
     }
+
+    override suspend fun getAppointmentsByUser(): Resource<List<AppointmentResponse>> {
+        return appointmentService.getAppointmentsByUser()
+    }
+
+    override suspend fun getAppointmentsByDoctor(): Resource<List<AppointmentResponse>> {
+        return appointmentService.getAppointmentsByDoctor()
+    }
 } 
