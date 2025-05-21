@@ -7,6 +7,7 @@ import com.example.mobile6.data.remote.service.MedicineService
 import com.example.mobile6.data.remote.service.MessageService
 import com.example.mobile6.data.remote.service.PrescriptionService
 import com.example.mobile6.data.remote.service.TestService
+import com.example.mobile6.data.remote.service.UserAlarmLogService
 import com.example.mobile6.data.remote.service.UserAlarmService
 import com.example.mobile6.data.remote.service.UserService
 import dagger.Module
@@ -71,5 +72,11 @@ object ApiServiceModule {
     @Singleton
     fun provideUserAlarmService(retrofit: Retrofit): UserAlarmService {
         return retrofit.create(UserAlarmService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserAlarmLogService(retrofit: Retrofit): UserAlarmLogService {
+        return retrofit.create(UserAlarmLogService::class.java)
     }
 }

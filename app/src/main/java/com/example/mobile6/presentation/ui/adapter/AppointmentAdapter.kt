@@ -57,16 +57,19 @@ class AppointmentAdapter :
                         "PENDING" -> {
                             text = "Đang chờ duyệt"
                             setTextColor(context.getColor(R.color.yellow))
+                            setBackgroundResource(R.drawable.bg_yellow_status)
                         }
 
                         "APPROVED" -> {
                             text = "Đã duyệt"
                             setTextColor(context.getColor(R.color.green))
+                            setBackgroundResource(R.drawable.bg_green_status)
                         }
 
                         "CANCELED" -> {
                             text = "Đã hủy"
                             setTextColor(context.getColor(R.color.red))
+                            setBackgroundResource(R.drawable.bg_red_status)
                         }
 
                         else -> {

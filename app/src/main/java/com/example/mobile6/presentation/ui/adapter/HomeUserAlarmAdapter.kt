@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.data.remote.dto.response.UserAlarmResponse
 import com.example.mobile6.databinding.ItemHomeUserAlarmBinding
 import com.example.mobile6.presentation.ui.base.BaseAdapter
+import java.time.LocalTime
 
 class HomeUserAlarmAdapter(
     private val onClick: (UserAlarmResponse) -> Unit
@@ -44,7 +45,7 @@ class HomeUserAlarmAdapter(
             binding.apply {
                 tvMedicineName.text = userAlarm.medicineName
                 tvPrescriptionName.text = "Đơn thuốc: ${userAlarm.prescriptionName}"
-                tvTime.text = userAlarm.notifyTime
+                tvTime.text = LocalTime.parse(userAlarm.notifyTime).toString()
                 root.setOnClickListener {
                     onClick(userAlarm)
                 }

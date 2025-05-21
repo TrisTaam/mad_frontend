@@ -109,6 +109,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     visible()
                 }
             }
+            with(binding.btnNotification) {
+                if (uiState.isDoctorMode) {
+                    gone()
+                } else {
+                    visible()
+                    setOnClickListener {
+                        navigateTo(R.id.action_homeFragment_to_notificationFragment)
+                    }
+                }
+            }
             binding.tvUserName.text =
                 "${uiState.user.lastName} ${uiState.user.firstName}"
             appointmentAdapter.isDoctorMode = uiState.isDoctorMode

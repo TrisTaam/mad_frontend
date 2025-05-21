@@ -30,6 +30,9 @@ class PrescriptionDetailScanViewModel @Inject constructor(
     private val _saveResult = MutableLiveData<Boolean>()
     val saveResult: LiveData<Boolean> = _saveResult
 
+    private val _doneResult = MutableLiveData<Boolean>()
+    val doneResult: LiveData<Boolean> = _doneResult
+
     fun loadPrescription(prescriptionId: Long) {
         viewModelScope.launch {
             prescriptionRepository.getPrescription(prescriptionId)
@@ -59,6 +62,21 @@ class PrescriptionDetailScanViewModel @Inject constructor(
                 _saveResult.value = true
             } catch (e: Exception) {
                 _uiMessage.emit("Có lỗi xảy ra khi lưu đơn thuốc")
+                Timber.e(e)
+            }
+        }
+    }
+
+    fun donePrescription() {
+        val currentPrescription = _prescription.value ?: return
+
+        viewModelScope.launch {
+            try {
+                // Save to local database for the patient
+                prescriptionRepository.deactivatePrescription(currentPrescription.prescriptionId!!)
+                _doneResult.value = true
+            } catch (e: Exception) {
+                _uiMessage.emit("Có lỗi xảy ra khi hoàn thành đơn thuốc")
                 Timber.e(e)
             }
         }

@@ -38,12 +38,14 @@ class ReminderActivity : BaseActivity<ActivityReminderBinding>() {
 
     private var alarmId: Int = -1
     private lateinit var notifyTime: Calendar
+    private lateinit var notifyAt: Calendar
 
     override val bindingInflater: (LayoutInflater) -> ActivityReminderBinding
         get() = ActivityReminderBinding::inflate
 
     @RequiresPermission(Manifest.permission.VIBRATE)
     override fun initViews() {
+        notifyAt = Calendar.getInstance()
 
         // Ensure activity shows on lock screen
         setShowWhenLocked(true)
@@ -63,6 +65,7 @@ class ReminderActivity : BaseActivity<ActivityReminderBinding>() {
 
         binding.btnDone.setOnClickListener {
             stopAndRescheduleAlarm()
+            viewModel.createUserAlarmLog(notifyAt, Calendar.getInstance())
         }
         binding.btnSnooze.setOnClickListener {
             snoozeAlarm()

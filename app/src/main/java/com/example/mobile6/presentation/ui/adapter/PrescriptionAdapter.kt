@@ -58,16 +58,19 @@ class PrescriptionAdapter() :
                         "CREATED" -> {
                             text = "Đã tạo"
                             setTextColor(context.getColor(R.color.yellow))
+                            setBackgroundResource(R.drawable.bg_yellow_status)
                         }
 
                         "ACTIVE" -> {
                             text = "Đang sử dụng"
                             setTextColor(context.getColor(R.color.green))
+                            setBackgroundResource(R.drawable.bg_green_status)
                         }
 
                         "DEACTIVATED" -> {
                             text = "Đã hoàn thành"
                             setTextColor(context.getColor(R.color.red))
+                            setBackgroundResource(R.drawable.bg_red_status)
                         }
 
                         else -> {

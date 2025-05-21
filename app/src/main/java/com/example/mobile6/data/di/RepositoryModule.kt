@@ -7,6 +7,7 @@ import com.example.mobile6.data.repository.MedicineRepositoryImpl
 import com.example.mobile6.data.repository.MessageRepositoryImpl
 import com.example.mobile6.data.repository.PrescriptionRepositoryImpl
 import com.example.mobile6.data.repository.TestRepositoryImpl
+import com.example.mobile6.data.repository.UserAlarmLogRepositoryImpl
 import com.example.mobile6.data.repository.UserAlarmRepositoryImpl
 import com.example.mobile6.data.repository.UserRepositoryImpl
 import com.example.mobile6.domain.repository.AppointmentRepository
@@ -16,6 +17,7 @@ import com.example.mobile6.domain.repository.MedicineRepository
 import com.example.mobile6.domain.repository.MessageRepository
 import com.example.mobile6.domain.repository.PrescriptionRepository
 import com.example.mobile6.domain.repository.TestRepository
+import com.example.mobile6.domain.repository.UserAlarmLogRepository
 import com.example.mobile6.domain.repository.UserAlarmRepository
 import com.example.mobile6.domain.repository.UserRepository
 import dagger.Binds
@@ -80,4 +82,10 @@ interface RepositoryModule {
     fun bindUserAlarmRepository(
         userAlarmRepositoryImpl: UserAlarmRepositoryImpl
     ): UserAlarmRepository
+
+    @Binds
+    @Singleton
+    fun bindUserAlarmLogRepository(
+        userAlarmLogRepositoryImpl: UserAlarmLogRepositoryImpl
+    ): UserAlarmLogRepository
 }

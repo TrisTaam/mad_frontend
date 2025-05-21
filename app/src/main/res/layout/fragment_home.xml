@@ -31,6 +31,20 @@
         app:layout_constraintStart_toStartOf="@+id/tv_greeting"
         app:layout_constraintTop_toBottomOf="@id/tv_greeting" />
 
+    <ImageButton
+        android:id="@+id/btn_notification"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_bell"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_greeting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_greeting" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -91,6 +91,9 @@ class PrescriptionDetailScanFragment : BaseFragment<FragmentPrescriptionDetailSc
         } else {
             binding.btnSavePrescription.visible()
             binding.btnCompletePrescription.gone()
+            binding.btnCompletePrescription.setOnClickListener {
+                viewModel.donePrescription()
+            }
             prescriptionDetailAdapter.onMoreClick = { prescriptionDetail, view ->
             }
         }
@@ -124,6 +127,18 @@ class PrescriptionDetailScanFragment : BaseFragment<FragmentPrescriptionDetailSc
                     "Đã lưu đơn thuốc thành công",
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+        }
+
+        viewModel.doneResult.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                Toast.makeText(
+                    requireContext(),
+                    "Đã hoàn thành đơn thuốc thành công",
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.btnCompletePrescription.text = "Đã hoàn thành"
+                binding.btnCompletePrescription.isEnabled = false
             }
         }
     }
