@@ -56,7 +56,6 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:text="Đã tạo"
             android:textColor="#757575"
             android:textSize="16sp"

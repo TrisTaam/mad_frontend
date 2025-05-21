@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.prescriptions.PrescriptionsFragment">
+    tools:context=".presentation.ui.prescriptions.PrescriptionsFragment">
 
     <RelativeLayout
         android:id="@+id/header_layout"
