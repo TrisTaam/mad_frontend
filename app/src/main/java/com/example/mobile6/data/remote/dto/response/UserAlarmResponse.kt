@@ -8,6 +8,7 @@ data class UserAlarmResponse(
     val userId: Long,
     val prescriptionId: Long,
     val prescriptionName: String,
+    val isDone: Boolean,
     val medicineId: Long,
     val medicineName: String,
     val notifyTime: String,

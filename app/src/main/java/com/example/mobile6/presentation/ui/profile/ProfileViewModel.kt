@@ -1,5 +1,9 @@
 package com.example.mobile6.presentation.ui.profile
 
+import android.app.Application
+import android.content.Context
+import android.net.Uri
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile6.data.remote.util.onError
@@ -9,17 +13,22 @@ import com.example.mobile6.domain.model.User
 import com.example.mobile6.domain.repository.AuthRepository
 import com.example.mobile6.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
+    private val application: Application,
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository
-) : ViewModel() {
+) : AndroidViewModel(application) {
     private val _uiState = MutableStateFlow(UIState())
     val uiState = _uiState.asStateFlow()
 
@@ -29,7 +38,7 @@ class ProfileViewModel @Inject constructor(
 
     fun getUserDetail() {
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+            _uiState.update { it.copy(isLoading = true, errorMessage = null, successMessage = null) }
             var isDoctorMode: Boolean? = null
             if (authRepository.isDoctorSignedIn()) {
                 isDoctorMode = authRepository.isDoctorMode()
@@ -64,6 +73,62 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun updateAvatar(uri: Uri) {
+        viewModelScope.launch {
+            try {
+                _uiState.update { it.copy(isLoading = true, errorMessage = null, successMessage = null) }
+
+                val file = createFileFromUri(uri)
+
+                val result = userRepository.updateAvatar(file)
+                
+                result.onSuccess { _, message ->
+                    _uiState.update { 
+                        it.copy(
+                            isLoading = false, 
+                            successMessage = message
+                        ) 
+                    }
+                    getUserDetail()
+                }.onError { message, _ ->
+                    _uiState.update { 
+                        it.copy(
+                            isLoading = false, 
+                            errorMessage = message
+                        ) 
+                    }
+                }.onException { throwable ->
+                    _uiState.update { 
+                        it.copy(
+                            isLoading = false, 
+                            errorMessage = throwable.message ?: "Có lỗi xảy ra khi cập nhật ảnh đại diện"
+                        ) 
+                    }
+                }
+            } catch (e: Exception) {
+                Timber.e(e, "Error updating avatar")
+                _uiState.update { 
+                    it.copy(
+                        isLoading = false, 
+                        errorMessage = e.message ?: "Có lỗi xảy ra khi xử lý ảnh"
+                    ) 
+                }
+            }
+        }
+    }
+    
+    private fun createFileFromUri(uri: Uri): File {
+        val inputStream = application.contentResolver.openInputStream(uri)
+        val tempFile = File(application.cacheDir, "temp_avatar_${System.currentTimeMillis()}.jpg")
+        
+        FileOutputStream(tempFile).use { outputStream ->
+            inputStream?.copyTo(outputStream)
+        }
+        
+        inputStream?.close()
+        return tempFile
+    }
+
     fun changeMode() {
         viewModelScope.launch {
             _uiState.value.isDoctorMode?.let { isDoctorMode ->
@@ -76,7 +141,7 @@ class ProfileViewModel @Inject constructor(
 
     fun signOut() {
         viewModelScope.launch {
-            _uiState.update { UIState(isLoading = true) }
+            _uiState.update { UIState(isLoading = true, successMessage = null) }
             val result = authRepository.signOut()
 
             result
@@ -93,6 +158,7 @@ class ProfileViewModel @Inject constructor(
     data class UIState(
         val isLoading: Boolean = false,
         val errorMessage: String? = null,
+        val successMessage: String? = null,
         val user: User = User(),
         val isDoctorMode: Boolean? = null
     )

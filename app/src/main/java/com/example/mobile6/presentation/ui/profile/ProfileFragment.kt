@@ -1,7 +1,10 @@
 package com.example.mobile6.presentation.ui.profile
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -17,6 +20,7 @@ import com.example.mobile6.presentation.ui.util.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -33,6 +37,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             FragmentProfileBinding.inflate(inflater, container, false)
         }
 
+    val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
+                Timber.d("Selected URI: $uri")
+                    
+                // Gọi viewModel để cập nhật avatar
+                viewModel.updateAvatar(uri)
+            } else {
+                Timber.d("No media selected")
+            }
+        }
+
     override fun initViews() {
         binding.btnSignOut.setOnClickListener {
             viewModel.signOut()
@@ -42,6 +60,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
         binding.btnChangeMode.setOnClickListener {
             changeMode()
+        }
+        binding.ivAvatar.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
         binding.btnEdit.setOnClickListener {
             val bundle = bundleOf(
@@ -65,15 +86,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
 
         viewModel.uiState.onEach { uiState ->
+            Timber.d("UIState: $uiState")
             if (uiState.isLoading) {
-                binding.clInfo.gone()
                 return@onEach
             }
             if (uiState.errorMessage != null) {
                 (requireActivity() as MainActivity).showToast(uiState.errorMessage)
                 return@onEach
             }
-            binding.clInfo.visible()
+            if (uiState.successMessage != null) {
+                (requireActivity() as MainActivity).showToast(uiState.successMessage)
+                return@onEach
+            }
             binding.tvName.text = "${uiState.user.lastName} ${uiState.user.firstName}"
             binding.tvDob.text =
                 uiState.user.dateOfBirth?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) ?: "N/A"
