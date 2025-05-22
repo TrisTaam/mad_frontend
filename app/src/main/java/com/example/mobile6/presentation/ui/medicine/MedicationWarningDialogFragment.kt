@@ -14,7 +14,9 @@ class MedicationWarningDialogFragment : BaseDialog<FragmentMedicationWarningDial
 
     private var medicineId: Long = 0L
     private var message: String = ""
-    private val viewModel: MedicineDetailViewModel by viewModels()
+    private val viewModel: MedicineDetailViewModel by viewModels(
+        ownerProducer = { requireParentFragment().childFragmentManager.fragments.first() }
+    )
 
     override val bindingInflater: (LayoutInflater, ViewGroup?) -> FragmentMedicationWarningDialogBinding
         get() = { inflater, container ->
@@ -38,7 +40,7 @@ class MedicationWarningDialogFragment : BaseDialog<FragmentMedicationWarningDial
                 putSerializable("selectedMedicine", viewModel.uiState.value.medicine)
             }
             parentFragmentManager.setFragmentResult("prescriptionDataSelectMedicine", bundle)
-            dismiss()
+            findNavController().navigateUp()
             findNavController().navigateUp()
             findNavController().navigateUp()
         }

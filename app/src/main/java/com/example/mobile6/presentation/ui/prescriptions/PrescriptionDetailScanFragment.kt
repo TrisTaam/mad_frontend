@@ -45,6 +45,8 @@ class PrescriptionDetailScanFragment : BaseFragment<FragmentPrescriptionDetailSc
         }
         binding.btnSavePrescription.setOnClickListener {
             viewModel.savePrescription()
+            back()
+            back()
         }
         binding.btnCompletePrescription.setOnClickListener {
             viewModel.donePrescription()

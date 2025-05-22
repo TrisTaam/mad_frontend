@@ -22,4 +22,8 @@ interface AppointmentRepository {
         startDateTime: String,
         endDateTime: String
     ): Resource<List<AppointmentResponse>>
+
+    suspend fun approveAppointment(id: Long): Resource<String>
+
+    suspend fun cancelAppointment(id: Long): Resource<String>
 } 

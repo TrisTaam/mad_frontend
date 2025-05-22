@@ -2,6 +2,7 @@ package com.example.mobile6.presentation.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile6.R
@@ -17,7 +18,7 @@ class AppointmentAdapter :
             areContentsTheSame = { old, new -> old == new }
         )
     ) {
-    var onAppointmentClick: (AppointmentResponse) -> Unit = {}
+    var onAppointmentClick: (AppointmentResponse, View, Int, Int) -> Unit = { _, _, _, _ -> }
     var isDoctorMode: Boolean = false
 
     override fun onCreateViewHolder(
@@ -43,7 +44,7 @@ class AppointmentAdapter :
 
     inner class AppointmentViewHolder(private val binding: ItemAppointmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
         fun bind(appointment: AppointmentResponse) {
             binding.apply {
                 tvUserName.text = if (isDoctorMode) {
@@ -77,8 +78,11 @@ class AppointmentAdapter :
                         }
                     }
                 }
-                root.setOnClickListener {
-                    onAppointmentClick(appointment)
+                root.setOnTouchListener { view, event ->
+                    val x = event.rawX.toInt()
+                    val y = event.rawY.toInt()
+                    onAppointmentClick(appointment, view, x, y)
+                    false
                 }
             }
         }

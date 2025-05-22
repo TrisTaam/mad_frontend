@@ -34,7 +34,7 @@ class AppointmentsViewModel @Inject constructor(
 
     fun getAppointments() {
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, error = null) }
+            _uiState.update { it.copy(isLoading = true, error = null, success = null) }
             val mode = authRepository.isDoctorMode()
             _uiState.update { it.copy(isDoctorMode = mode) }
 
@@ -73,6 +73,48 @@ class AppointmentsViewModel @Inject constructor(
         }
     }
 
+    fun approveAppointment(id: Long) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null, success = null) }
+            appointmentRepository.approveAppointment(id)
+                .onSuccess { _, message ->
+                    _uiState.update {
+                        it.copy(isLoading = false, success = message)
+                    }
+                    getAppointments()
+                }.onError { message, code ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = message)
+                    }
+                }.onException { throwable ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = throwable.message)
+                    }
+                }
+        }
+    }
+
+    fun cancelAppointment(id: Long) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null, success = null) }
+            appointmentRepository.cancelAppointment(id)
+                .onSuccess { _, message ->
+                    _uiState.update {
+                        it.copy(isLoading = false, success = message)
+                    }
+                    getAppointments()
+                }.onError { message, code ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = message)
+                    }
+                }.onException { throwable ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = throwable.message)
+                    }
+                }
+        }
+    }
+
     fun selectDate(date: LocalDate) {
         _uiState.update { it.copy(appointments = appointmentsGroupDate[date] ?: emptyList()) }
     }
@@ -80,6 +122,7 @@ class AppointmentsViewModel @Inject constructor(
     data class UIState(
         val isLoading: Boolean = false,
         val error: String? = null,
+        val success: String? = null,
         val isDoctorMode: Boolean = false,
         val appointments: List<AppointmentResponse> = emptyList(),
     )

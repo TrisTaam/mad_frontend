@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun getUserDetail() {
-        _uiState.update { it.copy(isLoading = true) }
+        _uiState.update { it.copy(isLoading = true, success = null) }
         val mode = authRepository.isDoctorMode()
         _uiState.update { it.copy(isLoading = false, isDoctorMode = mode) }
         val result = userRepository.getDetailInfo()
@@ -80,7 +80,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun getAppointmentsWeek() {
-        _uiState.update { it.copy(isLoading = true, error = null) }
+        _uiState.update { it.copy(isLoading = true, error = null, success = null) }
 
         val today = LocalDateTime.now()
         val startOfWeek =
@@ -142,9 +142,52 @@ class HomeViewModel @Inject constructor(
             }
     }
 
+    fun approveAppointment(id: Long) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null, success = null) }
+            appointmentRepository.approveAppointment(id)
+                .onSuccess { _, message ->
+                    _uiState.update {
+                        it.copy(isLoading = false, success = message)
+                    }
+                    getAppointmentsWeek()
+                }.onError { message, code ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = message)
+                    }
+                }.onException { throwable ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = throwable.message)
+                    }
+                }
+        }
+    }
+
+    fun cancelAppointment(id: Long) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null, success = null) }
+            appointmentRepository.cancelAppointment(id)
+                .onSuccess { _, message ->
+                    _uiState.update {
+                        it.copy(isLoading = false, success = message)
+                    }
+                    getAppointmentsWeek()
+                }.onError { message, code ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = message)
+                    }
+                }.onException { throwable ->
+                    _uiState.update {
+                        it.copy(isLoading = false, error = throwable.message)
+                    }
+                }
+        }
+    }
+
     data class UiState(
         val isLoading: Boolean = false,
         val error: String? = null,
+        val success: String? = null,
         val user: User = User(),
         val userAlarms: List<UserAlarmResponse> = emptyList(),
         val appointments: List<AppointmentResponse> = emptyList(),

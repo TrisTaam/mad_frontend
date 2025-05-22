@@ -1,14 +1,20 @@
 package com.example.mobile6.presentation.ui.appointments
 
+import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.PopupWindow
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.mobile6.R
 import com.example.mobile6.databinding.FragmentAppointmentsBinding
+import com.example.mobile6.databinding.ItemAppointmentStatusMenuBinding
 import com.example.mobile6.presentation.ui.MainActivity
 import com.example.mobile6.presentation.ui.adapter.AppointmentAdapter
 import com.example.mobile6.presentation.ui.base.BaseFragment
@@ -64,6 +70,10 @@ class AppointmentsFragment : BaseFragment<FragmentAppointmentsBinding>() {
             if (uiState.isLoading) {
                 return@onEach
             }
+            if (uiState.success != null) {
+                (requireActivity() as MainActivity).showToast(uiState.success)
+                return@onEach
+            }
             if (uiState.error != null) {
                 (requireActivity() as MainActivity).showToast(uiState.error)
                 return@onEach
@@ -84,6 +94,38 @@ class AppointmentsFragment : BaseFragment<FragmentAppointmentsBinding>() {
                 gone()
             } else {
                 visible()
+            }
+        }
+        if (isDoctorMode) {
+            adapter.onAppointmentClick = { appointment, view, x, y ->
+                if (appointment.status == "PENDING") {
+                    val popupWindow = PopupWindow(requireContext())
+                    val menuBinding =
+                        ItemAppointmentStatusMenuBinding.inflate(
+                            LayoutInflater.from(
+                                requireContext()
+                            )
+                        )
+
+                    popupWindow.contentView = menuBinding.root
+                    popupWindow.height = WindowManager.LayoutParams.WRAP_CONTENT
+                    popupWindow.elevation = resources.getDimension(R.dimen.elevation_4dp)
+                    popupWindow.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+                    popupWindow.isFocusable = true
+
+                    menuBinding.tvApprove.setOnClickListener {
+                        viewModel.approveAppointment(appointment.id)
+                        popupWindow.dismiss()
+                    }
+
+                    menuBinding.tvCancel.setOnClickListener {
+                        viewModel.cancelAppointment(appointment.id)
+                        popupWindow.dismiss()
+                    }
+
+                    // Show popup
+                    popupWindow.showAtLocation(view, Gravity.NO_GRAVITY, x, y)
+                }
             }
         }
     }

@@ -40,4 +40,12 @@ class AppointmentRepositoryImpl @Inject constructor(
     ): Resource<List<AppointmentResponse>> {
         return appointmentService.getAppointmentsByDoctorWeek(startDateTime, endDateTime)
     }
+
+    override suspend fun approveAppointment(id: Long): Resource<String> {
+        return appointmentService.approveAppointment(id)
+    }
+
+    override suspend fun cancelAppointment(id: Long): Resource<String> {
+        return appointmentService.cancelAppointment(id)
+    }
 } 

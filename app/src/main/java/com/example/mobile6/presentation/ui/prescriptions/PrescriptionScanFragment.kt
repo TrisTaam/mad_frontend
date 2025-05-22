@@ -237,8 +237,4 @@ class PrescriptionScanFragment : BaseFragment<FragmentPrescriptionScanBinding>()
         }
         navigateTo(R.id.action_prescriptionScanFragment_to_prescriptionDetailScanFragment, bundle)
     }
-
-    companion object {
-        private const val CAMERA_PERMISSION_REQUEST_CODE = 100
-    }
 }

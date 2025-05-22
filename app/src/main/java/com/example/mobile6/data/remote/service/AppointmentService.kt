@@ -29,4 +29,14 @@ interface AppointmentService {
         @Query("startDateTime") startDateTime: String,
         @Query("endDateTime") endDateTime: String
     ): Resource<List<AppointmentResponse>>
+
+    @POST("api/v1/appointment/approve")
+    suspend fun approveAppointment(
+        @Query("id") id: Long
+    ): Resource<String>
+
+    @POST("api/v1/appointment/cancel")
+    suspend fun cancelAppointment(
+        @Query("id") id: Long
+    ): Resource<String>
 }

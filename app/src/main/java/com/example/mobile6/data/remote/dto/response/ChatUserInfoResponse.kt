@@ -9,7 +9,7 @@ data class ChatUserInfoResponse(
     val lastName: String,
     val email: String,
     val phoneNumber: String,
-    val avatar: String ?= null,
+    val avatar: String? = null,
     val gender: String,
     val dateOfBirth: String,
     val weight: Int,
