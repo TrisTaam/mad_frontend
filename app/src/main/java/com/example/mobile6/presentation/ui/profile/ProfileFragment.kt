@@ -43,7 +43,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             // photo picker.
             if (uri != null) {
                 Timber.d("Selected URI: $uri")
-                    
+
                 // Gọi viewModel để cập nhật avatar
                 viewModel.updateAvatar(uri)
             } else {

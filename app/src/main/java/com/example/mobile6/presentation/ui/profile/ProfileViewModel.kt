@@ -1,10 +1,8 @@
 package com.example.mobile6.presentation.ui.profile
 
 import android.app.Application
-import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile6.data.remote.util.onError
 import com.example.mobile6.data.remote.util.onException
@@ -13,7 +11,6 @@ import com.example.mobile6.domain.model.User
 import com.example.mobile6.domain.repository.AuthRepository
 import com.example.mobile6.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -38,7 +35,13 @@ class ProfileViewModel @Inject constructor(
 
     fun getUserDetail() {
         viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null, successMessage = null) }
+            _uiState.update {
+                it.copy(
+                    isLoading = true,
+                    errorMessage = null,
+                    successMessage = null
+                )
+            }
             var isDoctorMode: Boolean? = null
             if (authRepository.isDoctorSignedIn()) {
                 isDoctorMode = authRepository.isDoctorMode()
@@ -76,55 +79,62 @@ class ProfileViewModel @Inject constructor(
     fun updateAvatar(uri: Uri) {
         viewModelScope.launch {
             try {
-                _uiState.update { it.copy(isLoading = true, errorMessage = null, successMessage = null) }
+                _uiState.update {
+                    it.copy(
+                        isLoading = true,
+                        errorMessage = null,
+                        successMessage = null
+                    )
+                }
 
                 val file = createFileFromUri(uri)
 
                 val result = userRepository.updateAvatar(file)
-                
+
                 result.onSuccess { _, message ->
-                    _uiState.update { 
+                    _uiState.update {
                         it.copy(
-                            isLoading = false, 
+                            isLoading = false,
                             successMessage = message
-                        ) 
+                        )
                     }
                     getUserDetail()
                 }.onError { message, _ ->
-                    _uiState.update { 
+                    _uiState.update {
                         it.copy(
-                            isLoading = false, 
+                            isLoading = false,
                             errorMessage = message
-                        ) 
+                        )
                     }
                 }.onException { throwable ->
-                    _uiState.update { 
+                    _uiState.update {
                         it.copy(
-                            isLoading = false, 
-                            errorMessage = throwable.message ?: "Có lỗi xảy ra khi cập nhật ảnh đại diện"
-                        ) 
+                            isLoading = false,
+                            errorMessage = throwable.message
+                                ?: "Có lỗi xảy ra khi cập nhật ảnh đại diện"
+                        )
                     }
                 }
             } catch (e: Exception) {
                 Timber.e(e, "Error updating avatar")
-                _uiState.update { 
+                _uiState.update {
                     it.copy(
-                        isLoading = false, 
+                        isLoading = false,
                         errorMessage = e.message ?: "Có lỗi xảy ra khi xử lý ảnh"
-                    ) 
+                    )
                 }
             }
         }
     }
-    
+
     private fun createFileFromUri(uri: Uri): File {
         val inputStream = application.contentResolver.openInputStream(uri)
         val tempFile = File(application.cacheDir, "temp_avatar_${System.currentTimeMillis()}.jpg")
-        
+
         FileOutputStream(tempFile).use { outputStream ->
             inputStream?.copyTo(outputStream)
         }
-        
+
         inputStream?.close()
         return tempFile
     }

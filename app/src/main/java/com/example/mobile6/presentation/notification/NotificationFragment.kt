@@ -13,7 +13,6 @@ import com.example.mobile6.presentation.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @AndroidEntryPoint
 class NotificationFragment : BaseFragment<FragmentNotificationBinding>() {

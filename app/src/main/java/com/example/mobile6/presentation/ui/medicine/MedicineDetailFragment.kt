@@ -109,7 +109,6 @@ class MedicineDetailFragment : BaseFragment<FragmentMedicineDetailBinding>() {
                 .into(medicineImage)
 
             medicineDescription.text = medicine.description
-            medicineUsage.text = medicine.use
             medicineDirection.text = medicine.usage
             medicineWarning.text = medicine.precaution
         }

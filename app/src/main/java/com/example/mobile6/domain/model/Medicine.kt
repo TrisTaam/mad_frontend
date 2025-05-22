@@ -7,7 +7,7 @@ data class Medicine(
     val name: String,
     val imgUrl: String,
     val description: String,
-    val use: String,
+    val use: String? = null,
     val usage: String,
     val precaution: String,
     val ingredients: List<Ingredient> = emptyList()

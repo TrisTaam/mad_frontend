@@ -53,16 +53,16 @@ android {
         val baseHost = localProperties.getProperty("BASE_HOST")
         val basePort = localProperties.getProperty("BASE_PORT")
         resValue("string", "base_host", baseHost)
-        buildConfigField(
-            "String",
-            "BASE_URL",
-            "\"$baseHost:$basePort\""
-        )
 //        buildConfigField(
 //            "String",
 //            "BASE_URL",
-//            "\"http://35.198.232.229:8080\""
+//            "\"$baseHost:$basePort\""
 //        )
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"http://35.198.232.229:8080\""
+        )
     }
 }
 
