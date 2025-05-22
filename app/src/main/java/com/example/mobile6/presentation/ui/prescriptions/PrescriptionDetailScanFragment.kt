@@ -47,9 +47,8 @@ class PrescriptionDetailScanFragment : BaseFragment<FragmentPrescriptionDetailSc
             viewModel.savePrescription()
         }
         binding.btnCompletePrescription.setOnClickListener {
-
+            viewModel.donePrescription()
         }
-
         setupMedicineList()
 
         // Get prescription ID from arguments
@@ -91,9 +90,6 @@ class PrescriptionDetailScanFragment : BaseFragment<FragmentPrescriptionDetailSc
         } else {
             binding.btnSavePrescription.visible()
             binding.btnCompletePrescription.gone()
-            binding.btnCompletePrescription.setOnClickListener {
-                viewModel.donePrescription()
-            }
             prescriptionDetailAdapter.onMoreClick = { prescriptionDetail, view ->
             }
         }

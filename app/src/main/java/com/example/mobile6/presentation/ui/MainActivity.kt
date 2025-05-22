@@ -53,7 +53,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController.addOnDestinationChangedListener { _, navDestination, _ ->
             when (navDestination.id) {
                 R.id.homeFragment,
-                R.id.statisticsFragment,
                 R.id.appointmentsFragment,
                 R.id.prescriptionsFragment,
                 R.id.profileFragment -> binding.bottomNavigationView.visible()

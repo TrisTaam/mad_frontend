@@ -55,11 +55,6 @@
 
     </fragment>
     <fragment
-        android:id="@+id/statisticsFragment"
-        android:name="com.example.mobile6.presentation.ui.statistics.StatisticsFragment"
-        android:label="fragment_statistics"
-        tools:layout="@layout/fragment_statistics" />
-    <fragment
         android:id="@+id/appointmentsFragment"
         android:name="com.example.mobile6.presentation.ui.appointments.AppointmentsFragment"
         android:label="fragment_appointments"

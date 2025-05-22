@@ -40,10 +40,10 @@ class UserAlarmLogAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(userAlarmLog: UserAlarmLogResponse) {
             binding.apply {
-                tvMedicineName.text = "Uống thuốc ${userAlarmLog.userAlarmResponse.medicineName}"
+                tvMedicineName.text = "Uống thuốc ${userAlarmLog.userAlarm.medicineName}"
                 tvPrescriptionName.text =
-                    "Đơn thuốc ${userAlarmLog.userAlarmResponse.prescriptionName}"
-                tvTime.text = userAlarmLog.userAlarmResponse.notifyTime.toDateTimeString()
+                    "Đơn thuốc ${userAlarmLog.userAlarm.prescriptionName}"
+                tvTime.text = userAlarmLog.confirmAt.toDateTimeString()
             }
         }
     }

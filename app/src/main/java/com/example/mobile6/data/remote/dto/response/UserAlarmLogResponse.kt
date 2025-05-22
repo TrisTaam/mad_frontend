@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserAlarmLogResponse(
     val id: Long,
-    val userAlarmResponse: UserAlarmResponse,
+    val userAlarm: UserAlarmResponse,
     val notifyAt: String,
     val confirmAt: String,
 )
