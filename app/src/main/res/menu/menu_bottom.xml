@@ -5,10 +5,6 @@
         android:icon="@drawable/slt_home"
         android:title="@string/home" />
     <item
-        android:id="@+id/statisticsFragment"
-        android:icon="@drawable/slt_statistics"
-        android:title="@string/statistics" />
-    <item
         android:id="@+id/appointmentsFragment"
         android:icon="@drawable/slt_calendar"
         android:title="@string/appointments" />

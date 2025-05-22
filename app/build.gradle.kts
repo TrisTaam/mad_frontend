@@ -58,6 +58,11 @@ android {
             "BASE_URL",
             "\"$baseHost:$basePort\""
         )
+//        buildConfigField(
+//            "String",
+//            "BASE_URL",
+//            "\"http://35.198.232.229:8080\""
+//        )
     }
 }
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.mobile6.ui.home.HomeFragment"
+        android:name="com.example.mobile6.presentation.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -26,25 +26,37 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_chatListUserFragment"
-            app:destination="@id/chatListUserFragment" />
+            app:destination="@id/chatListUserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_chatWithAiFragment"
-            app:destination="@id/chatWithAiFragment" />
+            app:destination="@id/chatWithAiFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_homeFragment_to_chatListUserFragment2"
-            app:destination="@id/chatListUserFragment" />
+            android:id="@+id/action_homeFragment_to_prescriptionDetailScanFragment"
+            app:destination="@id/prescriptionDetailScanFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_homeFragment_to_chatListUserFragment3"
-            app:destination="@id/chatListUserFragment" />
+            android:id="@+id/action_homeFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     </fragment>
     <fragment
-        android:id="@+id/statisticsFragment"
-        android:name="com.example.mobile6.ui.statistics.StatisticsFragment"
-        android:label="fragment_statistics"
-        tools:layout="@layout/fragment_statistics" />
-    <fragment
         android:id="@+id/appointmentsFragment"
-        android:name="com.example.mobile6.ui.appointments.AppointmentsFragment"
+        android:name="com.example.mobile6.presentation.ui.appointments.AppointmentsFragment"
         android:label="fragment_appointments"
         tools:layout="@layout/fragment_appointments">
         <action
@@ -57,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/prescriptionsFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionsFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.PrescriptionsFragment"
         android:label="fragment_prescriptions"
         tools:layout="@layout/fragment_prescriptions">
         <action
@@ -75,8 +87,8 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
-            android:id="@+id/action_prescriptionsFragment_to_prescriptionDetailFragment"
-            app:destination="@id/prescriptionDetailFragment"
+            android:id="@+id/action_prescriptionsFragment_to_prescriptionDetailScanFragment"
+            app:destination="@id/prescriptionDetailScanFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -84,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.mobile6.ui.profile.ProfileFragment"
+        android:name="com.example.mobile6.presentation.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -106,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.mobile6.ui.splash.SplashFragment"
+        android:name="com.example.mobile6.presentation.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -121,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/medicineSearchFragment"
-        android:name="com.example.mobile6.ui.medicine.MedicineSearchFragment"
+        android:name="com.example.mobile6.presentation.ui.medicine.MedicineSearchFragment"
         android:label="MedicineSearchFragment"
         tools:layout="@layout/fragment_medicine_search">
         <action
@@ -134,7 +146,7 @@
     </fragment>
     <fragment
         android:id="@+id/medicineDetailFragment"
-        android:name="com.example.mobile6.ui.medicine.MedicineDetailFragment"
+        android:name="com.example.mobile6.presentation.ui.medicine.MedicineDetailFragment"
         android:label="fragment_medicine_detail"
         tools:layout="@layout/fragment_medicine_detail">
         <action
@@ -147,12 +159,12 @@
     </fragment>
     <dialog
         android:id="@+id/medicationWarningDialogFragment"
-        android:name="com.example.mobile6.ui.medicine.MedicationWarningDialogFragment"
+        android:name="com.example.mobile6.presentation.ui.medicine.MedicationWarningDialogFragment"
         android:label="MedicationWarningDialogFragment"
         tools:layout="@layout/fragment_medication_warning_dialog" />
     <fragment
         android:id="@+id/doctorSpecialtyFragment"
-        android:name="com.example.mobile6.ui.doctor.doctor_specialty.DoctorSpecialtyFragment"
+        android:name="com.example.mobile6.presentation.ui.doctor.doctor_specialty.DoctorSpecialtyFragment"
         android:label="fragment_doctor_specialty"
         tools:layout="@layout/fragment_doctor_specialty">
         <action
@@ -165,7 +177,7 @@
     </fragment>
     <fragment
         android:id="@+id/doctorListFragment"
-        android:name="com.example.mobile6.ui.doctor.doctor_list.DoctorListFragment"
+        android:name="com.example.mobile6.presentation.ui.doctor.doctor_list.DoctorListFragment"
         android:label="fragment_doctor_list"
         tools:layout="@layout/fragment_doctor_list">
         <action
@@ -178,7 +190,7 @@
     </fragment>
     <fragment
         android:id="@+id/doctorDetailFragment"
-        android:name="com.example.mobile6.ui.doctor.doctor_detail.DoctorDetailFragment"
+        android:name="com.example.mobile6.presentation.ui.doctor.doctor_detail.DoctorDetailFragment"
         android:label="fragment_doctor_detail"
         tools:layout="@layout/fragment_doctor_detail">
         <action
@@ -191,17 +203,17 @@
     </fragment>
     <fragment
         android:id="@+id/doctorAppointmentsFragment"
-        android:name="com.example.mobile6.ui.doctor.doctor_appointments.DoctorAppointmentsFragment"
+        android:name="com.example.mobile6.presentation.ui.doctor.doctor_appointments.DoctorAppointmentsFragment"
         android:label="fragment_doctor_appointments"
         tools:layout="@layout/fragment_doctor_appointments" />
     <dialog
         android:id="@+id/testDialogFragment"
-        android:name="com.example.mobile6.ui.test.TestDialogFragment"
+        android:name="com.example.mobile6.presentation.ui.test.TestDialogFragment"
         android:label="fragment_test_dialog"
         tools:layout="@layout/fragment_test_dialog" />
     <fragment
         android:id="@+id/profileCompletionFragment"
-        android:name="com.example.mobile6.ui.profile.ProfileCompletionFragment"
+        android:name="com.example.mobile6.presentation.ui.profile.ProfileCompletionFragment"
         android:label="fragment_profile_completion"
         tools:layout="@layout/fragment_profile_completion">
         <action
@@ -214,7 +226,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.mobile6.ui.auth.register.RegisterFragment"
+        android:name="com.example.mobile6.presentation.ui.auth.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_auth_register">
         <action
@@ -227,7 +239,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.mobile6.ui.auth.login.LoginFragment"
+        android:name="com.example.mobile6.presentation.ui.auth.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_auth_login">
         <action
@@ -247,12 +259,12 @@
     </fragment>
     <dialog
         android:id="@+id/genderSelectDialogFragment"
-        android:name="com.example.mobile6.ui.profile.GenderSelectDialogFragment"
+        android:name="com.example.mobile6.presentation.ui.profile.GenderSelectDialogFragment"
         android:label="GenderSelectDialogFragment"
         tools:layout="@layout/fragment_gender_select_dialog" />
     <fragment
         android:id="@+id/prescriptionCreateFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionCreateFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.PrescriptionCreateFragment"
         android:label="PrescriptionCreateFragment"
         tools:layout="@layout/fragment_prescription_create">
         <action
@@ -272,7 +284,7 @@
     </fragment>
     <fragment
         android:id="@+id/prescriptionDetailEditFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailEditFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.PrescriptionDetailEditFragment"
         android:label="PrescriptionDetailEditFragment"
         tools:layout="@layout/fragment_prescription_detail_edit">
         <action
@@ -292,12 +304,12 @@
     </fragment>
     <dialog
         android:id="@+id/unitSelectDialogFragment"
-        android:name="com.example.mobile6.ui.prescriptions.UnitSelectDialogFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.UnitSelectDialogFragment"
         android:label="UnitSelectDialogFragment"
         tools:layout="@layout/fragment_medicine_unit_select_dialog" />
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.mobile6.ui.welcome.WelcomeFragment"
+        android:name="com.example.mobile6.presentation.ui.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -310,17 +322,25 @@
     </fragment>
     <fragment
         android:id="@+id/prescriptionQrFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionQrFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.PrescriptionQrFragment"
         android:label="PrescriptionQrFragment"
         tools:layout="@layout/fragment_prescription_qr" />
     <fragment
         android:id="@+id/prescriptionDetailScanFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailScanFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.PrescriptionDetailScanFragment"
         android:label="PrescriptionDetailScanFragment"
-        tools:layout="@layout/fragment_prescription_detail_scan" />
+        tools:layout="@layout/fragment_prescription_detail_scan">
+        <action
+            android:id="@+id/action_prescriptionDetailScanFragment_to_prescriptionDetailAlarmSheetFragment"
+            app:destination="@id/prescriptionDetailAlarmSheetFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/prescriptionScanFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionScanFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.PrescriptionScanFragment"
         android:label="PrescriptionScanFragment"
         tools:layout="@layout/fragment_prescription_scan">
         <action
@@ -333,7 +353,7 @@
     </fragment>
     <fragment
         android:id="@+id/chatListDoctorFragment"
-        android:name="com.example.mobile6.ui.chat.doctor.ChatListDoctorFragment"
+        android:name="com.example.mobile6.presentation.ui.chat.doctor.ChatListDoctorFragment"
         android:label="fragment_chat_list_doctor"
         tools:layout="@layout/fragment_chat_list_doctor">
         <action
@@ -346,26 +366,35 @@
     </fragment>
     <fragment
         android:id="@+id/chatBoxFragment"
-        android:name="com.example.mobile6.ui.chat.ChatBoxFragment"
+        android:name="com.example.mobile6.presentation.ui.chat.ChatBoxFragment"
         android:label="ChatBoxFragment"
         tools:layout="@layout/fragment_chat_box" />
     <fragment
         android:id="@+id/chatListUserFragment"
-        android:name="com.example.mobile6.ui.chat.user.ChatListUserFragment"
+        android:name="com.example.mobile6.presentation.ui.chat.user.ChatListUserFragment"
         android:label="ChatListUserFragment"
         tools:layout="@layout/fragment_chat_list_user">
         <action
             android:id="@+id/action_chatListUserFragment_to_chatBoxFragment"
-            app:destination="@id/chatBoxFragment" />
+            app:destination="@id/chatBoxFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/chatWithAiFragment"
-        android:name="com.example.mobile6.ui.chat.ai.ChatWithAiFragment"
+        android:name="com.example.mobile6.presentation.ui.chat.ai.ChatWithAiFragment"
         android:label="fragment_chat_with_ai"
         tools:layout="@layout/fragment_chat_with_ai" />
+    <dialog
+        android:id="@+id/prescriptionDetailAlarmSheetFragment"
+        android:name="com.example.mobile6.presentation.ui.prescriptions.PrescriptionDetailAlarmSheetFragment"
+        android:label="fragment_prescription_detail_alarm_sheet"
+        tools:layout="@layout/fragment_prescription_detail_alarm_sheet" />
     <fragment
-        android:id="@+id/prescriptionDetailFragment"
-        android:name="com.example.mobile6.ui.prescriptions.PrescriptionDetailFragment"
-        android:label="fragment_prescription_detail"
-        tools:layout="@layout/fragment_prescription_detail" />
+        android:id="@+id/notificationFragment"
+        android:name="com.example.mobile6.presentation.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 </navigation>

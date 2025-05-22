@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".ui.doctor.doctor_appointments.DoctorAppointmentsFragment">
+    tools:context=".presentation.ui.doctor.doctor_appointments.DoctorAppointmentsFragment">
 
     <RelativeLayout
         android:id="@+id/header_layout"
