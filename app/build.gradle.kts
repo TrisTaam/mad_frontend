@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kotlin.plugin.serialization)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -49,13 +50,18 @@ android {
     }
 
     defaultConfig {
-        val baseHost = localProperties.getProperty("BASE_HOST")
-        val basePort = localProperties.getProperty("BASE_PORT")
-        resValue("string", "base_host", baseHost)
+//        val baseHost = localProperties.getProperty("BASE_HOST")
+//        val basePort = localProperties.getProperty("BASE_PORT")
+//        resValue("string", "base_host", baseHost)
+//        buildConfigField(
+//            "String",
+//            "BASE_URL",
+//            "\"$baseHost:$basePort\""
+//        )
         buildConfigField(
             "String",
             "BASE_URL",
-            "\"$baseHost:$basePort\""
+            "\"http://35.198.232.229:8080\""
         )
     }
 }
@@ -104,4 +110,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // QR Code generation and scanning
+    implementation(libs.zxing.core)
+    implementation(libs.play.services.vision)
+
+    // Camera
+    implementation(libs.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
+
+    // MP Android Chart
+    implementation(libs.mpandroidchart)
+
+    // Kizitonwose Calendar
+    implementation(libs.kizitonwose.calendar.view)
 }

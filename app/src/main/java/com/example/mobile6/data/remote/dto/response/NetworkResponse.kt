@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkResponse<T>(
-    val message: String,
+    val message: String = "",
     val data: T
 )

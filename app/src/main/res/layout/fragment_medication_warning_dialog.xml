@@ -40,9 +40,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_warning_review"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
+            android:layout_weight="1"
             android:background="@drawable/button_primary_background"
             android:text="Tôi sẽ xem lại"
             android:textAllCaps="false"
@@ -50,9 +51,10 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_warning_continue"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_weight="1"
             android:background="@drawable/button_primary_background"
             android:text="Vẫn tiếp tục!"
             android:textAllCaps="false"

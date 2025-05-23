@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.test.TestDialogFragment">
+    tools:context=".presentation.ui.test.TestDialogFragment">
 
     <EditText
         android:id="@+id/edt_test"

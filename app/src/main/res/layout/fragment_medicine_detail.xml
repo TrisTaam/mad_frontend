@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".ui.medicine.medicine_detail.MedicineDetailFragment">
+    tools:context=".presentation.ui.medicine.MedicineDetailFragment">
 
-    <!-- Header with title and back button -->
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
@@ -50,7 +49,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Medicine Image -->
             <ImageView
                 android:id="@+id/medicine_image"
                 android:layout_width="match_parent"
@@ -59,7 +57,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_launcher_foreground" />
 
-            <!-- Description Section -->
             <LinearLayout
                 android:id="@+id/description_section"
                 android:layout_width="match_parent"
@@ -94,13 +91,13 @@
                 app:layout_constraintTop_toBottomOf="@id/description_section"
                 tools:text="Panadol Extra là một loại thuốc giảm đau có chứa Paracetamol và Caffeine, giúp giảm đau nhanh hơn so với Panadol thông thường" />
 
-            <!-- Usage Section -->
             <LinearLayout
                 android:id="@+id/usage_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/medicine_description">
 
                 <ImageView
@@ -126,10 +123,10 @@
                 android:lineSpacingExtra="4dp"
                 android:textColor="#333333"
                 android:textSize="14sp"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/usage_section"
                 tools:text="Giảm đau từ nhẹ đến trung bình, hạ sốt đo cảm cúm sốt virut" />
 
-            <!-- Direction Section -->
             <LinearLayout
                 android:id="@+id/direction_section"
                 android:layout_width="match_parent"
@@ -164,7 +161,6 @@
                 app:layout_constraintTop_toBottomOf="@id/direction_section"
                 tools:text="Người lớn &amp; trẻ trên 12 tuổi: Uống 1-2 viên/lần, cách nhau ít nhất 4 giờ." />
 
-            <!-- Warning Section -->
             <LinearLayout
                 android:id="@+id/warning_section"
                 android:layout_width="match_parent"
@@ -177,7 +173,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_warning"
-                    android:tint="#FF5252" />
+                    app:tint="#FF5252" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -200,7 +196,6 @@
                 app:layout_constraintTop_toBottomOf="@id/warning_section"
                 tools:text="Tránh dùng chung với các thuốc khác có chứa Paracetamol để tránh quá liều" />
 
-            <!-- Extra space at the bottom -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
@@ -211,7 +206,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!-- Add to Prescription Button -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_to_prescription_button"
         android:layout_width="match_parent"

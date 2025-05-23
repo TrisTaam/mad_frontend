@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Standard dimensions -->
+    <dimen name="elevation_4dp">4dp</dimen>
+    <dimen name="context_menu_width">200dp</dimen>
+    <dimen name="popup_elevation">4dp</dimen>
+</resources> 
