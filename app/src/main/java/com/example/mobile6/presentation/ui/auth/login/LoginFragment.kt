@@ -38,11 +38,6 @@ class LoginFragment : BaseFragment<FragmentAuthLoginBinding>() {
         binding.tvRegister.setOnClickListener {
             navigateToRegister()
         }
-
-        // Forgot password click
-        binding.tvForgotPassword.setOnClickListener {
-            navigateToForgotPassword()
-        }
     }
 
     private fun validateAndLogin() {
@@ -55,11 +50,6 @@ class LoginFragment : BaseFragment<FragmentAuthLoginBinding>() {
     private fun navigateToRegister() {
         // Navigate to registration screen
         navigateTo(R.id.action_loginFragment_to_registerFragment)
-    }
-
-    private fun navigateToForgotPassword() {
-        // Navigate to forgot password screen
-        // navigateTo(R.id.action_loginFragment_to_forgotPasswordFragment)
     }
 
     override fun initObservers() {

@@ -143,17 +143,6 @@
         tools:text="Vui lòng nhập mật khẩu"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tv_forgot_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Quên mật khẩu?"
-        android:textColor="#757575"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_password_validation" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
         android:layout_width="0dp"
@@ -166,7 +155,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_password_validation" />
 
     <LinearLayout
         android:id="@+id/layout_register_prompt"
