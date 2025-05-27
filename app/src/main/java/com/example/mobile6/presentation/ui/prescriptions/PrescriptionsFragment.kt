@@ -47,6 +47,11 @@ class PrescriptionsFragment : BaseFragment<FragmentPrescriptionsBinding>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getPrescriptions()
+    }
+
     override fun initObservers() {
         viewModel.uiState.onEach { uiState ->
             if (uiState.isLoading) {

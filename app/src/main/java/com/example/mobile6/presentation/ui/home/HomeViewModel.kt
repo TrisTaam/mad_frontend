@@ -36,6 +36,20 @@ class HomeViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
+//        viewModelScope.launch {
+//            async {
+//                getUserDetail()
+//            }.await()
+//            launch {
+//                getAppointmentsWeek()
+//            }
+//            launch {
+//                getUserAlarms()
+//            }
+//        }
+    }
+
+    fun initialize() {
         viewModelScope.launch {
             async {
                 getUserDetail()

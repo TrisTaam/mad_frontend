@@ -64,10 +64,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.rvAppointment.adapter = appointmentAdapter
 
         homeUserAlarmAdapter = HomeUserAlarmAdapter { userAlarm ->
-            val bundle = bundleOf("prescriptionId" to userAlarm.prescriptionId)
+            val bundle = bundleOf(
+                "prescriptionId" to userAlarm.prescriptionId,
+                "isView" to true,
+            )
             navigateTo(R.id.action_homeFragment_to_prescriptionDetailScanFragment, bundle)
         }
         binding.rvMedicine.adapter = homeUserAlarmAdapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.initialize()
     }
 
     private fun toggleChatFab() {

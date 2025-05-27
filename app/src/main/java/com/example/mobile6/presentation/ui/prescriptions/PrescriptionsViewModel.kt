@@ -26,7 +26,7 @@ class PrescriptionsViewModel @Inject constructor(
     private var allPrescriptions: List<PrescriptionResponse> = emptyList()
 
     init {
-        getPrescriptions()
+//        getPrescriptions()
     }
 
     fun getPrescriptions() {

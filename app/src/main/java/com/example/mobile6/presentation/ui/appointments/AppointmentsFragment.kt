@@ -65,6 +65,11 @@ class AppointmentsFragment : BaseFragment<FragmentAppointmentsBinding>() {
         setupCalendar()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAppointments()
+    }
+
     override fun initObservers() {
         viewModel.uiState.onEach { uiState ->
             if (uiState.isLoading) {

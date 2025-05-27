@@ -29,7 +29,7 @@ class AppointmentsViewModel @Inject constructor(
     val appointmentsGroupDate = mutableMapOf<LocalDate, List<AppointmentResponse>>()
 
     init {
-        getAppointments()
+//        getAppointments()
     }
 
     fun getAppointments() {
